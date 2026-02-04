@@ -1,0 +1,58 @@
+\contentsline {section}{\numberline {1}Introduction}{3}{section.0.1}%
+\contentsline {subsection}{\numberline {1.1}Problem Background}{3}{subsection.0.1.1}%
+\contentsline {subsection}{\numberline {1.2}Problem Restatement}{3}{subsection.0.1.2}%
+\contentsline {subsection}{\numberline {1.3}Our work}{3}{subsection.0.1.3}%
+\contentsline {section}{\numberline {2}Preparation for Modeling}{4}{section.0.2}%
+\contentsline {subsection}{\numberline {2.1}Model Assumptions}{4}{subsection.0.2.1}%
+\contentsline {subsection}{\numberline {2.2}Notations}{5}{subsection.0.2.2}%
+\contentsline {subsection}{\numberline {2.3}Data Preprocessing}{5}{subsection.0.2.3}%
+\contentsline {section}{\numberline {3}Problem 1: Latent Fan Support Reconstruction}{6}{section.0.3}%
+\contentsline {subsection}{\numberline {3.1}Model Framework}{6}{subsection.0.3.1}%
+\contentsline {paragraph}{Data Standardization:}{6}{paragraph*.2}%
+\contentsline {paragraph}{Latent Variable Formulation:}{6}{paragraph*.3}%
+\contentsline {paragraph}{Likelihood Maximization:}{7}{paragraph*.4}%
+\contentsline {paragraph}{Bayesian Posterior Update:}{7}{paragraph*.5}%
+\contentsline {paragraph}{Visual Interpretation:}{7}{paragraph*.6}%
+\contentsline {subsection}{\numberline {3.2}Model Evaluation}{8}{subsection.0.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.1}Internal validity}{8}{subsubsection.0.3.2.1}%
+\contentsline {subsubsection}{\numberline {3.2.2}External validity}{9}{subsubsection.0.3.2.2}%
+\contentsline {subsubsection}{\numberline {3.2.3}Uncertainty}{10}{subsubsection.0.3.2.3}%
+\contentsline {section}{\numberline {4}Problem 2: Rank vs.\ Percentage and the Bottom-2 Judges' Save}{11}{section.0.4}%
+\contentsline {subsection}{\numberline {4.1}Systemic Divergence Metrics}{11}{subsection.0.4.1}%
+\contentsline {paragraph}{Rule Definitions:}{11}{paragraph*.11}%
+\contentsline {paragraph}{Disagreement Rate:}{11}{paragraph*.12}%
+\contentsline {paragraph}{Fan Bias:}{12}{paragraph*.14}%
+\contentsline {paragraph}{Explanation: Threshold Effect.}{12}{paragraph*.16}%
+\contentsline {subsection}{\numberline {4.2}Week-Level Analysis}{12}{subsection.0.4.2}%
+\contentsline {subsection}{\numberline {4.3}Contestant-Level Case Studies}{13}{subsection.0.4.3}%
+\contentsline {paragraph}{Divergence Landscape:}{13}{paragraph*.18}%
+\contentsline {paragraph}{Trajectory Simulation:}{13}{paragraph*.20}%
+\contentsline {paragraph}{Do Rank and Percentage yield the same outcome? No.}{14}{paragraph*.22}%
+\contentsline {paragraph}{How does adding Bottom-2 + Judges' Save change results?}{14}{paragraph*.23}%
+\contentsline {subsection}{\numberline {4.4}Systemic Analysis}{15}{subsection.0.4.4}%
+\contentsline {paragraph}{Recommendation.}{15}{paragraph*.26}%
+\contentsline {section}{\numberline {5}Problem 3: Survival Determinant Analysis}{15}{section.0.5}%
+\contentsline {subsection}{\numberline {5.1}Demographic Divergence}{16}{subsection.0.5.1}%
+\contentsline {subsection}{\numberline {5.2}Professional Partner Effects}{16}{subsection.0.5.2}%
+\contentsline {paragraph}{Mechanism Identification:}{17}{paragraph*.28}%
+\contentsline {subsection}{\numberline {5.3}Dynamic Interaction Modeling}{17}{subsection.0.5.3}%
+\contentsline {subsection}{\numberline {5.4}Summary of Determinants}{19}{subsection.0.5.4}%
+\contentsline {section}{\numberline {6}Problem 4: Mechanism Design and Optimization}{19}{section.0.6}%
+\contentsline {subsection}{\numberline {6.1}Optimization Objectives}{19}{subsection.0.6.1}%
+\contentsline {paragraph}{Interpretation of Fairness:}{19}{paragraph*.33}%
+\contentsline {paragraph}{Interpretation of Excitement:}{19}{paragraph*.34}%
+\contentsline {paragraph}{Why simulation?}{19}{paragraph*.35}%
+\contentsline {subsection}{\numberline {6.2}Mechanism I: Fan-Determined Elimination with a Judge Gate}{20}{subsection.0.6.2}%
+\contentsline {paragraph}{Large-Sample Validation:}{20}{paragraph*.36}%
+\contentsline {paragraph}{Controversial Contestant Case Studies:}{20}{paragraph*.38}%
+\contentsline {subsection}{\numberline {6.3}Mechanism II: Hybrid Momentum Model}{21}{subsection.0.6.3}%
+\contentsline {paragraph}{Population-Level Validation:}{22}{paragraph*.40}%
+\contentsline {subsection}{\numberline {6.4}Policy Recommendation}{22}{subsection.0.6.4}%
+\contentsline {section}{\numberline {7}Sensitivity Analysis of Fan Vote Inference and Simulation}{23}{section.0.7}%
+\contentsline {section}{\numberline {8}Model Analysis}{24}{section.0.8}%
+\contentsline {subsection}{\numberline {8.1}Strength}{24}{subsection.0.8.1}%
+\contentsline {subsection}{\numberline {8.2}Weakness and Further Discussion}{24}{subsection.0.8.2}%
+\contentsline {section}{References}{25}{subsection.0.8.2}%
+\contentsline {section}{References}{25}{section.0.9}%
+\contentsline {section}{Report on Use of AI Tools}{26}{section.0.9}%
+\contentsfinish 

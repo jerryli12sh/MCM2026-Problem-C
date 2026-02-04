@@ -1,0 +1,293 @@
+,season,elim_at_end_of_week,eliminated,is_final_week_end
+0,1,2,['Trista Sutter'],False
+1,1,3,['Evander Holyfield'],False
+2,1,4,['Rachel Hunter'],False
+3,1,6,"['Joey McIntyre', ""John O'Hurley"", 'Kelly Monaco']",True
+4,2,1,['Kenny Mayne'],False
+5,2,2,"[""Tatum O'Neal""]",False
+6,2,3,['Giselle Fernandez'],False
+7,2,4,['Master P'],False
+8,2,5,['Tia Carrere'],False
+9,2,6,['George Hamilton'],False
+10,2,7,['Lisa Rinna'],False
+11,2,8,"['Drew Lachey', 'Jerry Rice', 'Stacy Keibler']",True
+12,3,1,['Tucker Carlson'],False
+13,3,2,['Shanna Moakler'],False
+14,3,3,['Harry Hamlin'],False
+15,3,4,['Vivica A. Fox'],False
+16,3,5,"['Sara Evans', 'Willa Ford']",False
+17,3,7,['Jerry Springer'],False
+18,3,8,['Monique Coleman'],False
+19,3,10,"['Emmitt Smith', 'Joey Lawrence', 'Mario Lopez']",True
+20,4,2,['Paulina Porizkova'],False
+21,4,3,['Shandi Finnessey'],False
+22,4,4,['Leeza Gibbons'],False
+23,4,5,['Clyde Drexler'],False
+24,4,6,['Heather Mills'],False
+25,4,7,['John Ratzenberger'],False
+26,4,8,['Billy Ray Cyrus'],False
+27,4,9,['Ian Ziering'],False
+28,4,10,"['Apolo Anton Ohno', 'Joey Fatone', 'Laila Ali']",True
+29,5,1,['Josie Maran'],False
+30,5,2,['Albert Reed'],False
+31,5,3,['Wayne Newton'],False
+32,5,4,['Floyd Mayweather Jr.'],False
+33,5,5,['Mark Cuban'],False
+34,5,6,['Sabrina Bryan'],False
+35,5,7,['Jane Seymour'],False
+36,5,8,['Cameron Mathison'],False
+37,5,9,['Jennie Garth'],False
+38,5,10,"['Helio Castroneves', 'Marie Osmond', 'Mel B']",True
+39,6,2,"['Monica Seles', 'Penn Jillette']",False
+40,6,3,['Steve Guttenberg'],False
+41,6,4,['Adam Carolla'],False
+42,6,5,['Priscilla Presley'],False
+43,6,6,['Marlee Matlin'],False
+44,6,7,['Shannon Elizabeth'],False
+45,6,8,['Mario'],False
+46,6,9,['Marissa Jaret Winokur'],False
+47,6,10,"['Cristian de la Fuente', 'Jason Taylor', 'Kristi Yamaguchi']",True
+48,7,1,"['Jeffrey Ross', 'Ted McGinley']",False
+49,7,2,"['Kim Kardashian', 'Misty May-Treanor']",False
+50,7,4,['Rocco DiSpirito'],False
+51,7,5,['Toni Braxton'],False
+52,7,6,['Cloris Leachman'],False
+53,7,7,['Susan Lucci'],False
+54,7,8,['Maurice Greene'],False
+55,7,9,['Cody Linley'],False
+56,7,10,"['Brooke Burke', 'Lance Bass', 'Warren Sapp']",True
+57,8,2,['Belinda Carlisle'],False
+58,8,3,['Denise Richards'],False
+59,8,4,"['Holly Madison', 'Steve Wozniak']",False
+60,8,5,['David Alan Grier'],False
+61,8,6,['Steve-O'],False
+62,8,7,['Lawrence Taylor'],False
+63,8,8,['Chuck Wicks'],False
+64,8,9,"[""Lil' Kim""]",False
+65,8,10,['Ty Murray'],False
+66,8,11,"['Gilles Marini', 'Melissa Rycroft', 'Shawn Johnson']",True
+67,9,1,"['Ashley Hamiliton', 'Macy Gray']",False
+68,9,2,['Kathy Ireland'],False
+69,9,3,"['Debi Mazar', 'Tom DeLay']",False
+70,9,4,['Chuck Liddell'],False
+71,9,5,['Natalie Coughlin'],False
+72,9,6,"['Louie Vito', 'Melissa Joan Hart']",False
+73,9,7,"['Mark Dacascos', 'Michael Irvin']",False
+74,9,8,['Aaron Carter'],False
+75,9,9,['Joanna Krupa'],False
+76,9,10,"['Donny Osmond', 'Kelly Osbourne', 'Mya']",True
+77,10,2,['Shannen Doherty'],False
+78,10,3,['Buzz Aldrin'],False
+79,10,4,['Aiden Turner'],False
+80,10,5,['Kate Gosselin'],False
+81,10,6,['Jake Pavelka'],False
+82,10,7,['Pamela Anderson'],False
+83,10,8,['Niecy Nash'],False
+84,10,9,['Chad Ochocinco'],False
+85,10,10,"['Erin Andrews', 'Evan Lysacek', 'Nicole Scherzinger']",True
+86,11,1,['David Hasselhoff'],False
+87,11,2,['Michael Bolton'],False
+88,11,3,['Margaret Cho'],False
+89,11,4,['The Situation'],False
+90,11,5,['Florence Henderson'],False
+91,11,6,['Audrina Patridge'],False
+92,11,7,['Rick Fox'],False
+93,11,8,['Kurt Warner'],False
+94,11,9,['Brandy'],False
+95,11,10,"['Bristol Palin', 'Jennifer Grey', 'Kyle Massey']",True
+96,12,2,['Mike Catherwood'],False
+97,12,3,['Wendy Williams'],False
+98,12,4,['Sugar Ray Leonard'],False
+99,12,5,['Petra Nemcova'],False
+100,12,6,['Chris Jericho'],False
+101,12,7,['Kendra Wilkinson'],False
+102,12,8,['Romeo'],False
+103,12,9,['Ralph Macchio'],False
+104,12,10,"['Chelsea Kane', 'Hines Ward', 'Kirstie Alley']",True
+105,13,1,['Metta World Peace (Ron)'],False
+106,13,2,['Elisabetta Canalis'],False
+107,13,3,['Kristin Cavallari'],False
+108,13,4,['Chynna Phillips'],False
+109,13,5,['Carson Kressley'],False
+110,13,6,['Chaz Bono'],False
+111,13,7,['David Arquette'],False
+112,13,8,['Nancy Grace'],False
+113,13,9,['Hope Solo'],False
+114,13,10,"['J.R. Martinez', 'Ricki Lake', 'Rob Kardashian']",True
+115,14,2,['Martina Navratilova'],False
+116,14,3,['Jack Wagner'],False
+117,14,4,['Sherri Sheperd'],False
+118,14,5,['Gavin DeGraw'],False
+119,14,6,['Gladys Knight'],False
+120,14,7,['Jaleel White'],False
+121,14,8,"['Melissa Gilbert', 'Roshon Fegan']",False
+122,14,9,['Maria Menounos'],False
+123,14,10,"['Donald Driver', 'Katherine Jenkins', 'William Levy']",True
+124,15,1,['Pamela Anderson'],False
+125,15,2,['Joey Fatone'],False
+126,15,3,"['Drew Lachey', 'Helio Castroneves']",False
+127,15,4,['Bristol Palin'],False
+128,15,6,['Sabrina Bryan'],False
+129,15,8,"['Gilles Marini', 'Kirstie Alley']",False
+130,15,9,"['Apolo Anton Ohno', 'Emmitt Smith']",False
+131,15,10,"['Kelly Monaco', 'Melissa Rycroft', 'Shawn Johnson']",True
+132,16,2,['Dorothy Hamill'],False
+133,16,3,['Wynonna Judd'],False
+134,16,4,['Lisa Vanderpump'],False
+135,16,5,['D. L. Hughley'],False
+136,16,6,['Victor Ortiz'],False
+137,16,7,['Andy Dick'],False
+138,16,8,['Sean Lowe'],False
+139,16,9,['Ingo Rademacher'],False
+140,16,10,"['Alexandra Raisman', 'Jacoby Jones', 'Kellie Pickler', 'Zendaya']",True
+141,17,2,['Keyshawn Johnson'],False
+142,17,3,['Bill Nye'],False
+143,17,4,['Valerie Harper'],False
+144,17,5,['Christina Milian'],False
+145,17,7,"['Nicole ""Snooki"" Polizzi']",False
+146,17,8,['Brant Daugherty'],False
+147,17,9,['Elizabeth Berkley Lauren'],False
+148,17,10,['Leah Remini'],False
+149,17,11,"['Amber Riley', 'Bill Engvall', 'Corbin Bleu', 'Jack Osbourne']",True
+150,18,2,"['Billy Dee Williams', 'Diana Nyad', 'Sean Avery']",False
+151,18,5,['Cody Simpson'],False
+152,18,6,['Drew Carey'],False
+153,18,7,['NeNe Leakes'],False
+154,18,8,['Danica McKellar'],False
+155,18,9,['Charlie White'],False
+156,18,10,"['Amy Purdy', 'Candace Cameron Bure', 'James Maslow', 'Meryl Davis']",True
+157,19,1,['Lolo Jones'],False
+158,19,2,['Tavis Smiley'],False
+159,19,3,['Randy Couture'],False
+160,19,4,['Betsey Johnson'],False
+161,19,6,['Jonathan Bennett'],False
+162,19,7,['Antonio Sabato Jr.'],False
+163,19,8,['Michael Waltrip'],False
+164,19,9,['Lea Thompson'],False
+165,19,10,['Tommy Chong'],False
+166,19,11,"['Alfonso Ribeiro', 'Bethany Mota', 'Janel Parrish', 'Sadie Robertson']",True
+167,20,2,['Redfoo'],False
+168,20,3,['Charlotte McKinney'],False
+169,20,4,['Michael Sam'],False
+170,20,5,['Suzanne Somers'],False
+171,20,6,['Patti LaBelle'],False
+172,20,7,['Willow Shields'],False
+173,20,8,"['Chris Soules', 'Robert Herjavec']",False
+174,20,9,['Nastia Liukin'],False
+175,20,10,"['Noah Galloway', 'Riker Lynch', 'Rumer Willis']",True
+176,21,2,"['Chaka Khan', 'Kim Zolciak-Biermann', 'Victor Espinoza']",False
+177,21,4,['Gary Busey'],False
+178,21,6,['Paula Deen'],False
+179,21,7,['Hayes Grier'],False
+180,21,8,['Andy Grammer'],False
+181,21,9,"['Alexa PenaVega', 'Tamar Braxton']",False
+182,21,11,"['Alek Skarlatos', 'Bindi Irwin', 'Carlos PenaVega', 'Nick Carter']",True
+183,22,2,['Geraldo Rivera'],False
+184,22,3,['Mischa Barton'],False
+185,22,4,['Marla Maples'],False
+186,22,6,['Doug Flutie'],False
+187,22,7,"['Kim Fields', 'Von Miller']",False
+188,22,8,['Jodie Sweetin'],False
+189,22,9,"['Antonio Brown', 'Wanya Morris']",False
+190,22,10,"['Ginger Zee', 'Nyle DiMarco', 'Paige VanZant']",True
+191,23,2,['Jake T. Austin'],False
+192,23,3,['Rick Perry'],False
+193,23,4,"['Babyface', 'Vanilla Ice']",False
+194,23,6,['Amber Rose'],False
+195,23,7,['Maureen McCormick'],False
+196,23,8,['Ryan Lochte'],False
+197,23,9,['Marilu Henner'],False
+198,23,10,['Terra Jole'],False
+199,23,11,"['Calvin Johnson Jr.', 'James Hinchcliffe', 'Jana Kramer', 'Laurie Hernandez']",True
+200,24,2,['Chris Kattan'],False
+201,24,3,['Charo'],False
+202,24,4,['Mr. T'],False
+203,24,5,['Erika Jayne'],False
+204,24,6,['Heather Morris'],False
+205,24,7,"['Nancy Kerrigan', 'Nick Viall']",False
+206,24,8,['Bonner Bolton'],False
+207,24,9,['Simone Biles'],False
+208,24,10,"['David Ross', 'Normani', 'Rashad Jennings']",True
+209,25,2,"['Barbara Corcoran', 'Debbie Gibson']",False
+210,25,4,['Derek Fisher'],False
+211,25,5,['Sasha Pieterse'],False
+212,25,6,['Nick Lachey'],False
+213,25,7,"['Nikki Bella', 'Vanessa Lachey']",False
+214,25,8,['Terrell Owens'],False
+215,25,9,['Victoria Arlen'],False
+216,25,10,"['Drew Scott', 'Frankie Muniz', 'Jordan Fisher', 'Lindsey Stirling']",True
+217,26,1,"['Jamie Anderson', 'Johnny Damon']",False
+218,26,2,"['Arike Ogunbowale', 'Kareem Abdul-Jabbar']",False
+219,26,3,"['Chris Mazdzer', 'Jennie Finch Daigle', 'Mirai Nagasu']",False
+220,26,4,"['Adam Rippon', 'Josh Norman', 'Tonya Harding']",True
+221,27,1,['Nikki Glaser'],False
+222,27,2,['Danelle Umstead'],False
+223,27,3,['Nancy McKeon'],False
+224,27,4,['Tinashe'],False
+225,27,6,['Mary Lou Retton'],False
+226,27,7,"['DeMarcus Ware', 'John Schneider']",False
+227,27,8,"['Joe Amabile', 'Juan Pablo Di Pace']",False
+228,27,9,"['Alexis Ren', 'Bobby Bones', 'Evanna Lynch', 'Milo Manheim']",True
+229,28,2,"['Mary Wilson', 'Ray Lewis']",False
+230,28,4,['Lamar Odom'],False
+231,28,6,['Sailor Brinkley-Cook'],False
+232,28,7,['Karamo Brown'],False
+233,28,8,['Kate Flannery'],False
+234,28,9,['Sean Spicer'],False
+235,28,10,['James Van Der Beek'],False
+236,28,11,"['Ally Brooke', 'Hannah Brown', 'Kel Mitchell', 'Lauren Alaina']",True
+237,29,2,['Charles Oakley'],False
+238,29,3,['Carole Baskin'],False
+239,29,4,['Anne Heche'],False
+240,29,5,['Jesse Metcalfe'],False
+241,29,6,['Veron Davis'],False
+242,29,7,"['Jeannie Mai', 'Monica Aldama']",False
+243,29,8,['Chrishell Stause'],False
+244,29,9,['AJ McLean'],False
+245,29,10,"['Johnny Weir', 'Skai Jackson']",False
+246,29,11,"['Justina Machado', 'Kaitlyn Bristowe', 'Nelly', 'Nev Schulman']",True
+247,30,2,['Martin Kove'],False
+248,30,3,['Christine Chiu'],False
+249,30,4,"['Brian Austin Green', 'Matt James']",False
+250,30,5,['Melanie C'],False
+251,30,6,['Kenya Moore'],False
+252,30,7,"['Mike ""The Miz"" Mizanin']",False
+253,30,8,"['Jimmie Allen', 'Olivia Jade']",False
+254,30,9,"['Melora Hardin', 'Suni Lee']",False
+255,30,10,"['Amanda Kloots', 'Cody Rigsby', 'Iman Shumpert', 'JoJo Siwa']",True
+256,31,1,['Jason Lewis'],False
+257,31,2,['Teresa Giudice'],False
+258,31,3,['Cheryl Ladd'],False
+259,31,4,['Sam Champion'],False
+260,31,5,"['Joseph Baena', 'Selma Blair']",False
+261,31,6,['Jessie James Decker'],False
+262,31,7,['Jordin Sparks'],False
+263,31,8,"[""Heidi D'Amelio"", 'Vinny Guadagnino']",False
+264,31,9,"['Daniel Durant', 'Trevor Donovan']",False
+265,31,10,"[""Charli D'Amelio"", 'Gabby Windey', 'Shangela', 'Wayne Brady']",True
+266,32,1,['Matt Walsh'],False
+267,32,2,['Jamie Lynn Spears'],False
+268,32,3,['Tyson Beckford'],False
+269,32,4,['Adrian Peterson'],False
+270,32,5,['Mira Sorvino'],False
+271,32,6,['Mauricio Umansky'],False
+272,32,7,['Lele Pons'],False
+273,32,8,['Barry Williams'],False
+274,32,9,['Harry Jowsey'],False
+275,32,11,"['Alyson Hannigan', 'Ariana Madix', 'Charity Lawson', 'Jason Mraz', 'Xochitl Gomez']",True
+276,33,2,"['Anna Delvey', 'Tori Spelling']",False
+277,33,3,"['Eric Roberts', 'Reginald VelJohnson']",False
+278,33,4,['Brooks Nader'],False
+279,33,5,['Phaedra Parks'],False
+280,33,6,['Jenn Tran'],False
+281,33,7,['Dwight Howard'],False
+282,33,9,"['Chandler Kinney', 'Danny Amendola', 'Ilona Maher', 'Joey Graziadei', 'Stephen Nedoroscik']",True
+283,34,2,"['Baron Davis', 'Corey Feldman']",False
+284,34,3,['Lauren Jauregui'],False
+285,34,4,['Hilaria Baldwin'],False
+286,34,6,['Scott Hoying'],False
+287,34,7,['Jen Affleck'],False
+288,34,8,['Danielle Fishel'],False
+289,34,9,['Andy Richter'],False
+290,34,10,['Whitney Leavitt'],False
+291,34,11,"['Alix Earle', 'Dylan Efron', 'Elaine Hendrix', 'Jordan Chiles', 'Robert Irwin']",True

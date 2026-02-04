@@ -1,0 +1,422 @@
+season,celebrity_name,delta_mean,n_weeks,archetype
+1,Evander Holyfield,0.1374380407453364,3,relative_popular
+1,Joey McIntyre,0.2993097872693817,5,relative_popular
+1,John O'Hurley,-0.2674986723935332,5,relative_technical
+1,Kelly Monaco,0.17648308080788072,5,relative_popular
+1,Rachel Hunter,-0.38413784627846925,4,relative_technical
+1,Trista Sutter,0.04138314222961096,2,balanced
+2,Drew Lachey,-0.41573069149878644,8,relative_technical
+2,George Hamilton,0.15640971110458232,6,relative_popular
+2,Giselle Fernandez,0.011145046646245008,3,balanced
+2,Jerry Rice,0.39966155469835046,8,relative_popular
+2,Kenny Mayne,0.009509893365071912,1,balanced
+2,Lisa Rinna,0.2210243235908984,7,relative_popular
+2,Master P,0.07204902004351743,4,balanced
+2,Stacy Keibler,-0.38421051589719657,8,relative_technical
+2,Tatum O'Neal,-0.009514544448865209,2,balanced
+2,Tia Carrere,0.08089933304742641,5,relative_popular
+3,Emmitt Smith,0.07510135476556197,9,relative_popular
+3,Harry Hamlin,0.025103978586203127,3,balanced
+3,Jerry Springer,0.10379800046192936,7,relative_popular
+3,Joey Lawrence,0.07452660351212476,9,relative_popular
+3,Mario Lopez,-0.36324448058132613,9,relative_technical
+3,Monique Coleman,0.057075829604841644,8,balanced
+3,Sara Evans,0.1708803689238004,5,relative_popular
+3,Shanna Moakler,0.01170641201954548,2,balanced
+3,Tucker Carlson,0.0070759546462714415,1,balanced
+3,Vivica A. Fox,-0.09914864018447152,4,relative_technical
+3,Willa Ford,0.03514961246708589,5,balanced
+4,Apolo Anton Ohno,-0.11036002121560759,10,relative_technical
+4,Billy Ray Cyrus,0.14062971055669046,8,relative_popular
+4,Clyde Drexler,0.043214528714993414,5,balanced
+4,Heather Mills,0.004912322985241672,6,balanced
+4,Ian Ziering,0.16866375748888493,9,relative_popular
+4,Joey Fatone,-0.17717108221229094,10,relative_technical
+4,John Ratzenberger,0.11393640919563693,7,relative_popular
+4,Laila Ali,-0.06796866512708015,10,relative_technical
+4,Leeza Gibbons,-0.05267470558218536,4,relative_technical
+4,Paulina Porizkova,0.007376486015541443,2,balanced
+4,Shandi Finnessey,0.021610196046027333,3,balanced
+5,Albert Reed,0.015123896499205244,2,balanced
+5,Cameron Mathison,0.1575485514744835,8,relative_popular
+5,Floyd Mayweather Jr.,0.03980115891793908,4,balanced
+5,Helio Castroneves,-0.09728308738034339,10,relative_technical
+5,Jane Seymour,0.03356217005417698,7,balanced
+5,Jennie Garth,0.2102662751290777,9,relative_popular
+5,Josie Maran,0.006786739196035656,1,balanced
+5,Marie Osmond,0.3358919921426552,10,relative_popular
+5,Mark Cuban,0.061198021120657156,5,balanced
+5,Mel B,-0.38138010494300784,10,relative_technical
+5,Sabrina Bryan,-0.4181066114286131,6,relative_technical
+5,Wayne Newton,0.01546743952411486,3,balanced
+6,Adam Carolla,0.01492381205488303,4,balanced
+6,Cristian de la Fuente,0.1613952282389545,10,relative_popular
+6,Jason Taylor,0.03565501726800181,10,balanced
+6,Kristi Yamaguchi,-0.5854436267247914,10,relative_technical
+6,Mario,0.10338118830864688,8,relative_popular
+6,Marissa Jaret Winokur,0.20682219777772567,9,relative_popular
+6,Marlee Matlin,0.052085851007802914,6,balanced
+6,Monica Seles,0.08149141634300983,2,relative_popular
+6,Penn Jillette,0.05097392999588011,2,balanced
+6,Priscilla Presley,0.009471750401504395,5,balanced
+6,Shannon Elizabeth,0.06922275497610186,7,balanced
+6,Steve Guttenberg,0.008808480641760244,3,balanced
+7,Brooke Burke,-0.5892101271490582,10,relative_technical
+7,Cloris Leachman,0.03813321034108099,6,balanced
+7,Cody Linley,0.1977109739496672,9,relative_popular
+7,Jeffrey Ross,0.06046939983040306,1,balanced
+7,Kim Kardashian,0.10034138310513281,2,relative_popular
+7,Lance Bass,-0.035783637868485686,10,balanced
+7,Maurice Greene,0.12526483361851837,8,relative_popular
+7,Misty May-Treanor,0.09497179043356616,2,relative_popular
+7,Rocco DiSpirito,0.012122667233562033,4,balanced
+7,Susan Lucci,0.08839364332507822,7,relative_popular
+7,Ted McGinley,0.054847042773572,1,balanced
+7,Toni Braxton,0.021948536841297866,5,balanced
+7,Warren Sapp,0.19566893075361408,10,relative_popular
+8,Belinda Carlisle,0.0067876697211308335,2,balanced
+8,Chuck Wicks,0.11334214564813058,8,relative_popular
+8,David Alan Grier,0.014552432203372111,5,balanced
+8,Denise Richards,0.009140846408002256,3,balanced
+8,Gilles Marini,-0.3626351578237943,11,relative_technical
+8,Holly Madison,0.11791055228604702,4,relative_popular
+8,Lawrence Taylor,0.04867586417985042,7,balanced
+8,Lil' Kim,-0.07950960333043339,9,relative_technical
+8,Melissa Rycroft,-0.04607915529541263,11,relative_technical
+8,Shawn Johnson,0.08372121313675572,11,relative_popular
+8,Steve Wozniak,0.09210499131704589,4,relative_popular
+8,Steve-O,0.03374483561639287,6,balanced
+8,Ty Murray,0.18867510875430082,10,relative_popular
+9,Aaron Carter,-0.007134346001451922,8,balanced
+9,Ashley Hamiliton,0.05424253038743455,1,balanced
+9,Chuck Liddell,0.009374498050711791,4,balanced
+9,Debi Mazar,0.07669771113210595,3,relative_popular
+9,Donny Osmond,-0.01583347962592193,10,balanced
+9,Joanna Krupa,-0.25175680380489496,9,relative_technical
+9,Kathy Ireland,0.006444947045484591,2,balanced
+9,Kelly Osbourne,0.27465834231031605,10,relative_popular
+9,Louie Vito,0.12811765074643214,6,relative_popular
+9,Macy Gray,0.042827874864580846,1,balanced
+9,Mark Dacascos,0.11918413115836264,7,relative_popular
+9,Melissa Joan Hart,-0.025764126254399,6,balanced
+9,Michael Irvin,0.12509831352373985,7,relative_popular
+9,Mya,-0.27591286906219914,10,relative_technical
+9,Natalie Coughlin,-0.08223350591164307,5,relative_technical
+9,Tom DeLay,0.06776130364095638,3,balanced
+10,Aiden Turner,0.023987501445381126,4,balanced
+10,Buzz Aldrin,0.006738963006134053,3,balanced
+10,Chad Ochocinco,0.21999862447530905,9,relative_popular
+10,Erin Andrews,0.3436951764560375,10,relative_popular
+10,Evan Lysacek,-0.13899843677797963,10,relative_technical
+10,Jake Pavelka,0.05978460494597729,6,balanced
+10,Kate Gosselin,0.03407666095215799,5,balanced
+10,Nicole Scherzinger,-0.6439195090523779,10,relative_technical
+10,Niecy Nash,0.1359876957195238,8,relative_popular
+10,Pamela Anderson,0.09466577874464147,7,relative_popular
+10,Shannen Doherty,0.008210113630078814,2,balanced
+11,Audrina Patridge,-0.13130872137679442,6,relative_technical
+11,Brandy,-0.22938042788331517,9,relative_technical
+11,Bristol Palin,0.31311734582289036,10,relative_popular
+11,David Hasselhoff,0.005170523530375461,1,balanced
+11,Florence Henderson,0.044166824435052335,5,balanced
+11,Jennifer Grey,-0.5385292725524076,10,relative_technical
+11,Kurt Warner,0.1567987648976107,8,relative_popular
+11,Kyle Massey,0.2688930723591038,10,relative_popular
+11,Margaret Cho,0.017248549887426582,3,balanced
+11,Michael Bolton,0.009769198634881819,2,balanced
+11,Rick Fox,0.10700382099250896,7,relative_popular
+11,The Situation,0.029189791037152364,4,balanced
+12,Chelsea Kane,-0.25893019897110825,10,relative_technical
+12,Chris Jericho,-0.04439339655487575,6,balanced
+12,Hines Ward,-0.1434506841306377,10,relative_technical
+12,Kendra Wilkinson,0.1118853386736601,7,relative_popular
+12,Kirstie Alley,0.3178642129213195,10,relative_popular
+12,Mike Catherwood,0.01021318846998152,2,balanced
+12,Petra Nemcova,-0.06141329551457675,5,relative_technical
+12,Ralph Macchio,0.023242193075997737,9,balanced
+12,Romeo,0.03403123029202336,8,balanced
+12,Sugar Ray Leonard,0.022598908622938944,4,balanced
+12,Wendy Williams,0.014381532179631855,3,balanced
+13,Carson Kressley,0.04577854750141046,5,balanced
+13,Chaz Bono,0.06331924673679425,6,balanced
+13,Chynna Phillips,-0.11097642604032523,4,relative_technical
+13,David Arquette,0.09412183676407417,7,relative_popular
+13,Elisabetta Canalis,0.00944022091386654,2,balanced
+13,Hope Solo,0.1737549746347307,9,relative_popular
+13,J.R. Martinez,-0.09340403027263229,10,relative_technical
+13,Kristin Cavallari,0.008225589995464602,3,balanced
+13,Metta World Peace (Ron),0.007067644552947682,1,balanced
+13,Nancy Grace,0.16085932465929745,8,relative_popular
+13,Ricki Lake,-0.3895273600160297,10,relative_technical
+13,Rob Kardashian,0.11042643064175532,10,relative_popular
+14,Donald Driver,0.10928793348041357,10,relative_popular
+14,Gavin DeGraw,0.027641597983554193,5,balanced
+14,Gladys Knight,0.04827747373635616,6,balanced
+14,Jack Wagner,0.01172079773811639,3,balanced
+14,Jaleel White,0.010513701604704556,7,balanced
+14,Katherine Jenkins,-0.3001332863797568,10,relative_technical
+14,Maria Menounos,-0.1111763195021662,9,relative_technical
+14,Martina Navratilova,0.006052437770037193,2,balanced
+14,Melissa Gilbert,0.18019587906676185,8,relative_popular
+14,Roshon Fegan,0.08446312217033268,8,relative_popular
+14,Sherri Sheperd,0.01869011942859871,4,balanced
+14,William Levy,0.016827190457851412,10,balanced
+15,Apolo Anton Ohno,0.07031599115615735,9,balanced
+15,Bristol Palin,0.026853188514932968,4,balanced
+15,Drew Lachey,0.11065181588808133,3,relative_popular
+15,Emmitt Smith,0.07138872943722337,9,balanced
+15,Gilles Marini,0.002962819002908193,8,balanced
+15,Helio Castroneves,0.11228146269219136,3,relative_popular
+15,Joey Fatone,0.010227972488767612,2,balanced
+15,Kelly Monaco,0.12713159825422665,10,relative_popular
+15,Kirstie Alley,0.14339548827145365,8,relative_popular
+15,Melissa Rycroft,-0.24954915366823704,10,relative_technical
+15,Pamela Anderson,0.004530930880120678,1,balanced
+15,Sabrina Bryan,-0.35181071604584196,6,relative_technical
+15,Shawn Johnson,0.008763144122162858,10,balanced
+16,Alexandra Raisman,-0.09015535346627807,10,relative_technical
+16,Andy Dick,0.07765110302119461,7,relative_popular
+16,D. L. Hughley,0.021564688751873506,5,balanced
+16,Dorothy Hamill,0.006563068207915719,2,balanced
+16,Ingo Rademacher,0.17129336791585892,9,relative_popular
+16,Jacoby Jones,0.10192278731459889,10,relative_popular
+16,Kellie Pickler,-0.04513493586992352,10,balanced
+16,Lisa Vanderpump,0.014346267193581426,4,balanced
+16,Sean Lowe,0.12183230036535715,8,relative_popular
+16,Victor Ortiz,0.04543640069262924,6,balanced
+16,Wynonna Judd,0.011366338279189883,3,balanced
+16,Zendaya,-0.3211233483040793,10,relative_technical
+17,Amber Riley,-0.23542700925648968,11,relative_technical
+17,Bill Engvall,0.2316460215838492,11,relative_popular
+17,Bill Nye,0.009581462278108415,3,balanced
+17,Brant Daugherty,-0.07365373803589412,8,relative_technical
+17,Christina Milian,-0.034726182150626374,5,balanced
+17,Corbin Bleu,-0.23695131899202249,11,relative_technical
+17,Elizabeth Berkley Lauren,-0.032987535434376686,9,balanced
+17,Jack Osbourne,0.1783367750840849,11,relative_popular
+17,Keyshawn Johnson,0.0071794921512090114,2,balanced
+17,Leah Remini,0.13440279668873856,10,relative_popular
+17,"Nicole ""Snooki"" Polizzi",0.042300038396007045,7,balanced
+17,Valerie Harper,0.015716968634963687,4,balanced
+18,Amy Purdy,0.09056635022386697,9,relative_popular
+18,Billy Dee Williams,0.023427035768495003,1,balanced
+18,Candace Cameron Bure,0.2654346287074003,9,relative_popular
+18,Charlie White,-0.09244121470041307,8,relative_technical
+18,Cody Simpson,0.014501732122600587,4,balanced
+18,Danica McKellar,0.09333810190796092,7,relative_popular
+18,Diana Nyad,0.029203505297596084,1,balanced
+18,Drew Carey,0.014431660462561651,5,balanced
+18,James Maslow,0.13732667506258117,9,relative_popular
+18,Meryl Davis,-0.5409671639237384,9,relative_technical
+18,NeNe Leakes,0.04525281074104109,6,balanced
+18,Sean Avery,0.06060595730103901,1,balanced
+19,Alfonso Ribeiro,-0.2449193020539246,11,relative_technical
+19,Antonio Sabato Jr.,0.046267385502422806,7,balanced
+19,Bethany Mota,0.09400366047394576,11,relative_popular
+19,Betsey Johnson,0.014195608675813796,4,balanced
+19,Janel Parrish,-0.17181456777414847,11,relative_technical
+19,Jonathan Bennett,0.03411785432721571,6,balanced
+19,Lea Thompson,-0.039923820737519246,9,balanced
+19,Lolo Jones,0.005878880608724844,1,balanced
+19,Michael Waltrip,0.05170941158008932,8,balanced
+19,Randy Couture,0.008974888872928365,3,balanced
+19,Sadie Robertson,0.15338081897044045,11,relative_popular
+19,Tavis Smiley,0.007487977842470217,2,balanced
+19,Tommy Chong,0.11753416261215562,10,relative_popular
+20,Charlotte McKinney,0.013364721160399167,3,balanced
+20,Chris Soules,0.19344187288827763,8,relative_popular
+20,Michael Sam,0.021768499923251042,4,balanced
+20,Nastia Liukin,-0.32729092325723996,9,relative_technical
+20,Noah Galloway,0.30735278956286505,10,relative_popular
+20,Patti LaBelle,0.04273680324788348,6,balanced
+20,Redfoo,0.007394673663523695,2,balanced
+20,Riker Lynch,-0.16810896145886495,10,relative_technical
+20,Robert Herjavec,0.1833920491997851,8,relative_popular
+20,Rumer Willis,-0.14045812662634416,10,relative_technical
+20,Suzanne Somers,0.020578669480792906,5,balanced
+20,Willow Shields,-0.07974025136548801,7,relative_technical
+21,Alek Skarlatos,0.25869061585274583,11,relative_popular
+21,Alexa PenaVega,-0.07726917352819035,9,relative_technical
+21,Andy Grammer,0.014650206285172126,8,balanced
+21,Bindi Irwin,-0.2622910859693374,11,relative_technical
+21,Carlos PenaVega,0.07996909936080167,11,relative_popular
+21,Chaka Khan,0.03407195701032255,2,balanced
+21,Gary Busey,0.00797605991469014,4,balanced
+21,Hayes Grier,0.02961145434352058,7,balanced
+21,Kim Zolciak-Biermann,0.054418913659166276,2,balanced
+21,Nick Carter,-0.08162556197236202,11,relative_technical
+21,Paula Deen,0.016905550782296226,6,balanced
+21,Tamar Braxton,0.0020021735939231965,9,balanced
+21,Victor Espinoza,0.05021407152027051,2,balanced
+22,Antonio Brown,0.19126767591403215,9,relative_popular
+22,Doug Flutie,0.029677182033829602,6,balanced
+22,Geraldo Rivera,0.0036864782564062044,2,balanced
+22,Ginger Zee,0.005481503966286006,10,balanced
+22,Jodie Sweetin,0.008900829176030599,8,balanced
+22,Kim Fields,0.14656901683184692,7,relative_popular
+22,Marla Maples,0.021872845374780202,4,balanced
+22,Mischa Barton,0.014777109514031056,3,balanced
+22,Nyle DiMarco,-0.14313681794611544,10,relative_technical
+22,Paige VanZant,-0.08696318641528995,10,relative_technical
+22,Von Miller,0.15877534230918822,7,relative_popular
+22,Wanya Morris,-0.22234444282528776,9,relative_technical
+23,Amber Rose,0.014527534833490273,6,balanced
+23,Babyface,0.09994690038262485,4,relative_popular
+23,Calvin Johnson Jr.,0.08078665010155499,11,relative_popular
+23,Jake T. Austin,0.012532270908035034,2,balanced
+23,James Hinchcliffe,-0.14682456066184726,11,relative_technical
+23,Jana Kramer,0.06787061560575088,11,balanced
+23,Laurie Hernandez,-0.3084190749909505,11,relative_technical
+23,Marilu Henner,0.10181640497431522,9,relative_popular
+23,Maureen McCormick,0.02618080789216961,7,balanced
+23,Rick Perry,0.008061591604524779,3,balanced
+23,Ryan Lochte,0.05563743978477561,8,balanced
+23,Terra Jole,0.08597128868242085,10,relative_popular
+23,Vanilla Ice,0.10795555928072223,4,relative_popular
+24,Bonner Bolton,0.10990301523149183,8,relative_popular
+24,Charo,0.00856872334524788,3,balanced
+24,Chris Kattan,0.007977559884743426,2,balanced
+24,David Ross,0.24919303560211198,10,relative_popular
+24,Erika Jayne,0.03052681640231853,5,balanced
+24,Heather Morris,-0.055983673112865784,6,relative_technical
+24,Mr. T,0.015671996587806505,4,balanced
+24,Nancy Kerrigan,0.13176134264376999,7,relative_popular
+24,Nick Viall,0.14625148973830013,7,relative_popular
+24,Normani,-0.3487007029555159,10,relative_technical
+24,Rashad Jennings,-0.08777513354778653,10,relative_technical
+24,Simone Biles,-0.09706302877837508,9,relative_technical
+25,Barbara Corcoran,0.029251475580163964,2,balanced
+25,Debbie Gibson,0.04700696252479606,2,balanced
+25,Derek Fisher,0.007862761185449641,4,balanced
+25,Drew Scott,0.23491803140072193,10,relative_popular
+25,Frankie Muniz,0.07950181771849604,10,relative_popular
+25,Jordan Fisher,-0.5319490122545584,10,relative_technical
+25,Lindsey Stirling,-0.16552970562983632,10,relative_technical
+25,Nick Lachey,0.023940823192434388,6,balanced
+25,Nikki Bella,0.14761696020853116,7,relative_popular
+25,Sasha Pieterse,0.016262016110621384,5,balanced
+25,Terrell Owens,0.06957088316050275,8,balanced
+25,Vanessa Lachey,0.11882988268524634,7,relative_popular
+25,Victoria Arlen,0.11110786460576337,9,relative_popular
+26,Adam Rippon,-0.6298941849598387,4,relative_technical
+26,Arike Ogunbowale,0.20109390627817542,2,relative_popular
+26,Chris Mazdzer,0.18484909408965308,3,relative_popular
+26,Jamie Anderson,0.14372923654414121,1,relative_popular
+26,Jennie Finch Daigle,0.15499290575256283,3,relative_popular
+26,Johnny Damon,0.09172313173423044,1,relative_popular
+26,Josh Norman,0.03733525366909196,4,balanced
+26,Kareem Abdul-Jabbar,0.060402816536126766,2,balanced
+26,Mirai Nagasu,-0.07827083620187236,3,relative_technical
+26,Tonya Harding,0.20676910508374485,4,relative_popular
+27,Alexis Ren,0.10650725728691594,9,relative_popular
+27,Bobby Bones,0.18555474686130602,9,relative_popular
+27,Danelle Umstead,0.006825166592449104,2,balanced
+27,DeMarcus Ware,0.05837609822859675,7,balanced
+27,Evanna Lynch,-0.04626374736622979,9,relative_technical
+27,Joe Amabile,0.15259708608787198,8,relative_popular
+27,John Schneider,0.1366524862838829,7,relative_popular
+27,Juan Pablo Di Pace,-0.3524513662045049,8,relative_technical
+27,Mary Lou Retton,0.060036846926331676,6,balanced
+27,Milo Manheim,-0.18035049477134954,9,relative_technical
+27,Nancy McKeon,0.015371491272296542,3,balanced
+27,Nikki Glaser,0.007260890587075748,1,balanced
+27,Tinashe,-0.19566062197423245,4,relative_technical
+28,Ally Brooke,0.054645581629808794,11,balanced
+28,Hannah Brown,0.06341156148376467,11,balanced
+28,James Van Der Beek,-0.04418739802192575,10,balanced
+28,Karamo Brown,-0.07429171518316724,7,relative_technical
+28,Kate Flannery,-0.08018379836327989,8,relative_technical
+28,Kel Mitchell,0.053902062303005496,11,balanced
+28,Lamar Odom,-0.05181968576212517,4,relative_technical
+28,Lauren Alaina,0.07262181778714348,11,relative_popular
+28,Mary Wilson,-0.05814232186291507,2,relative_technical
+28,Ray Lewis,-0.032677259315948864,2,balanced
+28,Sailor Brinkley-Cook,-0.09212957168076631,6,relative_technical
+28,Sean Spicer,-0.01614550514916099,9,balanced
+29,AJ McLean,-0.05217990043373731,9,relative_technical
+29,Anne Heche,-0.05793439373229908,4,relative_technical
+29,Carole Baskin,-0.04265408286798736,3,balanced
+29,Charles Oakley,-0.0458145077346076,2,balanced
+29,Chrishell Stause,-0.06014861359122578,8,relative_technical
+29,Jeannie Mai,0.01770245485760792,7,balanced
+29,Jesse Metcalfe,-0.05887086570619639,5,relative_technical
+29,Johnny Weir,0.025533978231346066,10,balanced
+29,Justina Machado,0.0230718091927569,11,balanced
+29,Kaitlyn Bristowe,0.018640051062228102,11,balanced
+29,Monica Aldama,0.01247615262427548,7,balanced
+29,Nelly,0.04353172684874556,11,balanced
+29,Nev Schulman,0.0169787382411458,11,balanced
+29,Skai Jackson,0.04557818301808127,10,balanced
+29,Veron Davis,-0.058387710582382436,6,relative_technical
+30,Amanda Kloots,0.00461046465319969,10,balanced
+30,Brian Austin Green,0.015132224226733238,4,balanced
+30,Christine Chiu,-0.060394572706301254,3,relative_technical
+30,Cody Rigsby,0.025723975649227782,10,balanced
+30,Iman Shumpert,0.027371567347729532,10,balanced
+30,Jimmie Allen,0.02379955010747745,8,balanced
+30,JoJo Siwa,0.0032736946560647795,10,balanced
+30,Kenya Moore,-0.06315012788394966,6,relative_technical
+30,Martin Kove,-0.03305698953310945,2,balanced
+30,Matt James,0.022736113100850983,4,balanced
+30,Melanie C,-0.07131581856601574,5,relative_technical
+30,Melora Hardin,0.008362844294971077,9,balanced
+30,"Mike ""The Miz"" Mizanin",-0.05429249737277685,7,relative_technical
+30,Olivia Jade,0.017559095531257764,8,balanced
+30,Suni Lee,0.021713322532351757,9,balanced
+31,Charli D'Amelio,0.0003790005148839759,10,balanced
+31,Cheryl Ladd,-0.05042186139874105,3,relative_technical
+31,Daniel Durant,0.01982684397204507,9,balanced
+31,Gabby Windey,0.001230047065395809,10,balanced
+31,Heidi D'Amelio,0.014813333420262432,8,balanced
+31,Jason Lewis,-0.04340825958888263,1,balanced
+31,Jessie James Decker,-0.05719974131005998,6,relative_technical
+31,Jordin Sparks,-0.05650136796728674,7,relative_technical
+31,Joseph Baena,0.0329820695769879,5,balanced
+31,Sam Champion,-0.051614674609306695,4,relative_technical
+31,Selma Blair,0.008725199103708994,5,balanced
+31,Shangela,0.013521755506418005,10,balanced
+31,Teresa Giudice,-0.048672512602009624,2,relative_technical
+31,Trevor Donovan,0.023479482110647248,9,balanced
+31,Vinny Guadagnino,0.049875899724921964,8,balanced
+31,Wayne Brady,-0.0029929583118443,10,balanced
+32,Adrian Peterson,-0.0621143899197568,4,relative_technical
+32,Alyson Hannigan,0.0693725051869501,11,balanced
+32,Ariana Madix,0.023449079333392655,11,balanced
+32,Barry Williams,-0.048970038782084925,8,relative_technical
+32,Charity Lawson,0.029229775966770385,11,balanced
+32,Harry Jowsey,0.030326277387907545,9,balanced
+32,Jamie Lynn Spears,-0.05724417893710392,2,relative_technical
+32,Jason Mraz,0.018989343008561546,11,balanced
+32,Lele Pons,-0.06409047246972976,7,relative_technical
+32,Matt Walsh,-0.048134071506726966,1,relative_technical
+32,Mauricio Umansky,-0.05464148561065396,6,relative_technical
+32,Mira Sorvino,-0.06852608374853218,5,relative_technical
+32,Tyson Beckford,-0.05407397475285272,3,relative_technical
+32,Xochitl Gomez,0.02361732984784619,11,balanced
+33,Anna Delvey,-0.02542253977341962,2,balanced
+33,Brooks Nader,-0.07880620296141835,4,relative_technical
+33,Chandler Kinney,0.024361046252518684,9,balanced
+33,Danny Amendola,0.036000289836514744,9,balanced
+33,Dwight Howard,-0.03394392462961996,7,balanced
+33,Eric Roberts,-0.03984376396738639,3,balanced
+33,Ilona Maher,0.0556213672671532,9,balanced
+33,Jenn Tran,-0.0710892178984071,6,relative_technical
+33,Joey Graziadei,0.030213936282771543,9,balanced
+33,Phaedra Parks,-0.0835143473689101,5,relative_technical
+33,Reginald VelJohnson,-0.03933142375915798,3,balanced
+33,Stephen Nedoroscik,0.049375741571770194,9,balanced
+33,Tori Spelling,-0.037420729841036546,2,balanced
+34,Alix Earle,0.0445239715406697,11,balanced
+34,Andy Richter,-0.022185350273358287,9,balanced
+34,Baron Davis,-0.03434775353254426,2,balanced
+34,Corey Feldman,-0.028116737177915057,2,balanced
+34,Danielle Fishel,-0.05452756648497481,8,relative_technical
+34,Dylan Efron,0.053517019247878134,11,balanced
+34,Elaine Hendrix,0.05267997619273657,11,balanced
+34,Hilaria Baldwin,-0.07653675658404455,4,relative_technical
+34,Jen Affleck,-0.06820249616772943,7,relative_technical
+34,Jordan Chiles,0.05232717986841928,11,balanced
+34,Lauren Jauregui,-0.06782275305159888,3,relative_technical
+34,Robert Irwin,0.0452206270030588,11,balanced
+34,Scott Hoying,-0.06798843729174618,6,relative_technical
+34,Whitney Leavitt,-0.0575175464203884,10,relative_technical
