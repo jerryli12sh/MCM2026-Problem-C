@@ -1,0 +1,9 @@
+# Source root for read-only inputs.
+#
+# All authoritative and reference inputs (raw data, the paper, the review, legacy code,
+# and legacy outputs) live OUTSIDE this repository, in the parent directory. This file
+# declares that parent so no absolute machine-specific path ever appears in library code.
+#
+# `source_root` is resolved relative to this repository's root (the directory containing
+# `configs/`). The default `..` therefore points at the parent of `repo/`.
+source_root: ..

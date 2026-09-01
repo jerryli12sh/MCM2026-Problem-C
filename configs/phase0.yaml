@@ -1,0 +1,11 @@
+# Phase 0 — baseline and provenance configuration.
+#
+# Phase 0 performs no preprocessing or modeling. It locks immutable inputs, inventories the
+# paper/review/legacy assets, registers the paper-output baseline, and stands up the
+# package/test/config skeleton plus the run-manifest discipline. Nothing here trains a model.
+
+phase: phase0
+seed: 42
+
+# Location of the immutable-input manifest (relative to the repository root).
+input_manifest: manifests/input_manifest.sha256
