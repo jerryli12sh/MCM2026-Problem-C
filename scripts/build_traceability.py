@@ -153,6 +153,7 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "",
         P3,
+        status="implemented",
     ),
     p(
         8,
@@ -163,6 +164,7 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "",
         P3,
+        status="implemented",
     ),
     p(
         9,
@@ -234,6 +236,7 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "../src/dwts_pro_celeb_regression.py",
         P3,
+        status="implemented",
     ),
     # ---- Problem 1 ----
     p(
@@ -693,6 +696,7 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "../src/dwts_pro_celeb_regression.py",
         P3,
+        status="implemented",
     ),
     p(
         59,
@@ -703,6 +707,7 @@ PAPER_ROWS: list[list[str]] = [
         "-0.04",
         "../src/dwts_pro_celeb_regression.py",
         P3,
+        status="implemented",
     ),
     p(
         60,
@@ -713,6 +718,7 @@ PAPER_ROWS: list[list[str]] = [
         "0.16 / -0.87",
         "../src/dwts_pro_celeb_regression.py",
         P3,
+        status="implemented",
     ),
     p(
         61,
@@ -723,6 +729,7 @@ PAPER_ROWS: list[list[str]] = [
         "visual",
         "../src/dwts_pro_celeb_regression.py",
         P3,
+        status="implemented",
     ),
     p(
         62,
@@ -733,6 +740,7 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "../src/dwts_pro_celeb_regression.py",
         P3,
+        status="implemented",
     ),
     p(
         63,
@@ -743,6 +751,7 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "../src/dwts_pro_celeb_regression.py",
         P3,
+        status="implemented",
     ),
     p(
         64,
@@ -753,6 +762,7 @@ PAPER_ROWS: list[list[str]] = [
         "0.23",
         "../src/dwts_pro_celeb_regression.py",
         P3,
+        status="implemented",
     ),
     p(
         65,
@@ -763,6 +773,7 @@ PAPER_ROWS: list[list[str]] = [
         "visual",
         "../src/dwts_pro_celeb_regression.py",
         P3,
+        status="implemented",
     ),
     p(
         66,
@@ -773,6 +784,7 @@ PAPER_ROWS: list[list[str]] = [
         "visual",
         "../src/dwts_pro_celeb_regression.py",
         P3,
+        status="implemented",
     ),
     p(
         67,
@@ -783,6 +795,7 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "../src/dwts_pro_celeb_regression.py",
         P3,
+        status="implemented",
     ),
     p(
         68,
@@ -793,6 +806,7 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "../src/dwts_pro_celeb_regression.py",
         P3,
+        status="implemented",
     ),
     p(
         69,
@@ -803,6 +817,7 @@ PAPER_ROWS: list[list[str]] = [
         "0.34",
         "../src/dwts_pro_celeb_regression.py",
         P3,
+        status="implemented",
     ),
     p(
         70,
@@ -813,6 +828,7 @@ PAPER_ROWS: list[list[str]] = [
         "visual",
         "../src/dwts_pro_celeb_regression.py",
         P3,
+        status="implemented",
     ),
     p(
         71,
@@ -823,6 +839,7 @@ PAPER_ROWS: list[list[str]] = [
         "visual",
         "../src/dwts_pro_celeb_regression.py",
         P3,
+        status="implemented",
     ),
     # ---- Problem 4 ----
     p(

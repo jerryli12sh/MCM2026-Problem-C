@@ -353,3 +353,54 @@ inspects the relevant legacy code or the owner approves a tolerance.
   adaptation is visible in the traceability doc.
 - **Refs:** ``../paper_Latex/2107542.tex``, ``outputs/problem1_extras_s8_heatmap_P1E.csv``,
   ``outputs/problem1_extras_s21_heatmap_P1E.csv``, ``src/dwts_reproduction/problem1/figures.py``.
+
+### D-20260901-17 — Problem 3 reproduction scope, honesty status, and HC1 FE SEs (established)
+
+- **Status:** established (2026-09-01).
+- **Context:** Problem 3 (P-058..P-071, survival determinants) has three sub-analyses:
+  demographic divergence (OLS port of ``../src/dwts_pro_celeb_regression.py`` + the paper's exact
+  Eq. (demo_model) with ``Other`` as the industry reference), professional-partner effects, and
+  surprise/growth dynamics. A full-source search found **no legacy producer** for the partner or
+  surprise analyses — only ``dwts_pro_celeb_regression.py`` (demographic) exists and the 5 figure
+  PNGs appear only in ``../paper_Latex/img/`` — so those two analyses are reproduced from the
+  paper's formulas on the registered ``data/data_3.csv`` (sha256 ``72ca124e3890…``). The paper's
+  exact target values are reproduced where possible and reported honestly where not.
+- **Options:**
+  - (a) assume legacy producers exist for partner/surprise and re-derive from them;
+  - (b) reproduce from the paper formulas on the registered input, recording the lack of a producer.
+- **Choice:** (b). All partner/surprise artifacts are labelled as formula-level reproductions on
+  ``data_3.csv``, and every claim check stores its own within-tolerance boolean.
+- **Reproduction honesty status (Track P, all on ``data_3.csv``, n=392):**
+  - B-11 age: judge coefs ``-0.0301/-0.0329/-0.0359`` (paper ~ ``-0.04``), each within abs 0.02. ✓
+  - B-12 actor: judge W1 ``+0.254`` (p=0.20), fan W6 ``-1.0221`` (p=0.0002). The paper's
+    ``0.16 / -0.87`` is **NOT** reproduced within abs 0.1 (``paper_P060_within_abs_0_1=False``);
+    the sign pattern (positive with judges early, strongly negative with fans mid-season) is
+    confirmed. Reported as direction-confirmed, not magnitude-confirmed.
+  - B-13 partner tenure: ``r(H_exp, judge_w1) = 0.134`` — positive, but the paper's ``0.23`` is
+    **NOT** reproduced within abs 0.05 (``paper_P064_within_abs_0_05=False``). Reported honestly.
+  - B-14 surprise: ``beta1 = 0.3419`` (paper 0.34, within abs 0.05, p=1.8e-6). ✓
+  - Matthew effect: ``beta2 (S^2) = 0.1819 > 0``, p<0.001. ✓
+  - Veteran leverage: ``beta3 (S x H_exp) = 0.0104 > 0`` but **directional only** (p=0.51) — the
+    paper's "beta3 > 0" is not significant on the reproduced data; the claim check passes
+    ``beta3_gt_0`` and the summary reports the non-significance explicitly. Do not overstate.
+- **HC1 choice for partner-FE SEs:** the partner-FE fits (Eq. fe_model) under HC3 emit
+  ``inf`` SEs because singleton partners have leverage h=1 (``(1-h)^-2`` degenerates), seen as
+  statsmodels' benign "divide by zero" RuntimeWarning. Coefficients are identical under any robust
+  convention; only the SEs differ. The module therefore uses **HC1** (classic finite White
+  estimator) for the FE fits and documents why, keeping HC3 for the demographic OLS pipeline
+  (which has no such degeneracy). The warning is suppressed in the run script only.
+- **Legacy `.eq()`/`.le()` artifact in pro-history features:** the port of
+  ``dwts_pro_celeb_regression.py`` reproduces ``(s.shift(1).eq(1)).expanding().mean()`` and
+  ``(s.shift(1).le(3)).expanding().mean()`` exactly: the leading ``shift`` NaN is converted to
+  ``False`` by ``eq``/``le``, so a dancer's first prior appearance never contributes to
+  ``win_rate``/``top3_rate``. This is a genuine legacy artifact that **must not be "fixed"** in
+  the Track P port — R² parity (7/7 within 1e-4) depends on it. It is pinned by
+  ``test_pro_history_leakage_safe`` and recorded here.
+- **Consequences:** ``docs/BASELINE_PAPER_OUTPUTS.md`` and ``manifests/baseline.csv`` record B-11
+  as reproduced, B-12/B-13 as direction-confirmed only, and B-14 as reproduced; the Problem 3 run
+  manifest records every within-tolerance boolean. P-058..P-071 (and P-007/P-008/P-015) are
+  ``implemented`` in the traceability inventory.
+- **Refs:** ``../src/dwts_pro_celeb_regression.py`` (lines 113-122),
+  ``../paper_Latex/2107542.tex``, ``data/data_3.csv``, ``src/dwts_reproduction/problem3/*``,
+  ``scripts/problem3_run.py``, ``outputs/problem3_summary_P3.json``,
+  ``tests/test_problem3.py``.

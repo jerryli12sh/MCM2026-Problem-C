@@ -129,7 +129,7 @@ deltas).
 
 Gate: recommendation is stable over a documented parameter region, or instability is reported.
 
-## Phase 6 — Mechanism explanation (`pending`)
+## Phase 6 — Mechanism explanation (`active`)
 
 - Build comparable judge/fan z-signals and parallel celebrity/partner pathway models.
 - Test age, industry, partner, phase/era, surprise, nonlinear growth, and interaction claims.
@@ -137,6 +137,30 @@ Gate: recommendation is stable over a documented parameter region, or instabilit
 
 Gate: coefficient tables include uncertainty, reference groups, sample definitions, and robustness
 checks; narrative claims map to table cells.
+
+**Phase 6 mechanism-explanation complete (2026-09-01):** Problem 3 (survival determinants,
+P-058..P-071) reproduces the paper's three sub-analyses on the registered `data/data_3.csv`
+(392 rows, sha256 `72ca124e3890…`): (1) **demographic divergence** — a faithful port of the legacy
+`dwts_pro_celeb_regression.py` OLS pipeline (7/7 R² parity within 1e-4; base + season-FE specs,
+incremental R², forward CV) plus the paper's exact Eq. (demo_model) with `Other` as the industry
+reference; (2) **professional-partner effects** — leakage-safe H_abil/H_exp, partner-FE model,
+trait correlations, per-partner FE (HC1 SEs, D-20260901-17); (3) **surprise/growth dynamics** —
+S/G construction at t=W6 (n=173) and t=final (n=105), linear + quadratic fits, claim checks.
+`scripts/problem3_run.py` writes 19 saved tables/JSONs + a P3 run manifest;
+`scripts/plot_problem3_figures.py` renders 5 figures from the saved tables with a figure manifest
+pinning the run-manifest hash. Honest claim status (D-20260901-17): B-11 age
+(-0.0301/-0.0329/-0.0359) and B-14 surprise beta1 (0.3419, p<0.001) **reproduced**; B-12 actor
+(+0.254 / -1.0221) and B-13 partner r (0.134) are **direction-confirmed only** (paper targets
+0.16/-0.87 and 0.23 not within tolerance); beta2 (S²) > 0 confirmed (0.1819, p<0.001, Matthew);
+beta3 (S×H_exp) > 0 **directional only** (0.0104, p=0.51) — reported honestly, not overstated.
+The legacy `.eq()`/`.le()` pro-history artifact is preserved for R² parity and pinned by test.
+Traceability P-058..P-071 (and P-007/P-008/P-015) now `implemented`; baseline B-11..B-14 updated
+with honest status. Decisions: D-20260901-17.
+
+Gate (recheck): `scripts/problem3_run.py && scripts/plot_problem3_figures.py` reproduce every
+metric and chart from one command; coefficient tables include robust SEs, the `Other` industry
+reference group, sample definitions, and claim-check booleans; non-reproduced values are reported
+with honest status in D-20260901-17. 155 tests pass (`pytest -q`), `ruff check`/`mypy` clean.
 
 ## Phase 7 — Release reproduction (`pending`)
 

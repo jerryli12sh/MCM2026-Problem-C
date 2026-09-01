@@ -39,6 +39,17 @@ class Paths:
         return self.data_dir / "2026_MCM_Problem_C_Data.csv"
 
     @property
+    def data3_csv(self) -> Path:
+        """Problem 3 engineered table (one row per season-celebrity).
+
+        Hashed legacy output produced by the original analysis (registered in
+        ``manifests/legacy_inventory.csv`` as role=legacy_output, sha
+        ``72ca124e…``); it is the input read by the legacy
+        ``dwts_pro_celeb_regression.py`` producer.
+        """
+        return self.data_dir / "data_3.csv"
+
+    @property
     def paper_tex(self) -> Path:
         """Authoritative paper source (Track P)."""
         return self.paper_latex_dir / "2107542.tex"

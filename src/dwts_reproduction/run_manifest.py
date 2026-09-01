@@ -16,9 +16,10 @@ from typing import Any
 
 # "P" and "R" are the two analytical tracks; "P1E" tags Problem 1 evaluation
 # extras (in-season baselines, PCP, ranking gap, heatmaps) that build on the
-# Track P posterior summary — see docs/TRACEABILITY.md. The list is kept closed
-# so an unexpected tag cannot be recorded silently.
-VALID_TRACKS = ("P", "R", "P1E")
+# Track P posterior summary; "P3" tags the Problem 3 survival-determinant
+# regressions (Track P only, no review critique rows) — see docs/TRACEABILITY.md.
+# The list is kept closed so an unexpected tag cannot be recorded silently.
+VALID_TRACKS = ("P", "R", "P1E", "P3")
 VALID_STATUSES = ("pending", "running", "success", "failed", "skipped")
 
 _REQUIRED_FIELDS = (

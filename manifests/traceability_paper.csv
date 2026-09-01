@@ -5,15 +5,15 @@ P-003,Prep,A3,assumption,Weekly fan voting is a vote-share vector p; expected pa
 P-004,Prep,A4,assumption,Elimination probabilistic; worse combined signal more likely; temperature governs randomness,,,problem1.model,shared,planned,,planned
 P-005,Prep,A5,assumption,Weekly fan shares vary around trend q via Dirichlet centered at q,,,problem1.model,shared,planned,,planned
 P-006,Prep,A6,assumption,Counterfactual invariance: rule change does not change judge scores or fan preference,,,problem2.rules,shared,planned,,implemented
-P-007,Prep,A7,assumption,Within-season judging standard stable enough that judge-signal changes track real improvement,,,problem3.regression,shared,planned,,planned
-P-008,Prep,A8,assumption,"Fan support comparable across seasons at matched checkpoints, not across weeks within a season",,,problem3.regression,shared,planned,,planned
+P-007,Prep,A7,assumption,Within-season judging standard stable enough that judge-signal changes track real improvement,,,problem3.regression,shared,planned,,implemented
+P-008,Prep,A8,assumption,"Fan support comparable across seasons at matched checkpoints, not across weeks within a season",,,problem3.regression,shared,planned,,implemented
 P-009,Prep,A9,assumption,Bottom-2 judges save: judges eliminate technically weaker of the bottom two,,,problem2.rules,shared,planned,,implemented
 P-010,Prep,notations,table,"Notations table: core symbols (s,t,i,A,J,p,q,kappa,S,tau,i*,PCP,e_hat,Bottom2)",,,shared,shared,planned,,planned
 P-011,Prep,preprocess-1,formula,Structural-zero handling: post-elimination zeros recoded NaN; original N/A preserved,,../src/0data_cleaning.ipynb; ../review/srcs_0/dwts_preprocess.py,preprocessing,shared,planned,,planned
 P-012,Prep,preprocess-2,formula,"Outcome parsing: elim_week_result, is_withdrew, is_place; withdrawals excluded",,../src/0data_cleaning.ipynb,preprocessing,shared,planned,,planned
 P-013,Prep,preprocess-3,formula,Season length and activity window (active_until) -> weekly alive set,,../src/0data_cleaning.ipynb,preprocessing,shared,planned,,planned
 P-014,Prep,preprocess-4,formula,"Analysis tables: long judge, weekly panel, judge_rank/judge_percent, roster, elim events",,../src/build_event_table.py; ../review/srcs_0/dwts_preprocess.py,preprocessing,shared,planned,,planned
-P-015,Prep,preprocess-5,formula,"Cross-season rank normalization Z^J = Phi^-1(clip(1-(R^J-0.5)/N, 0.001, 0.999)) (Problem 3 only)",,../src/dwts_pro_celeb_regression.py,problem3.regression,shared,planned,,planned
+P-015,Prep,preprocess-5,formula,"Cross-season rank normalization Z^J = Phi^-1(clip(1-(R^J-0.5)/N, 0.001, 0.999)) (Problem 3 only)",,../src/dwts_pro_celeb_regression.py,problem3.regression,shared,planned,,implemented
 P-016,Problem 1,eq:J_pct,formula,Percentage-era judge signal J = T_i / sum_k T_k,,../src/model.py,problem1.model,shared,planned,,planned
 P-017,Problem 1,eq:J_rank,formula,Rank-era judge signal J = exp(-R_i) / sum_k exp(-R_k),,../src/model.py,problem1.model,shared,planned,,planned
 P-018,Problem 1,eq:latent_score,formula,"Latent popularity eta = x^T beta + u, u ~ N(0, sigma_u^2); x = {J, age}",,../src/model_new.py,problem1.model,shared,planned,,planned
@@ -56,20 +56,20 @@ P-054,Problem 2,4_SurvivalCurves_*.png,figure,Six-case survival curves (Save vs 
 P-055,Problem 2,4_RankVsPercentage_*.png,figure,Six-case rank divergence panels,visual,../src/sim_rank_trend_cases.py,problem2.cases,shared,planned,,planned
 P-056,Problem 2,5_Mechanism phase diagram.png,figure,"Mechanism phase diagram (fan influence x, judge consistency y)",visual,../src/2_rank_vs_pct_cross_season.ipynb,problem2.rules,shared,planned,,implemented
 P-057,Problem 2,recommendation,claim,Recommendation: Percentage base + Bottom-2 judges save,,,problem2.rules,shared,planned,,implemented
-P-058,Problem 3,eq:demo_model,formula,Demographic OLS: Y = alpha + beta_Age Age + sum delta_k I(industry=k),,../src/dwts_pro_celeb_regression.py,problem3.regression,shared,planned,,planned
-P-059,Problem 3,coef_age,metric,Judge age penalty beta_Age ~ -0.04 (all weeks); fan age penalty reverses by W11,-0.04,../src/dwts_pro_celeb_regression.py,problem3.regression,shared,planned,,planned
-P-060,Problem 3,coef_actor,metric,Actor: judge W1 beta~0.16; fan W6 beta=-0.87 (audience fatigue),0.16 / -0.87,../src/dwts_pro_celeb_regression.py,problem3.regression,shared,planned,,planned
-P-061,Problem 3,6_Success_Factors_Judges_vs_Fans.png,figure,Temporal evolution of judge/fan coefficient heatmap,visual,../src/dwts_pro_celeb_regression.py,problem3.regression,shared,planned,,planned
-P-062,Problem 3,eq:partner,formula,Partner traits H_abil = avg rank_past; H_exp = sum I(s in S_p),,../src/dwts_pro_celeb_regression.py,problem3.regression,shared,planned,,planned
-P-063,Problem 3,eq:fe_model,formula,Fixed effects: Z = mu + g1 H_abil + g2 H_exp + alpha_p + eps,,../src/dwts_pro_celeb_regression.py,problem3.regression,shared,planned,,planned
-P-064,Problem 3,coef_tenure,metric,"Partner tenure correlates with judge scores r=0.23, near-zero with fan votes",0.23,../src/dwts_pro_celeb_regression.py,problem3.regression,shared,planned,,planned
-P-065,Problem 3,6_Partner_Traits_Correlation.png,figure,Partner trait correlation heatmap,visual,../src/dwts_pro_celeb_regression.py,problem3.regression,shared,planned,,planned
-P-066,Problem 3,6_Pro_Partner_Historical_Impact.png,figure,Partner heterogeneity (raw ability vs fixed effects),visual,../src/dwts_pro_celeb_regression.py,problem3.regression,shared,planned,,planned
-P-067,Problem 3,eq:surprise,formula,"Surprise S = Z_Judge,t - Z_Fan,t-1; Growth G = Z_Fan,t - Z_Fan,t-1",,../src/dwts_pro_celeb_regression.py,problem3.regression,shared,planned,,planned
-P-068,Problem 3,eq:growth_model,formula,Quadratic interaction G = b0 + b1 S + b2 S^2 + b3 (S x H_exp),,../src/dwts_pro_celeb_regression.py,problem3.regression,shared,planned,,planned
-P-069,Problem 3,coef_surprise,metric,Surprise linear beta1=0.34 (p<0.001); beta2>0 (Matthew); beta3>0 (leverage),0.34,../src/dwts_pro_celeb_regression.py,problem3.regression,shared,planned,,planned
-P-070,Problem 3,6_Surprise_Effect_Vote_Growth.png,figure,Surprise -> vote growth linear response,visual,../src/dwts_pro_celeb_regression.py,problem3.regression,shared,planned,,planned
-P-071,Problem 3,6_Surprise_NonLinearity_and_Interaction.png,figure,Surprise nonlinearity + tenure interaction,visual,../src/dwts_pro_celeb_regression.py,problem3.regression,shared,planned,,planned
+P-058,Problem 3,eq:demo_model,formula,Demographic OLS: Y = alpha + beta_Age Age + sum delta_k I(industry=k),,../src/dwts_pro_celeb_regression.py,problem3.regression,shared,planned,,implemented
+P-059,Problem 3,coef_age,metric,Judge age penalty beta_Age ~ -0.04 (all weeks); fan age penalty reverses by W11,-0.04,../src/dwts_pro_celeb_regression.py,problem3.regression,shared,planned,,implemented
+P-060,Problem 3,coef_actor,metric,Actor: judge W1 beta~0.16; fan W6 beta=-0.87 (audience fatigue),0.16 / -0.87,../src/dwts_pro_celeb_regression.py,problem3.regression,shared,planned,,implemented
+P-061,Problem 3,6_Success_Factors_Judges_vs_Fans.png,figure,Temporal evolution of judge/fan coefficient heatmap,visual,../src/dwts_pro_celeb_regression.py,problem3.regression,shared,planned,,implemented
+P-062,Problem 3,eq:partner,formula,Partner traits H_abil = avg rank_past; H_exp = sum I(s in S_p),,../src/dwts_pro_celeb_regression.py,problem3.regression,shared,planned,,implemented
+P-063,Problem 3,eq:fe_model,formula,Fixed effects: Z = mu + g1 H_abil + g2 H_exp + alpha_p + eps,,../src/dwts_pro_celeb_regression.py,problem3.regression,shared,planned,,implemented
+P-064,Problem 3,coef_tenure,metric,"Partner tenure correlates with judge scores r=0.23, near-zero with fan votes",0.23,../src/dwts_pro_celeb_regression.py,problem3.regression,shared,planned,,implemented
+P-065,Problem 3,6_Partner_Traits_Correlation.png,figure,Partner trait correlation heatmap,visual,../src/dwts_pro_celeb_regression.py,problem3.regression,shared,planned,,implemented
+P-066,Problem 3,6_Pro_Partner_Historical_Impact.png,figure,Partner heterogeneity (raw ability vs fixed effects),visual,../src/dwts_pro_celeb_regression.py,problem3.regression,shared,planned,,implemented
+P-067,Problem 3,eq:surprise,formula,"Surprise S = Z_Judge,t - Z_Fan,t-1; Growth G = Z_Fan,t - Z_Fan,t-1",,../src/dwts_pro_celeb_regression.py,problem3.regression,shared,planned,,implemented
+P-068,Problem 3,eq:growth_model,formula,Quadratic interaction G = b0 + b1 S + b2 S^2 + b3 (S x H_exp),,../src/dwts_pro_celeb_regression.py,problem3.regression,shared,planned,,implemented
+P-069,Problem 3,coef_surprise,metric,Surprise linear beta1=0.34 (p<0.001); beta2>0 (Matthew); beta3>0 (leverage),0.34,../src/dwts_pro_celeb_regression.py,problem3.regression,shared,planned,,implemented
+P-070,Problem 3,6_Surprise_Effect_Vote_Growth.png,figure,Surprise -> vote growth linear response,visual,../src/dwts_pro_celeb_regression.py,problem3.regression,shared,planned,,implemented
+P-071,Problem 3,6_Surprise_NonLinearity_and_Interaction.png,figure,Surprise nonlinearity + tenure interaction,visual,../src/dwts_pro_celeb_regression.py,problem3.regression,shared,planned,,implemented
 P-072,Problem 4,eq:shock,metric,Technical shock rate Shock_k = Pr(elim in top-k judges),,../src/season_simulator.py,problem4.mechanisms,shared,planned,,planned
 P-073,Problem 4,eq:v1_gate,formula,V1: judge bottom-K gate B^J = arg K-min J; fans eliminate argmin p in B^J (K=3),K=3,../src/season_simulator.py,problem4.mechanisms,shared,planned,,planned
 P-074,Problem 4,v1_split,hyperparameter,V1 early/late split threshold m=8,m=8,../src/season_simulator.py,problem4.mechanisms,shared,planned,,planned

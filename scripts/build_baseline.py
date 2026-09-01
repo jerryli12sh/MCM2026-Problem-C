@@ -135,6 +135,7 @@ ROWS: list[list[str]] = [
         "../src/dwts_pro_celeb_regression.py",
         "beta_Age ~ -0.04",
         "abs 0.02 (proposed)",
+        "reproduced (got -0.0301/-0.0329/-0.0359, D-20260901-17)",
     ),
     b(
         12,
@@ -143,6 +144,7 @@ ROWS: list[list[str]] = [
         "../src/dwts_pro_celeb_regression.py",
         "judge W1 ~0.16; fan W6 -0.87",
         "abs 0.1 (proposed)",
+        "direction-confirmed only (got +0.254 / -1.0221; |Δ|>0.1, D-20260901-17)",
     ),
     b(
         13,
@@ -151,6 +153,7 @@ ROWS: list[list[str]] = [
         "../src/dwts_pro_celeb_regression.py",
         "0.23",
         "abs 0.05 (proposed)",
+        "direction-confirmed only (got 0.134; |Δ|>0.05, D-20260901-17)",
     ),
     b(
         14,
@@ -159,6 +162,7 @@ ROWS: list[list[str]] = [
         "../src/dwts_pro_celeb_regression.py",
         "0.34",
         "abs 0.05 (proposed)",
+        "reproduced (got 0.3419, p<0.001, D-20260901-17)",
     ),
     b(
         15,

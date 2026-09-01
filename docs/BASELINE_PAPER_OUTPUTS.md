@@ -16,10 +16,10 @@
 | B-08 | Case-study table (\|d\|, Flip) | Problem 2 table | ../src/sim_rank_trend_cases.py | Jerry Rice 3.69/0.87; B.R.Cyrus 3.25/0.75; B.Palin 4.30/0.97; Bobby Bones 4.00/0.57; Tinashe 8.50/0.57; Vinny G. 9.88/0.33 | structural (proposed) | registered |
 | B-09 | V1 parameters | Problem 4 | ../src/season_simulator.py | K=3; early/late split m=8 | exact (proposed) | registered |
 | B-10 | V2 parameters | Problem 4 | ../src/season_simulator2.py | w_J=0.80 w_F=0.20 gamma=0.45 delta=1.35 mu=0.01 L in {2,3} | exact (proposed) | registered |
-| B-11 | Problem 3 age coefficient (judge) | Problem 3 | ../src/dwts_pro_celeb_regression.py | beta_Age ~ -0.04 | abs 0.02 (proposed) | registered |
-| B-12 | Problem 3 actor coefficients | Problem 3 | ../src/dwts_pro_celeb_regression.py | judge W1 ~0.16; fan W6 -0.87 | abs 0.1 (proposed) | registered |
-| B-13 | Problem 3 partner tenure r | Problem 3 | ../src/dwts_pro_celeb_regression.py | 0.23 | abs 0.05 (proposed) | registered |
-| B-14 | Problem 3 surprise beta1 | Problem 3 | ../src/dwts_pro_celeb_regression.py | 0.34 | abs 0.05 (proposed) | registered |
+| B-11 | Problem 3 age coefficient (judge) | Problem 3 | ../src/dwts_pro_celeb_regression.py | beta_Age ~ -0.04 | abs 0.02 (proposed) | reproduced (got -0.0301/-0.0329/-0.0359, D-20260901-17) |
+| B-12 | Problem 3 actor coefficients | Problem 3 | ../src/dwts_pro_celeb_regression.py | judge W1 ~0.16; fan W6 -0.87 | abs 0.1 (proposed) | direction-confirmed only (got +0.254 / -1.0221; \|Δ\|>0.1, D-20260901-17) |
+| B-13 | Problem 3 partner tenure r | Problem 3 | ../src/dwts_pro_celeb_regression.py | 0.23 | abs 0.05 (proposed) | direction-confirmed only (got 0.134; \|Δ\|>0.05, D-20260901-17) |
+| B-14 | Problem 3 surprise beta1 | Problem 3 | ../src/dwts_pro_celeb_regression.py | 0.34 | abs 0.05 (proposed) | reproduced (got 0.3419, p<0.001, D-20260901-17) |
 | B-15 | Model hyperparameters | Problem 1 | ../data/超参数.md | tau=0.05 l2b=0.05 l2u=0.05 kappa=10 lr=0.02 steps=600 bs=32 B=1200 | exact (proposed) | registered |
 | B-16 | Preprocessing validation targets | refactor prompt | ../review/srcs_0/dwts_preprocess.py | see manifests/traceability_review.csv (R-01..R-19) | exact (proposed) | registered |
 | B-17 | Paper figures | paper_Latex/img/ | various ../src/* | visual; see manifests/traceability_paper.csv | visual (proposed) | registered |
