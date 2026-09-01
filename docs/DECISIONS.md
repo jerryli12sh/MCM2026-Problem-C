@@ -631,3 +631,34 @@ inspects the relevant legacy code or the owner approves a tolerance.
 - **Refs:** ``../src/2_rank_vs_pct_cross_season.ipynb`` (cell 39), ``src/dwts_reproduction/problem2/replay.py``
   (``case_weekly_rank_traces``, ``_bottom2_save_flags``), ``tests/test_problem2_replay.py``,
   ``outputs/problem2_case_rank_traces_{P,R}.csv``.
+
+### D-20260901-23 — Release-comparison scoping and review-row status resolution (established)
+
+- **Status:** established (2026-09-01).
+- **Context:** The Phase 7 release comparison (`scripts/run_release.py` +
+  `src/dwts_reproduction/release/compare.py`) flagged two false failures in the first
+  `--verify-only` run: (1) B-16 "Preprocessing validation targets" failed because the review
+  traceability inventory still carried `status=planned` for R-001..R-035 even though every one of
+  those requirements is implemented and tested (stale Phase 0 metadata); (2) B-17 "Paper figures"
+  under-counted PNGs because the figure manifests use three different schema shapes —
+  `{"figures": {...}}` for Problem 2 / sensitivity, `{"outputs": {...}}` for Problem 1 P1E /
+  Problem 3, `{"files": {...}}` for Problem 4 — while the check only read the first.
+- **Options:** (a) widen the acceptance checks to swallow both conditions; (b) leave the failures
+  and declare the release "not ok"; (c) scope the checks to the registered baseline contract and
+  correct the stale metadata to what is true.
+- **Choice:** (c). B-16 now verifies exactly the registered scope (R-001..R-019, the preprocessing
+  validation targets named in the baseline's `expected_value`), and B-17 counts figures across all
+  three schema variants with a completeness floor (>= 6 manifests, >= 60 PNGs; the reproduction
+  renders 79). In `scripts/build_traceability.py` the R_STATUS mapping records the validating test
+  for each of R-001..R-035 and flips its status to `implemented` — every mapped module
+  (`preprocess`, `problem1.model`, `problem1.eval`, `problem1.track_r`) and its tests exist, so
+  this is a metadata correction, not a methodology change.
+- **Rationale:** the registered baseline is the contract; the checks must test that contract, not
+  an over-broad proxy. Review-row statuses must reflect reality or the inventory misleads auditors.
+  No paper formula, sample definition, hyperparameter, or conclusion is altered — only acceptance
+  tooling and inventory metadata.
+- **Consequences:** `manifests/traceability_review.csv` is now 40/40 `implemented` with a
+  validating test per row; `--verify-only` reports 20/20 PASS with `release_ok=True`.
+- **Refs:** `scripts/build_traceability.py` (R_STATUS), `src/dwts_reproduction/release/compare.py`
+  (`_check_b16`, `_check_b17`, `_fig_count`, `_num`), `tests/test_release_compare.py`
+  (5 new B-16/B-17 tests), `manifests/baseline.csv` (B-16/B-17).

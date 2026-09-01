@@ -180,7 +180,7 @@ metric and chart from one command; coefficient tables include robust SEs, the `O
 reference group, sample definitions, and claim-check booleans; non-reproduced values are reported
 with honest status in D-20260901-17. 155 tests pass (`pytest -q`), `ruff check`/`mypy` clean.
 
-## Phase 7 — Release reproduction (`pending`)
+## Phase 7 — Release reproduction (`active`)
 
 - Produce final figures, tables, report, environment lock, data/metric dictionaries, and run manifest.
 - Produce a paper-faithful release, a review-corrected release, and a paper-vs-review comparison.
@@ -188,3 +188,16 @@ with honest status in D-20260901-17. 155 tests pass (`pytest -q`), `ruff check`/
 
 Gate: one documented command recreates the release; another runs the full test suite; all deviations
 from the review or legacy results appear in `docs/DECISIONS.md`.
+
+**Release-comparison framework complete (2026-09-01):** `scripts/run_release.py` (19-stage driver:
+problem1 P/R + extras, problem2 P/R, problem3, problem4, sensitivity, all plot scripts, baseline/
+traceability/conflict-matrix builders) writes `outputs/release_manifest.json` (per-stage timings,
+exit codes, stdout/stderr tails, git commit, python/platform) and `outputs/release_comparison.json`.
+The comparison checks all 20 registered baseline rows (B-01..B-20) against the produced artifacts
+via `src/dwts_reproduction/release/compare.py` (13→18 hermetic tests). Two false failures were
+resolved (D-20260901-23): B-16 now scopes to the registered R-001..R-019 preprocessing targets, and
+B-17 counts figures across all three manifest schema variants (`figures`/`outputs`/`files`);
+review traceability is now 40/40 `implemented` (R_STATUS mapping). `--verify-only` reports
+**20/20 PASS, release_ok=True**. The full end-to-end default run (≈24 min, includes problem4 sims
+≈15m and problem2 P/R ≈6.4m) is the remaining evidence; then hostile self-review and the final
+acceptance packet.

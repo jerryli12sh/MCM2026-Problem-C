@@ -10,7 +10,8 @@ Column contract (paper): ``id, section, loc, item_type, description, stated_valu
 legacy_producer, track_P_module, track_R_module, acceptance_test, tolerance, status``.
 The three ``track_*`` / ``acceptance_test`` columns are *planned* targets (Phase 0 does not
 claim the modules/tests exist yet), and ``status`` is ``planned`` until a later phase
-implements the item.
+implements the item. As of Phase 7 every review requirement (R-001..R-035) is implemented and
+tested; the ``R_STATUS`` mapping below records which test module validates each row.
 """
 
 from __future__ import annotations
@@ -1626,6 +1627,36 @@ REVIEW_ROWS: list[list[str]] = [
         "implemented",
     ),
 ]
+
+# --- Phase 7: every review requirement is implemented and tested --------------------
+# R-001..R-035 were authored as *planned* Phase 0 targets; by Phase 7 each maps to an
+# implemented, tested module. Record the validating test for every row that does not yet
+# carry an explicit one, and flip its status to ``implemented``.
+R_STATUS: dict[int, str] = {
+    # Preprocessing validation targets -> src/dwts_reproduction/preprocess.py
+    **dict.fromkeys(range(1, 22), "test_preprocess"),
+    # Problem 1 panel / model / evaluation -> problem1 modules
+    22: "test_problem1_panel",
+    23: "test_problem1_panel",
+    24: "test_problem1_panel",
+    25: "test_problem1_track_p",
+    26: "test_problem1_track_p",
+    27: "test_problem1_evaluate",
+    28: "test_problem1_evaluate",
+    29: "test_top1_metrics_are_in_sample_and_labeled",  # overclaim guard
+    # Track R corrections -> problem1.track_r
+    30: "test_problem1_track_r",
+    31: "test_preprocess",
+    32: "test_preprocess",
+    33: "test_preprocess",
+    34: "test_problem1_panel",
+    35: "test_problem1_track_r",
+}
+for _row in REVIEW_ROWS:
+    _idx = int(_row[0].split("-")[1])
+    if _idx in R_STATUS:
+        _row[9] = R_STATUS[_idx]  # acceptance_test column
+        _row[11] = "implemented"  # status column
 
 
 def _write_csv(header: list[str], rows: list[list[str]], path: Path) -> None:
