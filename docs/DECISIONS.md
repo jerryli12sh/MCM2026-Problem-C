@@ -10,25 +10,29 @@ review references, legacy references, and user approval when required.
 - Feature set and identifiability constraints for contestant effects `u`.
 - Approximation and optimization method for the integrated marginal likelihood.
 - Definition of fan-influence/excitement and technical-alignment metrics used for recommendation.
-- Tolerances for numerical equivalence versus deliberate correction of legacy results.
+- Tolerances for numerical equivalence versus deliberate correction of legacy results
+  (resolved for Problem 1 metrics in D-20260901-04; other phases still open).
 
 ## Phase 0 — conflict decisions
 
 These map one-to-one to `docs/CONFLICT_MATRIX.md`. Status is `open` until the owning phase
 inspects the relevant legacy code or the owner approves a tolerance.
 
-### D-20260901-01 — Era mapping direction (suspected)
+### D-20260901-01 — Era mapping direction (established)
 
-- **Status:** open (suspected, not established).
+- **Status:** established (2026-09-01).
 - **Context:** The official mapping is seasons 1–2 rank, 3–27 percent, 28–34 rank (Bottom-2
-  ~28+). Legacy `../src/model.py` reportedly uses `season>=28 -> "percent"` — the opposite.
+  ~28+). Legacy `../src/model.py` uses `season>=28 -> "percent"` — the opposite.
 - **Options:** (a) official only; (b) legacy only; (c) both behind an explicit `era_mode`.
-- **Choice:** (c) — expose `era_mode='legacy'|'official'`; leave the Track P default uncommitted
-  until the legacy era-assignment code is inspected line-by-line in Phase 1.
-- **Rationale:** reproducing the paper numbers may require the legacy mapping; the review
-  requires the official one. A variable named "percent" is not by itself proof of reversal.
-- **Consequences:** `era_mode` config; Track P may not match paper numbers if the legacy mapping
-  is confirmed reversed and the paper in fact used the official mapping.
+- **Choice:** (c) — expose `era_mode='legacy'|'official'`. Track P registers `legacy`; Track R
+  registers `official`. The legacy direction was confirmed line-by-line in
+  `../src/model.py` and `../src/model_new.py`, and the Track P pipeline reproduces the review
+  rebuild's outputs under it (top-1 accuracy bit-for-bit, see D-20260901-04).
+- **Rationale:** reproducing the paper numbers requires the legacy mapping; the review requires
+  the official one. Both must be reproducible and comparable; never merged silently.
+- **Consequences:** `era_mode` config; Track P metrics are only comparable to the paper/reference
+  under the legacy mapping. Track R must not reuse Track P's era-dependent `j_metric` without
+  recomputing the panel (implemented behind `era_mode`).
 - **Refs:** `../review/00_codex_preprocessing_refactor_prompt.md`,
   `../review/01_codex_problem1_refactor_prompt.md`, `../src/model.py`, `../src/model_new.py`.
 
@@ -54,17 +58,25 @@ inspects the relevant legacy code or the owner approves a tolerance.
 - **Consequences:** CI widths differ across settings; must be reported side by side.
 - **Refs:** `../data/超参数.md`, `../review/problem1_rebuild/outputs/problem1_summary.json`.
 
-### D-20260901-04 — Top-1 accuracy gap
+### D-20260901-04 — Top-1 accuracy gap (measured: numpy rebuild reproduces the reference)
 
-- **Status:** open (pending owner tolerance).
+- **Status:** resolved (2026-09-01, within registered tolerance).
 - **Context:** paper reports `0.952092`; review rebuild reports `0.949541` (~0.003 absolute gap).
-- **Choice:** register both; propose a tolerance and flag for owner approval before Phase 1 sets a
-  reproduction target.
-- **Rationale:** the gap may be seed/optimizer noise or a real pipeline difference; Phase 0 does not
-  decide which.
-- **Consequences:** Track P reproduction target is provisional until the gap is classified.
+- **Choice:** the numpy rebuild targets the review-rebuild numbers, not the paper's. Measured
+  numpy-vs-torch gap on the full Track P run (`outputs/problem1_summary_P.json`):
+  `overall_top1_accuracy = 0.9495412844036697` (**bit-for-bit equal** to the reference);
+  `mean_pcp_weighted = 0.6043173` (rel 1.4e-5); `mean_ess_ratio = 0.9625174` (rel 3e-6);
+  `mean_ci_rel_width = 3.1171359` (rel 6.4e-5). Pooled-fit final loss `1.2615689` vs reference
+  `1.2615778` (rel ~7e-6), attributable to float32 accumulation order in the hand-written numpy
+  Adam vs torch. All within the registered rel 1e-3 / abs 0.02 tolerances.
+- **Rationale:** the ~0.003 gap is a paper-vs-rebuild discrepancy (the rebuild itself does not
+  reproduce the paper's `0.952092`), not a numpy-vs-torch implementation gap. The numpy rebuild is
+  faithful to the reference rebuild within 1e-5.
+- **Consequences:** Track P reproduction target stays on the review-rebuild numbers. The
+  paper-vs-rebuild `0.003` remains an open paper discrepancy to document in Phase 7.
 - **Refs:** `../paper_Latex/2107542.tex` (Problem 1),
-  `../review/problem1_rebuild/outputs/problem1_summary.json`.
+  `../review/problem1_rebuild/outputs/problem1_summary.json`, `outputs/problem1_summary_P.json`,
+  `outputs/problem1_fit_meta_P.json`.
 
 ### D-20260901-05 — η specification drift
 
@@ -77,6 +89,26 @@ inspects the relevant legacy code or the owner approves a tolerance.
 - **Consequences:** Track P may require the legacy feature set to match paper numbers.
 - **Refs:** `../paper_Latex/2107542.tex` (eq:latent_score),
   `../review/problem1_rebuild/outputs/problem1_fit_metadata.json`.
+
+### D-20260901-07 — Posterior reweighting mode (rebuild vs legacy)
+
+- **Status:** established (2026-09-01).
+- **Context:** the reference rebuild restricts softmin reweighting to single-elimination,
+  non-final weeks with a full finite judge signal (``has_posterior_mode='rebuild'``) for the
+  posterior-summary targets, but the legacy pipeline that produced the paper's ``S_bar = 0.78``
+  reweighted every single-elimination event including finales (``'legacy'``). The two families of
+  targets require different modes.
+- **Choice:** expose ``has_posterior_mode='rebuild'|'legacy'``. ``posterior_summary`` / reference
+  summary targets (top-1, PCP, ESS, CI width) use ``'rebuild'`` (default); the cumulative
+  consistency event tables reproduce ``S_bar`` under ``'legacy'``.
+- **Rationale:** neither mode is a bug; they answer different questions. Mixing them would make one
+  family of reference numbers unreproducible.
+- **Consequences:** measured ``S_bar = 0.7785311681432541`` under legacy mode (within the
+  registered abs 0.02 of ``0.78``); top-1/PCP/ESS/CI under rebuild mode (see D-20260901-04). The
+  choice is per-call, not a global config, so both families stay reproducible from one fit.
+- **Refs:** `../review/problem1_rebuild/problem1_fan_support.py`,
+  `../src/model_new.py`, `../src/build_event_table.py`,
+  `../review/problem1_rebuild/outputs/problem1_summary.json`.
 
 ### D-20260901-06 — Fan votes are not ground truth
 

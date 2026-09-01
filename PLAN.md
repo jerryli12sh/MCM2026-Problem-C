@@ -27,7 +27,7 @@ inputs; 96 paper / 35 review traceability rows; 6 conflicts; 17 baseline rows). 
 Gate: schema and invariant tests pass; row counts and key summaries reconcile against both raw data
 and the reviewed preprocessing artifacts. All differences are documented.
 
-## Phase 2 — Latent fan-support models (`pending`)
+## Phase 2 — Latent fan-support models (`active`)
 
 - Implement alive-set-normalized judge signals and feature construction.
 - Implement pooled support center `q = softmax(X beta + u)`.
@@ -36,6 +36,15 @@ and the reviewed preprocessing artifacts. All differences are documented.
 - Track R: fit the review's integrated model by marginalizing `p ~ Dirichlet(kappa q)` in the
   elimination likelihood, avoiding double use of the same outcome.
 - Produce posterior means, intervals, effective sample size diagnostics, and deterministic samples.
+
+**Track P implementation complete (2026-09-01):** pooled softmin fit (hand-written numpy + Adam,
+float32, matching the torch reference) + Dirichlet importance-sampling posteriors reproduce the
+review-rebuild targets — `top1 = 0.9495412844036697` (bit-for-bit), `mean_pcp_weighted = 0.6043173`
+(rel 1.4e-5), `mean_ess_ratio = 0.9625174` (rel 3e-6), `mean_ci_rel_width = 3.1171359` (rel 6.4e-5),
+`S_bar = 0.7785` (abs 0.0015 vs 0.78); panel 4199 rows, 218 train weeks, 292 elimination events.
+`scripts/problem1_run.py` writes 11 track-tagged artifacts + a run manifest (input sha
+`7485ffa4…f44b`). 73 tests pass; ruff/mypy clean. Decisions: D-20260901-01 (era mapping), D-20260901-04
+(numpy-vs-torch gap), D-20260901-07 (posterior reweighting mode). Track R still pending.
 
 Gate: simplex/numerical/gradient tests pass for both tracks; synthetic recovery succeeds; convergence
 and sampling diagnostics meet thresholds; paper-number reproduction, Track P limitations, Track R

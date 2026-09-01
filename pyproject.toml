@@ -15,6 +15,16 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+# The core package is numpy/pandas only; the softmin model uses a hand-written
+# Adam optimizer so no torch is required.  These extras cover the downstream
+# analyses and figures.
+analysis = [
+    "scipy>=1.10",
+    "matplotlib>=3.7",
+    "scikit-learn>=1.3",
+    "statsmodels>=0.14",
+    "xgboost>=1.7",
+]
 torch = ["torch>=2.0"]
 xgboost = ["xgboost>=1.7"]
 statsmodels = ["statsmodels>=0.14"]
@@ -38,11 +48,15 @@ select = ["E", "F", "W", "I", "UP", "B"]
 ignore = ["E501"]  # line length is enforced by `ruff format`, not lint
 
 [tool.mypy]
-python_version = "3.11"
+python_version = "3.13"
 files = ["src/dwts_reproduction"]
 warn_return_any = true
 warn_unused_ignores = true
 no_implicit_optional = true
+# pandas, scipy, sklearn, statsmodels, matplotlib, and xgboost do not ship
+# complete inline stubs; their calls are treated as Any while our own function
+# signatures and internal consistency are still checked.
+ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

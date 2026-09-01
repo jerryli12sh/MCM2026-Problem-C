@@ -1,0 +1,22 @@
+# Problem 1 — latent fan-support model configuration (Track P).
+#
+# Track P reproduces the paper's two-stage procedure exactly.  era_mode='legacy'
+# matches the reference rebuild and the legacy `model.py` (`season >= 28 -> percent`),
+# which is the pipeline that actually produced the paper's reported numbers
+# (D-20260901-01, now established by line-by-line inspection of `../src/model.py`).
+#
+# Track R (review-corrected) overrides era_mode='official' and adds the integrated
+# marginal-likelihood fit; see docs/DECISIONS.md and docs/METHOD_SPEC.md.
+track: P
+era_mode: legacy
+seed: 42
+tau_train: 0.05
+tau_like: 0.15
+kappa: 10.0
+l2_beta: 0.05
+l2_u: 0.05
+lr: 0.020
+n_steps: 600
+batch_size: 32
+B: 1200
+eps: 1e-6
