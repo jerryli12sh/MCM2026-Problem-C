@@ -63,6 +63,7 @@ def p(
     tr: str = "",
     test: str = "",
     tol: str = "",
+    status: str = "planned",
 ) -> list[str]:
     return [
         f"P-{idx:03d}",
@@ -76,7 +77,7 @@ def p(
         tr or ("shared" if tp else "planned"),
         test or "planned",
         tol,
-        "planned",
+        status,
     ]
 
 
@@ -141,6 +142,7 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "",
         P2,
+        status="implemented",
     ),
     p(
         7,
@@ -171,6 +173,7 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "",
         P2,
+        status="implemented",
     ),
     p(
         10,
@@ -476,6 +479,7 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "../src/2_rank_vs_pct_cross_season.ipynb",
         P2,
+        status="implemented",
     ),
     p(
         40,
@@ -486,6 +490,7 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "../src/2_rank_vs_pct_cross_season.ipynb",
         P2,
+        status="implemented",
     ),
     p(
         41,
@@ -496,6 +501,7 @@ PAPER_ROWS: list[list[str]] = [
         "DR_s>0.6 frequent",
         "../src/2_rank_vs_pct_cross_season.ipynb",
         P2,
+        status="implemented",
     ),
     p(
         42,
@@ -526,6 +532,7 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "../src/2_rank_vs_pct_cross_season.ipynb",
         P2,
+        status="implemented",
     ),
     p(
         45,
@@ -556,6 +563,7 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "../src/b2_save_metrics.py",
         P2,
+        status="implemented",
     ),
     p(
         48,
@@ -566,6 +574,7 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "../src/b2_save_metrics.py",
         P2,
+        status="implemented",
     ),
     p(
         49,
@@ -606,6 +615,7 @@ PAPER_ROWS: list[list[str]] = [
         "see description",
         "../src/sim_rank_trend_cases.py",
         P2C,
+        status="implemented",
     ),
     p(
         53,
@@ -646,6 +656,7 @@ PAPER_ROWS: list[list[str]] = [
         "visual",
         "../src/2_rank_vs_pct_cross_season.ipynb",
         P2,
+        status="implemented",
     ),
     p(
         57,
@@ -656,6 +667,7 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "",
         P2,
+        status="implemented",
     ),
     # ---- Problem 3 ----
     p(
@@ -1081,6 +1093,7 @@ def r(
     tr: str = "",
     test: str = "",
     tol: str = "",
+    status: str = "planned",
 ) -> list[str]:
     return [
         f"R-{idx:03d}",
@@ -1094,7 +1107,7 @@ def r(
         tr or ("shared" if tp else "planned"),
         test or "planned",
         tol,
-        "planned",
+        status,
     ]
 
 
@@ -1455,6 +1468,77 @@ REVIEW_ROWS: list[list[str]] = [
         "",
         P1,
         P1,
+    ),
+    # Review Problem 2 mechanism evaluation (review_all.md, section "评估不同的票数合并机制...")
+    r(
+        36,
+        "review_all",
+        "override_rate",
+        "formula",
+        "Override_s^m = 1/|W_s| sum_t I(e^m != e_J); Percentage-based rule overrides the judge more often",
+        "",
+        "src/dwts_reproduction/problem2/replay.py",
+        P2,
+        P2,
+        "test_problem2_replay",
+        "",
+        "implemented",
+    ),
+    r(
+        37,
+        "review_all",
+        "bottom2_reversal",
+        "formula",
+        "Reversal rev = P(Bottom2+Save != Direct elimination); percentage reversal higher and rises as the alive set shrinks",
+        "",
+        "src/dwts_reproduction/problem2/replay.py",
+        P2,
+        P2,
+        "test_problem2_replay",
+        "",
+        "implemented",
+    ),
+    r(
+        38,
+        "review_all",
+        "controversy_scatter",
+        "visual",
+        "Controversy-group scatter: x = fan rank - judge rank, y = fan share - judge share; second-quadrant contestants (fan-loved, judge-scored low) most exposed to Bottom-2",
+        "",
+        "src/dwts_reproduction/problem2/replay.py",
+        P2,
+        P2,
+        "test_problem2_replay",
+        "",
+        "implemented",
+    ),
+    r(
+        39,
+        "review_all",
+        "phase_axes",
+        "formula",
+        "Phase axes: x = mu(|p_i - J_i|) fan influence, y = 1 - mu(|r_Final - r_J|) judge consistency (r_Final = descending rank of survival-week counts, r_J = descending rank of mean judge_percent)",
+        "",
+        "src/dwts_reproduction/problem2/mechanism_phase.py",
+        P2,
+        P2,
+        "test_mechanism_phase",
+        "",
+        "implemented",
+    ),
+    r(
+        40,
+        "review_all",
+        "perc_bottom2_claim",
+        "claim",
+        "Review claim: Perc+Bottom2 has the highest overall x and y among the four mechanisms",
+        "reproduced data: rank_bottom2 highest on both axes; claim not supported (recorded honestly)",
+        "src/dwts_reproduction/problem2/mechanism_phase.py",
+        P2,
+        P2,
+        "test_mechanism_phase",
+        "",
+        "implemented",
     ),
 ]
 

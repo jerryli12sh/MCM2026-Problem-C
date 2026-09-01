@@ -16,3 +16,4 @@ B-14,Problem 3 surprise beta1,Problem 3,../src/dwts_pro_celeb_regression.py,0.34
 B-15,Model hyperparameters,Problem 1,../data/超参数.md,tau=0.05 l2b=0.05 l2u=0.05 kappa=10 lr=0.02 steps=600 bs=32 B=1200,exact (proposed),registered
 B-16,Preprocessing validation targets,refactor prompt,../review/srcs_0/dwts_preprocess.py,see manifests/traceability_review.csv (R-01..R-19),exact (proposed),registered
 B-17,Paper figures,paper_Latex/img/,various ../src/*,visual; see manifests/traceability_paper.csv,visual (proposed),registered
+B-18,Problem 2 b2/phase output tables,"outputs/problem2_{b2_metrics,season_metrics,case_divergence,case_weekly_probs,phase_metrics,phase_claim_checks}_{P,R}.csv",scripts/problem2_run.py,"136 phase rows (34 seasons x 4 mechanisms); b2 12 rows; see outputs/problem2_run_manifest_{P,R}.json for hashes",structural (proposed),registered

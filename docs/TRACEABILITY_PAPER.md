@@ -11,10 +11,10 @@
 | P-003 | Prep | A3 | assumption | Weekly fan voting is a vote-share vector p; expected pattern q via softmax |  |  | problem1.model | shared | planned |  | planned |
 | P-004 | Prep | A4 | assumption | Elimination probabilistic; worse combined signal more likely; temperature governs randomness |  |  | problem1.model | shared | planned |  | planned |
 | P-005 | Prep | A5 | assumption | Weekly fan shares vary around trend q via Dirichlet centered at q |  |  | problem1.model | shared | planned |  | planned |
-| P-006 | Prep | A6 | assumption | Counterfactual invariance: rule change does not change judge scores or fan preference |  |  | problem2.rules | shared | planned |  | planned |
+| P-006 | Prep | A6 | assumption | Counterfactual invariance: rule change does not change judge scores or fan preference |  |  | problem2.rules | shared | planned |  | implemented |
 | P-007 | Prep | A7 | assumption | Within-season judging standard stable enough that judge-signal changes track real improvement |  |  | problem3.regression | shared | planned |  | planned |
 | P-008 | Prep | A8 | assumption | Fan support comparable across seasons at matched checkpoints, not across weeks within a season |  |  | problem3.regression | shared | planned |  | planned |
-| P-009 | Prep | A9 | assumption | Bottom-2 judges save: judges eliminate technically weaker of the bottom two |  |  | problem2.rules | shared | planned |  | planned |
+| P-009 | Prep | A9 | assumption | Bottom-2 judges save: judges eliminate technically weaker of the bottom two |  |  | problem2.rules | shared | planned |  | implemented |
 | P-010 | Prep | notations | table | Notations table: core symbols (s,t,i,A,J,p,q,kappa,S,tau,i*,PCP,e_hat,Bottom2) |  |  | shared | shared | planned |  | planned |
 | P-011 | Prep | preprocess-1 | formula | Structural-zero handling: post-elimination zeros recoded NaN; original N/A preserved |  | ../src/0data_cleaning.ipynb; ../review/srcs_0/dwts_preprocess.py | preprocessing | shared | planned |  | planned |
 | P-012 | Prep | preprocess-2 | formula | Outcome parsing: elim_week_result, is_withdrew, is_place; withdrawals excluded |  | ../src/0data_cleaning.ipynb | preprocessing | shared | planned |  | planned |
@@ -44,25 +44,25 @@
 | P-036 | Problem 1 | eq:ci | metric | 90% credible interval CI90 = [Q_0.05, Q_0.95]; relative width RW = (hi-lo)/(p_hat+eps) |  | ../src/posterior_uncertainty.py | problem1.eval | shared | planned |  | planned |
 | P-037 | Problem 1 | 1_fig2_ci_heatmap_S21.png | figure | Season 21 relative CI width heatmap (heterogeneous uncertainty) | visual | ../src/plot_uncertainty.py | problem1.eval | shared | planned |  | planned |
 | P-038 | Problem 1 | ess | method | ESS diagnostic per week; flag low-ESS, increase B to stabilize |  | ../src/posterior_uncertainty.py | problem1.eval | shared | planned |  | planned |
-| P-039 | Problem 2 | eq:rank_rule | formula | Rank rule: e_hat = argmax_i (rank(-T_i) + rank(-p_hat_i)) |  | ../src/2_rank_vs_pct_cross_season.ipynb | problem2.rules | shared | planned |  | planned |
-| P-040 | Problem 2 | eq:pct_rule | formula | Percentage rule: e_hat = argmin_i (T_i/sum T + p_hat_i) |  | ../src/2_rank_vs_pct_cross_season.ipynb | problem2.rules | shared | planned |  | planned |
-| P-041 | Problem 2 | eq:dr | metric | Disagreement rate DR_s = 1/\|W\| sum 1{e_rank != e_pct} | DR_s>0.6 frequent | ../src/2_rank_vs_pct_cross_season.ipynb | problem2.rules | shared | planned |  | planned |
+| P-039 | Problem 2 | eq:rank_rule | formula | Rank rule: e_hat = argmax_i (rank(-T_i) + rank(-p_hat_i)) |  | ../src/2_rank_vs_pct_cross_season.ipynb | problem2.rules | shared | planned |  | implemented |
+| P-040 | Problem 2 | eq:pct_rule | formula | Percentage rule: e_hat = argmin_i (T_i/sum T + p_hat_i) |  | ../src/2_rank_vs_pct_cross_season.ipynb | problem2.rules | shared | planned |  | implemented |
+| P-041 | Problem 2 | eq:dr | metric | Disagreement rate DR_s = 1/\|W\| sum 1{e_rank != e_pct} | DR_s>0.6 frequent | ../src/2_rank_vs_pct_cross_season.ipynb | problem2.rules | shared | planned |  | implemented |
 | P-042 | Problem 2 | 2_posterior_probability.png | figure | Posterior agreement (bimodal) | visual | ../src/2_rank_vs_pct_cross_season.ipynb | problem2.rules | shared | planned |  | planned |
 | P-043 | Problem 2 | 2_weekly_disagreement.png | figure | Weekly disagreement | visual | ../src/2_rank_vs_pct_cross_season.ipynb | problem2.rules | shared | planned |  | planned |
-| P-044 | Problem 2 | eq:override | metric | Override rate = 1/\|W\| sum 1{e_hat != argmin T}; FanWorst = 1{e = argmin p_hat} |  | ../src/2_rank_vs_pct_cross_season.ipynb | problem2.rules | shared | planned |  | planned |
+| P-044 | Problem 2 | eq:override | metric | Override rate = 1/\|W\| sum 1{e_hat != argmin T}; FanWorst = 1{e = argmin p_hat} |  | ../src/2_rank_vs_pct_cross_season.ipynb | problem2.rules | shared | planned |  | implemented |
 | P-045 | Problem 2 | 2_posterior_delta.png | figure | Delta_s = E[Override_rank - Override_pct] < 0 (pct more fan override) | visual | ../src/2_rank_vs_pct_cross_season.ipynb | problem2.rules | shared | planned |  | planned |
 | P-046 | Problem 2 | 2_threshold_fan_share.png | figure | Threshold fan share for judge-worst to survive | visual | ../src/2_rank_vs_pct_cross_season.ipynb | problem2.rules | shared | planned |  | planned |
-| P-047 | Problem 2 | eq:bottom2 | formula | Bottom-2 + save: B = arg two-min S, e_hat = argmin_{i in B} J_i |  | ../src/b2_save_metrics.py | problem2.rules | shared | planned |  | planned |
-| P-048 | Problem 2 | eq:rev_rate | metric | Reversal rate rev_rate = Pr(e_B2 != e_direct) |  | ../src/b2_save_metrics.py | problem2.rules | shared | planned |  | planned |
+| P-047 | Problem 2 | eq:bottom2 | formula | Bottom-2 + save: B = arg two-min S, e_hat = argmin_{i in B} J_i |  | ../src/b2_save_metrics.py | problem2.rules | shared | planned |  | implemented |
+| P-048 | Problem 2 | eq:rev_rate | metric | Reversal rate rev_rate = Pr(e_B2 != e_direct) |  | ../src/b2_save_metrics.py | problem2.rules | shared | planned |  | implemented |
 | P-049 | Problem 2 | 3_Reversal_Heatmap_Rank.png | figure | Reversal heatmap (rank) | visual | ../src/b2_save_metrics.py | problem2.rules | shared | planned |  | planned |
 | P-050 | Problem 2 | 3_Reversal_Heatmap_Percent.png | figure | Reversal heatmap (percentage) | visual | ../src/b2_save_metrics.py | problem2.rules | shared | planned |  | planned |
 | P-051 | Problem 2 | 3_Discrepancy_Scatter.png | figure | Judge-fan disagreement landscape (top-left quadrant controversies) | visual | ../src/2_rank_vs_pct_cross_season.ipynb | problem2.cases | shared | planned |  | planned |
-| P-052 | Problem 2 | tab:selected_cases | table | Selected controversy cases (\|d\|, Flip): Jerry Rice 3.69/0.87; B.R.Cyrus 3.25/0.75; B.Palin 4.30/0.97; Bobby Bones 4.00/0.57; Tinashe 8.50/0.57; Vinny G. 9.88/0.33 | see description | ../src/sim_rank_trend_cases.py | problem2.cases | shared | planned |  | planned |
+| P-052 | Problem 2 | tab:selected_cases | table | Selected controversy cases (\|d\|, Flip): Jerry Rice 3.69/0.87; B.R.Cyrus 3.25/0.75; B.Palin 4.30/0.97; Bobby Bones 4.00/0.57; Tinashe 8.50/0.57; Vinny G. 9.88/0.33 | see description | ../src/sim_rank_trend_cases.py | problem2.cases | shared | planned |  | implemented |
 | P-053 | Problem 2 | 4_EliminationProbability_*.png | figure | Six-case elimination probability panels | visual | ../src/sim_rank_trend_cases.py | problem2.cases | shared | planned |  | planned |
 | P-054 | Problem 2 | 4_SurvivalCurves_*.png | figure | Six-case survival curves (Save vs Direct) | visual | ../src/sim_rank_trend_cases.py | problem2.cases | shared | planned |  | planned |
 | P-055 | Problem 2 | 4_RankVsPercentage_*.png | figure | Six-case rank divergence panels | visual | ../src/sim_rank_trend_cases.py | problem2.cases | shared | planned |  | planned |
-| P-056 | Problem 2 | 5_Mechanism phase diagram.png | figure | Mechanism phase diagram (fan influence x, judge consistency y) | visual | ../src/2_rank_vs_pct_cross_season.ipynb | problem2.rules | shared | planned |  | planned |
-| P-057 | Problem 2 | recommendation | claim | Recommendation: Percentage base + Bottom-2 judges save |  |  | problem2.rules | shared | planned |  | planned |
+| P-056 | Problem 2 | 5_Mechanism phase diagram.png | figure | Mechanism phase diagram (fan influence x, judge consistency y) | visual | ../src/2_rank_vs_pct_cross_season.ipynb | problem2.rules | shared | planned |  | implemented |
+| P-057 | Problem 2 | recommendation | claim | Recommendation: Percentage base + Bottom-2 judges save |  |  | problem2.rules | shared | planned |  | implemented |
 | P-058 | Problem 3 | eq:demo_model | formula | Demographic OLS: Y = alpha + beta_Age Age + sum delta_k I(industry=k) |  | ../src/dwts_pro_celeb_regression.py | problem3.regression | shared | planned |  | planned |
 | P-059 | Problem 3 | coef_age | metric | Judge age penalty beta_Age ~ -0.04 (all weeks); fan age penalty reverses by W11 | -0.04 | ../src/dwts_pro_celeb_regression.py | problem3.regression | shared | planned |  | planned |
 | P-060 | Problem 3 | coef_actor | metric | Actor: judge W1 beta~0.16; fan W6 beta=-0.87 (audience fatigue) | 0.16 / -0.87 | ../src/dwts_pro_celeb_regression.py | problem3.regression | shared | planned |  | planned |

@@ -72,7 +72,7 @@ differences, leakage-safe held-out evaluation, and in-sample reconstruction are 
 
 Gate: metrics are reproducible from one command and every chart is backed by a saved table.
 
-## Phase 4 — Historical and counterfactual mechanisms (`pending`)
+## Phase 4 — Historical and counterfactual mechanisms (`active`)
 
 - Implement rank, percentage, and bottom-2 judges-save rules as separately tested pure functions.
 - Replay posterior draws, quantify override/reversal, and reproduce named controversy case studies.
@@ -80,6 +80,26 @@ Gate: metrics are reproducible from one command and every chart is backed by a s
 
 Gate: hand-worked fixtures pass; ties and special seasons have explicit policies; posterior uncertainty
 propagates into reported comparisons.
+
+**Phase 4 implementation complete (2026-09-01):** the four mechanisms (rank/percentage ×
+direct/Bottom-2+save) are implemented as pure, tested rule functions (`problem2/rules.py`) and a
+counterfactual trajectory replay over fitted posterior draws (`problem2/replay.py`) with explicit
+tie policies (D-20260901-09) and carry-forward alive-set snapshots. Named case studies reproduce
+Table 1's `|d|`/`Flip` values and the reference `metrics_b2_save.csv`. The mechanism phase diagram
+(paper Fig. 5, P-056/P-057) and the review's axis definition (R-039) are implemented behind the track
+label (D-20260901-10) with `scripts/problem2_run.py` writing `problem2_*_{P,R}.csv` tables + a run
+manifest and `scripts/plot_phase_diagram.py` rendering `outputs/figures/problem2_phase_diagram_{P,R}.png`
+from the saved tables (sidecar pins source-table hash + manifest match). Posterior uncertainty is
+propagated as 10–90% CI whiskers and claim-check deltas; the review's Perc+Bottom2-highest claim
+(R-040) is checked and honestly reported as *not supported* on the reproduced data (top mechanism by
+y, y_review, and x is `rank_bottom2` on both tracks; the paper's `x >= 0.3` fan-influence subset is
+empty, so P-057 is reported "not testable"). 136 phase rows, 12 b2 rows, 5-6 claim-check rows per
+track. Decisions: D-20260901-09, D-20260901-10. Traceability P-039..P-057 and R-036..R-040 now
+`implemented`; baseline B-18 registers the b2/phase tables.
+
+Gate (recheck): hand-worked fixtures pass; ties and special seasons have explicit policies
+(D-20260901-09); posterior uncertainty propagates into reported comparisons (CI whiskers + claim-check
+deltas).
 
 ## Phase 5 — New mechanism (`pending`)
 

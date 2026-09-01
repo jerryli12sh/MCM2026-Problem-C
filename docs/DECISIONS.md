@@ -5,10 +5,10 @@ review references, legacy references, and user approval when required.
 
 ## Open decisions
 
-- Exact tie handling under each historical mechanism and season.
 - Historical rule/season mapping, especially judge-save seasons and exceptional events.
 - Feature set and identifiability constraints for contestant effects `u`.
-- Definition of fan-influence/excitement and technical-alignment metrics used for recommendation.
+- Definition of fan-influence/excitement and technical-alignment metrics used for the
+  *Problem 4* recommendation (the phase-diagram axes are resolved in D-20260901-10).
 - Tolerances for numerical equivalence versus deliberate correction of legacy results
   (resolved for Problem 1 metrics in D-20260901-04; other phases still open).
 
@@ -155,3 +155,69 @@ inspects the relevant legacy code or the owner approves a tolerance.
 - **Refs:** `../review/notes/review_all.md` (integrated marginal-likelihood proposal),
   `src/dwts_reproduction/problem1/track_r.py`,
   `tests/test_problem1_track_r.py`, `outputs/problem1_summary_R.json`.
+
+### D-20260901-09 — Tie handling and b2-save semantics for Problem 2
+
+- **Status:** established (2026-09-01).
+- **Context:** the paper's rank / percentage / Bottom-2 + judges'-save formulas
+  (`../paper_Latex/2107542.tex`, Problem 2) use ``argmax``/``argmin`` with no stated tie rule.
+  The legacy notebook ``src/2_rank_vs_pct_cross_season.ipynb`` (cells 20/29/34) and the reference
+  b2-save metrics producer ``src/b2_save_metrics.py`` (the producer of
+  ``../data/metrics_b2_save.csv``) each apply their own deterministic lexsort tie-breaking, and the
+  two differ.
+- **Options:** (a) first-index ties everywhere; (b) replicate each legacy producer's lexsort
+  exactly where a reference output exists; (c) a single global tie policy across all functions.
+- **Choice:** (c) rejected; (b) with a named policy per function family. ``simulate_week`` and the
+  paper-formula point helpers use the legacy notebook's lexsort ``(name_key, p, j, score)`` with
+  ``score`` primary; ``risk_and_bottom2``/``b2_case_metrics`` port ``src/b2_save_metrics.py``
+  exactly (primary ``-risk``, then ``judge_pct``, then ``p_draw``, then name). First-index ties on
+  the name-sorted ordering are used only where the paper formula is evaluated on its own.
+- **Rationale:** the b2 reference CSV and the Table 1 ``|d|``/``Flip`` case table were produced
+  under these exact orderings; deviating would make the registered values unreproducible. The three
+  policies coincide except on exact ties, which are rare on real data.
+- **Consequences:** Track P reproduces the paper Table 1 ``|d|``/``Flip`` and the reference
+  ``metrics_b2_save.csv`` within the registered tolerances (see ``outputs/problem2_summary_P.json``);
+  the phase-diagram replay uses first-index ties on name-sorted rosters. The distinction is pinned by
+  `tests/test_problem2_rules.py` and the replay tests. Invariant scope for
+  ``risk_and_bottom2``: the *save* eliminee is mode-consistent (both ``'rank'`` and ``'pct'``
+  eliminate the worse judge of the bottom two and agree whenever the bottom-two pair coincides), but
+  the *direct* eliminee ``elim_base`` is **not** expected to match across modes — the rank risk
+  ``wJ*jr + wF*fr`` and the pct risk ``wJ*(1-J) + wF*(1-p)`` are different objective functions that
+  legitimately pick different worst contestants, which *is* the paper's rank-vs-percentage premise
+  (``DR``/``Flip``). An earlier draft test asserted ``r_base == p_base``; that invariant was invalid
+  and was corrected to pin the save rule and a deterministic seed-7 divergence check instead.
+- **Refs:** `../src/2_rank_vs_pct_cross_season.ipynb`, `../src/b2_save_metrics.py`,
+  `../data/metrics_b2_save.csv`, `src/dwts_reproduction/problem2/rules.py`.
+
+### D-20260901-10 — Mechanism phase diagram axis definitions (paper Fig 5 vs review R-040)
+
+- **Status:** established (2026-09-01).
+- **Context:** the paper's phase diagram (`../paper_Latex/2107542.tex`, lines 738-749) embeds each
+  season by fan influence ``x = mu(|Ds|)`` with ``Ds = p - J`` (fan share minus judge share) and
+  judge consistency ``y = 1 - mu(|Dr|)`` with ``Dr`` the *raw within-week* rank differences
+  ``r_Final - r_J`` (ranks span ``1..n``). The review (`../review/notes/review_all.md`, R-040)
+  defines ``x = mu(|p_i - J_i|)`` and ``y = 1 - mu(|r_Final - r_J|)`` with ``r_Final`` the
+  descending rank of survival-week counts and ``r_J`` the descending rank of mean ``judge_percent``
+  over alive weeks. No legacy code producer exists in ``src/``; the paper's ``y`` uses raw rank
+  differences so it is **not bounded below** (typically negative), and the paper only makes
+  *comparative* claims about it.
+- **Options:** (a) paper axis definitions only; (b) review definitions only; (c) both behind the
+  track label.
+- **Choice:** (c) — Track P reports the paper's ``y = 1 - mu(|Dr|)`` (``y_posterior_mean``), Track R
+  the review's survival-week-vs-judge-ranking ``y_review_posterior_mean``; ``x`` is shared. The
+  replay is a counterfactual trajectory over the fitted posterior draws with carry-forward
+  alive-set snapshots (the counterfactual alive set is *not* a subset of the observed alive set once
+  a mechanism pre-eliminates or keeps someone the observed data did not).
+- **Rationale:** each track should be checked against the axis definition its source document
+  states, and the two can disagree on the recommended mechanism (R-040 predicts Perc+Bottom2 highest
+  overall on both axes; the reproduced tables put ``rank_bottom2`` highest on both tracks, see the
+  claim checks in ``outputs/problem2_*_phase_claim_checks_{P,R}.csv``). Reporting only one would
+  silently drop the conflict the governing rules require us to surface.
+- **Consequences:** ``y``/``y_review`` are not bounded below and must not be normalized away (alive
+  sets differ across mechanisms under divergence, so a per-week ``(n-1)`` normalization is not
+  applied); claim checks compare posterior-mean *deltas* rather than absolute ``y``. The paper's
+  high fan-influence subset (``x >= 0.3``) is empty on the reproduced data, so P-057's conditional
+  claim is reported as "not testable" rather than silently omitted.
+- **Refs:** `../paper_Latex/2107542.tex` (Fig 5, P-056/P-057), `../review/notes/review_all.md`
+  (R-040), `src/dwts_reproduction/problem2/mechanism_phase.py`,
+  `tests/test_mechanism_phase.py`.

@@ -182,6 +182,14 @@ ROWS: list[list[str]] = [
         "visual; see manifests/traceability_paper.csv",
         "visual (proposed)",
     ),
+    b(
+        18,
+        "Problem 2 b2/phase output tables",
+        "outputs/problem2_{b2_metrics,season_metrics,case_divergence,case_weekly_probs,phase_metrics,phase_claim_checks}_{P,R}.csv",
+        "scripts/problem2_run.py",
+        "136 phase rows (34 seasons x 4 mechanisms); b2 12 rows; see outputs/problem2_run_manifest_{P,R}.json for hashes",
+        "structural (proposed)",
+    ),
 ]
 
 
