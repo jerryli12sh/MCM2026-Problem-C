@@ -101,6 +101,19 @@ manifest pins the input hash. 142 tests pass (`pytest -q`), `ruff check`/`mypy` 
 Gate: hand-worked fixtures pass; ties and special seasons have explicit policies; posterior uncertainty
 propagates into reported comparisons.
 
+**Problem 2 figure rendering complete (2026-09-01):** the ten never-produced paper figure rows
+(P-042/P-043/P-045/P-046/P-049/P-050/P-051/P-053/P-054/P-055) are now rendered by
+`scripts/plot_problem2_figures.py` from the saved track-tagged CSVs (figure→data mapping verified in
+legacy notebook cells 5/10/13/16/23/27/34/39) into `outputs/figures_{P,R}/` (paper-exact filenames),
+25 PNGs per track. Every PNG is recorded in `outputs/problem2_fig_manifest_{P,R}.json` with its
+traceability id + sha256; no figure exists without a manifest record. Key rendering decisions are
+documented in D-20260901-21 (per-figure source, P-045 deterministic bootstrap seed 42, fixed era
+palette, producer attribution, P-054 Solid=Save/Dashed=Direct) and D-20260901-22 (deterministic
+Bottom-2/judges-save labels persisted in `problem2_case_rank_traces_*.csv` for the P-055 ring
+annotations). `problem2_case_weekly_probs_*.csv` now carries `celebrity_name` so season-27's two
+cases stay unambiguous (tested by `test_case_weekly_probs_carries_case_identity`). Traceability
+P-042..P-055 all `implemented`; figure acceptance evidenced by the manifests.
+
 **Phase 4 implementation complete (2026-09-01):** the four mechanisms (rank/percentage ×
 direct/Bottom-2+save) are implemented as pure, tested rule functions (`problem2/rules.py`) and a
 counterfactual trajectory replay over fitted posterior draws (`problem2/replay.py`) with explicit

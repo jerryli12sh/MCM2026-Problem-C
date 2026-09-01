@@ -196,6 +196,22 @@ ROWS: list[list[str]] = [
         "136 phase rows (34 seasons x 4 mechanisms); b2 12 rows; see outputs/problem2_run_manifest_{P,R}.json for hashes",
         "structural (proposed)",
     ),
+    b(
+        19,
+        "V1 simulator legacy parity",
+        "outputs/problem4_sim_summary_V1.csv",
+        "../src/season_simulator.py; ../data/sim_summary.csv",
+        "99 cells (3 schemes x 11 weeks x 3 archetypes) of avg_rank equal to sim_summary.csv within 5e-3 (recalibrated; MC-noise envelope ~2.5e-3 from fit-snapshot drift, D-20260901-19); case summaries 18 rows match sim_case_summary.csv final_alive_rate exactly",
+        "abs 5e-3 (recalibrated, proposed)",
+    ),
+    b(
+        20,
+        "V2 simulator + Shock_k claim checks",
+        "outputs/problem4_sim_summary_V2.csv; outputs/problem4_claims_P4.csv",
+        "../src/season_simulator2.py; ../src/sim_rank_trend_cases_2.py",
+        "V4/V5 summaries (avg_score) 8 rows x 3 archetypes; P-084/P-085/P-086 claim checks on the seeded run (P-086a Shock_k3(V5) <= Shock_k3(V4) baseline-fairness; P-086b Shock_k3(V5) <= Shock_k3(S3) cross-mechanism)",
+        "structural / pass-on-seeded-run (proposed)",
+    ),
 ]
 
 

@@ -17,9 +17,14 @@ from typing import Any
 # "P" and "R" are the two analytical tracks; "P1E" tags Problem 1 evaluation
 # extras (in-season baselines, PCP, ranking gap, heatmaps) that build on the
 # Track P posterior summary; "P3" tags the Problem 3 survival-determinant
-# regressions (Track P only, no review critique rows) — see docs/TRACEABILITY.md.
+# regressions (Track P only, no review critique rows); "P4" tags the Problem 4
+# mechanism-design simulators (paper-faithful V1 S1/S2/S3 and the V2 V4/V5
+# scheme, the latter shared with the review); "SA" tags the sensitivity
+# analysis (A1 tau/kappa grid, A2 lambda-ratio scan, A3 judge transforms, A4
+# leave-one-season-out, Figure 10) which reproduces the paper's sensitivity
+# section on top of the Track P posterior — see docs/TRACEABILITY.md.
 # The list is kept closed so an unexpected tag cannot be recorded silently.
-VALID_TRACKS = ("P", "R", "P1E", "P3")
+VALID_TRACKS = ("P", "R", "P1E", "P3", "P4", "SA")
 VALID_STATUSES = ("pending", "running", "success", "failed", "skipped")
 
 _REQUIRED_FIELDS = (

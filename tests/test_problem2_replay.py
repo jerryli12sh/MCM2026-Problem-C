@@ -36,12 +36,19 @@ from dwts_reproduction.problem2 import (
     b2_case_metrics,
     build_replay_inputs,
     case_divergence,
+    case_survival_curves,
+    case_weekly_probs,
+    case_weekly_rank_traces,
     config_from_fit,
+    contestant_divergence_index,
     eligible_weeks,
     load_pooled_fit,
     p_hat_unweighted,
     season_rule_metrics,
     week_judge_vector,
+    weekly_posterior_agreement,
+    weekly_reversal_rates,
+    weekly_threshold_fan_share,
 )
 
 # --------------------------------------------------------------------------- #
@@ -399,3 +406,230 @@ def test_b2_case_metrics_track_r_runs_and_bounds(r_fit):
         assert 0.0 <= row["p_b2"] <= 1.0
         assert 0.0 <= row["p_rev"] <= 1.0
         assert np.isfinite(row["dE_T"]) and np.isfinite(row["dP_finals"])
+
+
+# --------------------------------------------------------------------------- #
+# Figure source tables (cells 9/13/16/20/29/39) — persisted for plotting
+# --------------------------------------------------------------------------- #
+def test_draw_cache_weights_normalized(p_fit):
+    """``weights`` returns non-negative weights summing to one over the slice."""
+    panel, train_weeks, fit, _ = p_fit
+    cfg = config_from_fit(fit, B=600)
+    cache = DrawCache(panel, fit, cfg, max_B=600)
+    s, w = int(train_weeks.iloc[0]["season"]), int(train_weeks.iloc[0]["week"])
+    w_full = cache.weights(s, w, 600)
+    assert w_full.shape == (600,)
+    assert (w_full >= 0).all() and np.isfinite(w_full).all()
+    assert w_full.sum() == pytest.approx(1.0)
+    # The B-slice slice renormalizes: the first B' weights renormalized over
+    # B' equal the B'-size cache's weights.
+    w_sub = cache.weights(s, w, 60)
+    assert w_sub.sum() == pytest.approx(1.0)
+    np.testing.assert_allclose(w_sub, w_full[:60] / w_full[:60].sum(), rtol=1e-12)
+
+
+def test_weekly_posterior_agreement_shapes_and_bounds(p_fit):
+    """Cell 9/10 agree_week: one row per train week, rates in [0, 1]."""
+    panel, train_weeks, fit, _ = p_fit
+    cfg = config_from_fit(fit, B=600)
+    df = weekly_posterior_agreement(panel, fit, cfg, B=600)
+    assert not df.empty
+    assert len(df) <= len(train_weeks)
+    assert {
+        "season",
+        "week",
+        "era",
+        "n_alive",
+        "P_agree",
+        "P_override_rank",
+        "P_override_pct",
+    } <= set(df.columns)
+    train_keys = set(train_weeks[["season", "week"]].itertuples(index=False, name=None))
+    for _, row in df.iterrows():
+        assert (int(row["season"]), int(row["week"])) in train_keys
+        assert row["era"] in {"rank", "percent"}
+        assert row["n_alive"] >= 3
+        assert 0.0 <= row["P_agree"] <= 1.0
+        assert 0.0 <= row["P_override_rank"] <= 1.0
+        assert 0.0 <= row["P_override_pct"] <= 1.0
+    # Determinism (same fixed seed -> identical table).
+    again = weekly_posterior_agreement(panel, fit, cfg, B=600)
+    pd.testing.assert_frame_equal(df, again)
+
+
+def test_weekly_reversal_rates_shapes_and_bounds(p_fit):
+    """Cell 29 rev_df: one row per eligible week, rates in [0, 1]."""
+    panel, _, fit, _ = p_fit
+    cfg = config_from_fit(fit, B=600)
+    df = weekly_reversal_rates(panel, fit, cfg, B=600)
+    assert len(df) == len(eligible_weeks(panel))
+    assert {
+        "season",
+        "week",
+        "alive_n",
+        "rev_rate_rank",
+        "rev_rate_pct",
+        "rev_rate_rank_vs_pct",
+        "bottom2_diff_rank",
+        "bottom2_diff_pct",
+    } <= set(df.columns)
+    for _, row in df.iterrows():
+        assert row["alive_n"] >= 3
+        for col in (
+            "rev_rate_rank",
+            "rev_rate_pct",
+            "rev_rate_rank_vs_pct",
+            "bottom2_diff_rank",
+            "bottom2_diff_pct",
+        ):
+            assert 0.0 <= row[col] <= 1.0
+    # Determinism at a reduced B exercises the same code path cheaply.
+    again = weekly_reversal_rates(panel, fit, cfg, B=60)
+    small = weekly_reversal_rates(panel, fit, cfg, B=60)
+    pd.testing.assert_frame_equal(again, small)
+
+
+def test_weekly_threshold_fan_share_shapes_and_bounds(p_fit):
+    """Cell 13 threshold: thr_pct >= 0 (judge-worst gap), bounded by shares."""
+    panel, train_weeks, fit, _ = p_fit
+    cfg = config_from_fit(fit, B=1200)
+    df = weekly_threshold_fan_share(panel, fit, cfg, B=1200)
+    assert not df.empty
+    assert {"season", "week", "era", "alive_size", "thr_pct"} <= set(df.columns)
+    n_alive_weeks = int(panel[panel["alive"]][["season", "week"]].drop_duplicates().shape[0])
+    assert len(df) <= n_alive_weeks
+    assert len(df) >= len(train_weeks)  # all-alive-week table covers train weeks
+    for _, row in df.iterrows():
+        assert row["era"] in {"rank", "percent"}
+        assert row["alive_size"] >= 3
+        assert 0.0 <= row["thr_pct"] <= 2.0
+    again = weekly_threshold_fan_share(panel, fit, cfg, B=1200)
+    pd.testing.assert_frame_equal(df, again)
+
+
+def test_contestant_divergence_index_matches_case_divergence(p_fit):
+    """Cell-20 index per (season, contestant, era) reproduces Table-1 |d| inputs."""
+    panel, _, fit, _ = p_fit
+    cfg = config_from_fit(fit, B=1200)
+    idx = contestant_divergence_index(panel, fit, cfg, B=1200)
+    cd = case_divergence(panel, fit, cfg, TABLE1_CASES, B_div=1200, B_flip=600)
+    for _, case in cd.iterrows():
+        s, name = int(case["season"]), case["celebrity_name"]
+        rows = idx[(idx["season"] == s) & (idx["celebrity_name"] == name)]
+        assert not rows.empty, f"no divergence_index rows for {s}/{name}"
+        # A contestant-season may span both eras; weighting era means by their
+        # week counts reproduces case_divergence's across-era week mean.
+        dr_bar = float((rows["delta_r_bar"] * rows["n_weeks"]).sum() / rows["n_weeks"].sum())
+        ds_bar = float((rows["delta_s_bar"] * rows["n_weeks"]).sum() / rows["n_weeks"].sum())
+        assert dr_bar == pytest.approx(float(case["delta_r_bar"]), abs=1e-9)
+        assert ds_bar == pytest.approx(float(case["delta_s_bar"]), abs=1e-9)
+
+
+def test_contestant_divergence_index_shapes(p_fit):
+    """Cell-20 disagree_index rows are finite and cover all eras."""
+    panel, _, fit, _ = p_fit
+    cfg = config_from_fit(fit, B=1200)
+    df = contestant_divergence_index(panel, fit, cfg, B=1200)
+    assert not df.empty
+    assert {"season", "celebrity_name", "era", "delta_r_bar", "delta_s_bar", "n_weeks"} <= set(
+        df.columns
+    )
+    assert df["era"].isin({"rank", "percent"}).all()
+    assert np.isfinite(df[["delta_r_bar", "delta_s_bar", "n_weeks"]]).to_numpy().all()
+    assert df["n_weeks"].ge(1).all()
+
+
+def test_case_survival_curves_shapes_and_monotonic(p_fit):
+    """Cell-29 survival: S in [0,1], non-increasing in week, CI bands it."""
+    panel, _, fit, _ = p_fit
+    cfg = config_from_fit(fit, B=600)
+    df = case_survival_curves(panel, fit, cfg, TABLE1_CASES, B=600)
+    # One row per (case, mechanism, eligible week): 6 cases x 4 mechanisms x
+    # the case season's eligible-week count.
+    expected_rows = 0
+    for season, _name in TABLE1_CASES:
+        n_weeks = len([wk for (s, wk) in eligible_weeks(panel) if s == season])
+        expected_rows += 4 * n_weeks
+    assert len(df) == expected_rows
+    assert {"season", "celebrity_name", "mechanism", "week", "S", "S_lo", "S_hi"} <= set(df.columns)
+    for _, row in df.iterrows():
+        assert 0.0 <= row["S"] <= 1.0
+        assert 0.0 <= row["S_lo"] <= row["S_hi"] <= 1.0
+    for key, grp in df.groupby(["season", "celebrity_name", "mechanism"]):
+        order = grp.sort_values("week")
+        assert order["S"].is_monotonic_decreasing, f"survival not monotone for {key}"
+    again = case_survival_curves(panel, fit, cfg, TABLE1_CASES, B=60)
+    small = case_survival_curves(panel, fit, cfg, TABLE1_CASES, B=60)
+    pd.testing.assert_frame_equal(again, small)
+
+
+def test_case_weekly_rank_traces_shapes_and_bounds(p_fit):
+    """Cell-39 rank traces: ranks within [1, alive_n], fan CI brackets the mean."""
+    panel, _, fit, _ = p_fit
+    cfg = config_from_fit(fit, B=600)
+    df = case_weekly_rank_traces(panel, fit, cfg, TABLE1_CASES, B=600)
+    assert not df.empty
+    assert {
+        "season",
+        "week",
+        "celebrity_name",
+        "alive_n",
+        "rJ",
+        "rF_mean",
+        "rF_lo",
+        "rF_hi",
+        "rRank_mean",
+        "rPct_mean",
+        "in_bottom2_rank",
+        "elim_under_save_rank",
+        "in_bottom2_pct",
+        "elim_under_save_pct",
+    } <= set(df.columns)
+    for _, row in df.iterrows():
+        for col in ("rJ", "rF_mean", "rF_lo", "rF_hi", "rRank_mean", "rPct_mean"):
+            assert 1.0 <= row[col] <= row["alive_n"]
+        assert row["rF_lo"] <= row["rF_mean"] <= row["rF_hi"]
+        for col in (
+            "in_bottom2_rank",
+            "elim_under_save_rank",
+            "in_bottom2_pct",
+            "elim_under_save_pct",
+        ):
+            assert row[col] in (0, 1)
+        # an eliminated-under-save contestant must be in the Bottom-2
+        assert row["elim_under_save_rank"] <= row["in_bottom2_rank"]
+        assert row["elim_under_save_pct"] <= row["in_bottom2_pct"]
+    again = case_weekly_rank_traces(panel, fit, cfg, TABLE1_CASES, B=60)
+    small = case_weekly_rank_traces(panel, fit, cfg, TABLE1_CASES, B=60)
+    pd.testing.assert_frame_equal(again, small)
+
+
+def test_case_weekly_probs_carries_case_identity(p_fit):
+    """Cell-34 elimination-probability table: one row per eligible week and the
+    case identity is carried so same-season cases stay unambiguous."""
+    panel, _, fit, _ = p_fit
+    cfg = config_from_fit(fit, B=600)
+    frames = [
+        case_weekly_probs(panel, fit, cfg, season, name, B=600) for season, name in TABLE1_CASES
+    ]
+    df = pd.concat(frames, ignore_index=True)
+    assert not df.empty
+    assert {"season", "week", "celebrity_name", "alive_n", "p_elim_rank", "p_elim_pct"} <= set(
+        df.columns
+    )
+    # Rows are keyed by (season, week, celebrity_name); season 27's two cases
+    # must yield two distinct rows for overlapping weeks.
+    dup = df.duplicated(subset=["season", "week", "celebrity_name"])
+    assert not dup.any()
+    for season, name in TABLE1_CASES:
+        sub = df[(df["season"] == season) & (df["celebrity_name"] == name)]
+        assert not sub.empty
+        for _, row in sub.iterrows():
+            assert 0.0 <= row["p_elim_rank"] <= 1.0
+            assert 0.0 <= row["p_elim_pct"] <= 1.0
+            assert 0.0 <= row["rev_rate_rank_vs_pct"] <= 1.0
+    same_season_cases = df.groupby("season")["celebrity_name"].nunique()
+    assert same_season_cases.loc[27] >= 2  # Bobby Bones + Tinashe
+    again = case_weekly_probs(panel, fit, cfg, 27, "Tinashe", B=60)
+    small = case_weekly_probs(panel, fit, cfg, 27, "Tinashe", B=60)
+    pd.testing.assert_frame_equal(again, small)

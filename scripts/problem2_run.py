@@ -56,12 +56,18 @@ from dwts_reproduction.problem2 import (  # noqa: E402
     b2_case_metrics,
     build_replay_inputs,
     case_divergence,
+    case_survival_curves,
     case_weekly_probs,
+    case_weekly_rank_traces,
     config_from_fit,
+    contestant_divergence_index,
     load_pooled_fit,
     mechanism_phase_metrics,
     phase_claim_checks,
     season_rule_metrics,
+    weekly_posterior_agreement,
+    weekly_reversal_rates,
+    weekly_threshold_fan_share,
 )
 from dwts_reproduction.run_manifest import RunManifest  # noqa: E402
 
@@ -233,6 +239,14 @@ def main() -> int:
     claim_checks = phase_claim_checks(phase)
     skipped = season_metrics.attrs.get("skipped_weeks", [])
 
+    print("  computing figure source tables (cells 9/13/16/20/29/39)...")
+    agree_week = weekly_posterior_agreement(panel, fit, cfg, B=args.B_metrics)
+    reversal_week = weekly_reversal_rates(panel, fit, cfg, B=args.B_flip)
+    threshold_week = weekly_threshold_fan_share(panel, fit, cfg, B=args.B_div)
+    divergence_index = contestant_divergence_index(panel, fit, cfg, B=args.B_div)
+    case_survival = case_survival_curves(panel, fit, cfg, TABLE1_CASES, B=args.B_metrics)
+    case_rank_traces = case_weekly_rank_traces(panel, fit, cfg, TABLE1_CASES, B=args.B_metrics)
+
     print("  writing track-tagged outputs:")
     _save_csv(season_metrics, output_dir / f"problem2_season_metrics_{tag}.csv", "season_metrics")
     _save_csv(divergence, output_dir / f"problem2_case_divergence_{tag}.csv", "case_divergence")
@@ -243,6 +257,36 @@ def main() -> int:
         claim_checks,
         output_dir / f"problem2_phase_claim_checks_{tag}.csv",
         "phase_claim_checks",
+    )
+    _save_csv(
+        agree_week,
+        output_dir / f"problem2_agree_week_{tag}.csv",
+        "agree_week (fig P-042/P-045)",
+    )
+    _save_csv(
+        reversal_week,
+        output_dir / f"problem2_reversal_week_{tag}.csv",
+        "reversal_week (fig P-049/P-050)",
+    )
+    _save_csv(
+        threshold_week,
+        output_dir / f"problem2_threshold_week_{tag}.csv",
+        "threshold_week (fig P-046)",
+    )
+    _save_csv(
+        divergence_index,
+        output_dir / f"problem2_divergence_index_{tag}.csv",
+        "divergence_index (fig P-051)",
+    )
+    _save_csv(
+        case_survival,
+        output_dir / f"problem2_case_survival_{tag}.csv",
+        "case_survival (fig P-054)",
+    )
+    _save_csv(
+        case_rank_traces,
+        output_dir / f"problem2_case_rank_traces_{tag}.csv",
+        "case_rank_traces (fig P-055)",
     )
 
     def _records(df: pd.DataFrame) -> list[dict[str, object]]:
@@ -260,6 +304,12 @@ def main() -> int:
         "n_phase_rows": int(len(phase)),
         "n_phase_claim_rows": int(len(claim_checks)),
         "phase_claim_checks": _records(claim_checks),
+        "n_agree_week_rows": int(len(agree_week)),
+        "n_reversal_week_rows": int(len(reversal_week)),
+        "n_threshold_week_rows": int(len(threshold_week)),
+        "n_divergence_index_rows": int(len(divergence_index)),
+        "n_case_survival_rows": int(len(case_survival)),
+        "n_case_rank_traces_rows": int(len(case_rank_traces)),
         "n_skipped_weeks": len(skipped),
         "skipped_weeks": [[int(s), int(w)] for s, w in skipped],
         "B_div": args.B_div,

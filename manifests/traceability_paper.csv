@@ -1,28 +1,28 @@
 id,section,loc,item_type,description,stated_value,legacy_producer,track_P_module,track_R_module,acceptance_test,tolerance,status
-P-001,Prep,A1,assumption,"Eliminations modeled only on regular single-elimination weeks; alive set A_s,t correctly identified",,,preprocessing,shared,planned,,planned
-P-002,Prep,A2,assumption,"Judge scores treated as relative performance ranking, rescaled comparable across weeks/seasons",,,preprocessing,shared,planned,,planned
-P-003,Prep,A3,assumption,Weekly fan voting is a vote-share vector p; expected pattern q via softmax,,,problem1.model,shared,planned,,planned
-P-004,Prep,A4,assumption,Elimination probabilistic; worse combined signal more likely; temperature governs randomness,,,problem1.model,shared,planned,,planned
-P-005,Prep,A5,assumption,Weekly fan shares vary around trend q via Dirichlet centered at q,,,problem1.model,shared,planned,,planned
+P-001,Prep,A1,assumption,"Eliminations modeled only on regular single-elimination weeks; alive set A_s,t correctly identified",,,preprocessing,shared,planned,,implemented
+P-002,Prep,A2,assumption,"Judge scores treated as relative performance ranking, rescaled comparable across weeks/seasons",,,preprocessing,shared,planned,,implemented
+P-003,Prep,A3,assumption,Weekly fan voting is a vote-share vector p; expected pattern q via softmax,,,problem1.model,shared,planned,,implemented
+P-004,Prep,A4,assumption,Elimination probabilistic; worse combined signal more likely; temperature governs randomness,,,problem1.model,shared,planned,,implemented
+P-005,Prep,A5,assumption,Weekly fan shares vary around trend q via Dirichlet centered at q,,,problem1.model,shared,planned,,implemented
 P-006,Prep,A6,assumption,Counterfactual invariance: rule change does not change judge scores or fan preference,,,problem2.rules,shared,planned,,implemented
 P-007,Prep,A7,assumption,Within-season judging standard stable enough that judge-signal changes track real improvement,,,problem3.regression,shared,planned,,implemented
 P-008,Prep,A8,assumption,"Fan support comparable across seasons at matched checkpoints, not across weeks within a season",,,problem3.regression,shared,planned,,implemented
 P-009,Prep,A9,assumption,Bottom-2 judges save: judges eliminate technically weaker of the bottom two,,,problem2.rules,shared,planned,,implemented
 P-010,Prep,notations,table,"Notations table: core symbols (s,t,i,A,J,p,q,kappa,S,tau,i*,PCP,e_hat,Bottom2)",,,shared,shared,planned,,planned
-P-011,Prep,preprocess-1,formula,Structural-zero handling: post-elimination zeros recoded NaN; original N/A preserved,,../src/0data_cleaning.ipynb; ../review/srcs_0/dwts_preprocess.py,preprocessing,shared,planned,,planned
-P-012,Prep,preprocess-2,formula,"Outcome parsing: elim_week_result, is_withdrew, is_place; withdrawals excluded",,../src/0data_cleaning.ipynb,preprocessing,shared,planned,,planned
-P-013,Prep,preprocess-3,formula,Season length and activity window (active_until) -> weekly alive set,,../src/0data_cleaning.ipynb,preprocessing,shared,planned,,planned
-P-014,Prep,preprocess-4,formula,"Analysis tables: long judge, weekly panel, judge_rank/judge_percent, roster, elim events",,../src/build_event_table.py; ../review/srcs_0/dwts_preprocess.py,preprocessing,shared,planned,,planned
+P-011,Prep,preprocess-1,formula,Structural-zero handling: post-elimination zeros recoded NaN; original N/A preserved,,../src/0data_cleaning.ipynb; ../review/srcs_0/dwts_preprocess.py,preprocessing,shared,planned,,implemented
+P-012,Prep,preprocess-2,formula,"Outcome parsing: elim_week_result, is_withdrew, is_place; withdrawals excluded",,../src/0data_cleaning.ipynb,preprocessing,shared,planned,,implemented
+P-013,Prep,preprocess-3,formula,Season length and activity window (active_until) -> weekly alive set,,../src/0data_cleaning.ipynb,preprocessing,shared,planned,,implemented
+P-014,Prep,preprocess-4,formula,"Analysis tables: long judge, weekly panel, judge_rank/judge_percent, roster, elim events",,../src/build_event_table.py; ../review/srcs_0/dwts_preprocess.py,preprocessing,shared,planned,,implemented
 P-015,Prep,preprocess-5,formula,"Cross-season rank normalization Z^J = Phi^-1(clip(1-(R^J-0.5)/N, 0.001, 0.999)) (Problem 3 only)",,../src/dwts_pro_celeb_regression.py,problem3.regression,shared,planned,,implemented
-P-016,Problem 1,eq:J_pct,formula,Percentage-era judge signal J = T_i / sum_k T_k,,../src/model.py,problem1.model,shared,planned,,planned
-P-017,Problem 1,eq:J_rank,formula,Rank-era judge signal J = exp(-R_i) / sum_k exp(-R_k),,../src/model.py,problem1.model,shared,planned,,planned
-P-018,Problem 1,eq:latent_score,formula,"Latent popularity eta = x^T beta + u, u ~ N(0, sigma_u^2); x = {J, age}",,../src/model_new.py,problem1.model,shared,planned,,planned
-P-019,Problem 1,eq:prior_mean,formula,Expected fan share q = softmax(eta) = exp(eta)/sum exp(eta),,../src/model.py,problem1.model,shared,planned,,planned
-P-020,Problem 1,eq:combined,formula,Combined score C = J + q,,../src/model.py,problem1.model,shared,planned,,planned
-P-021,Problem 1,eq:softmin,formula,Softmin elimination likelihood Pr(i* elim) = exp(-C_i*/tau)/sum exp(-C_k/tau),,../src/model.py,problem1.model,problem1.model (R: integrated marginal),planned,,planned
-P-022,Problem 1,eq:nll,formula,Penalized NLL L = sum [C_i*/tau + log sum exp(-C_k/tau)] + l_beta||beta||^2 + l_u||u||^2,,../src/model.py,problem1.model,shared,planned,,planned
-P-023,Problem 1,eq:posterior,formula,Dirichlet posterior pi(p|i*) propto (prod p_i^{kappa q_i - 1}) * softmin evidence,,../src/posterior_uncertainty.py,problem1.model,problem1.model (R),planned,,planned
-P-024,Problem 1,is,formula,"Importance sampling: draw p^b ~ Dirichlet(kappa q), reweight by softmin, weighted posterior",,../src/posterior_uncertainty.py,problem1.model,problem1.model (R),planned,,planned
+P-016,Problem 1,eq:J_pct,formula,Percentage-era judge signal J = T_i / sum_k T_k,,../src/model.py,problem1.model,shared,planned,,implemented
+P-017,Problem 1,eq:J_rank,formula,Rank-era judge signal J = exp(-R_i) / sum_k exp(-R_k),,../src/model.py,problem1.model,shared,planned,,implemented
+P-018,Problem 1,eq:latent_score,formula,"Latent popularity eta = x^T beta + u, u ~ N(0, sigma_u^2); x = {J, age}",,../src/model_new.py,problem1.model,shared,planned,,implemented
+P-019,Problem 1,eq:prior_mean,formula,Expected fan share q = softmax(eta) = exp(eta)/sum exp(eta),,../src/model.py,problem1.model,shared,planned,,implemented
+P-020,Problem 1,eq:combined,formula,Combined score C = J + q,,../src/model.py,problem1.model,shared,planned,,implemented
+P-021,Problem 1,eq:softmin,formula,Softmin elimination likelihood Pr(i* elim) = exp(-C_i*/tau)/sum exp(-C_k/tau),,../src/model.py,problem1.model,problem1.model (R: integrated marginal),planned,,implemented
+P-022,Problem 1,eq:nll,formula,Penalized NLL L = sum [C_i*/tau + log sum exp(-C_k/tau)] + l_beta||beta||^2 + l_u||u||^2,,../src/model.py,problem1.model,shared,planned,,implemented
+P-023,Problem 1,eq:posterior,formula,Dirichlet posterior pi(p|i*) propto (prod p_i^{kappa q_i - 1}) * softmin evidence,,../src/posterior_uncertainty.py,problem1.model,problem1.model (R),planned,,implemented
+P-024,Problem 1,is,formula,"Importance sampling: draw p^b ~ Dirichlet(kappa q), reweight by softmin, weighted posterior",,../src/posterior_uncertainty.py,problem1.model,problem1.model (R),planned,,implemented
 P-025,Problem 1,week_trajectory.jpg,figure,Posterior fan-support trajectories (Season 8) heatmap,visual,../src/plot_uncertainty.py,problem1.model,shared,planned,,implemented
 P-026,Problem 1,eq:top1,metric,Top-1 accuracy A = 1/N sum 1{argmin C_hat = i*},,../src/eval_metrics_viz.py,problem1.eval,shared,planned,,implemented
 P-027,Problem 1,acc_xgb,metric,"XGBoost baseline top-1 accuracy (paper 0.806554; legacy run gives week-mean 0.821101 / season-mean 0.817496, D-20260901-11)",0.806554,../src/xgb_baseline.py,problem1.eval,shared,planned,,implemented
@@ -40,20 +40,20 @@ P-038,Problem 1,ess,method,"ESS diagnostic per week; flag low-ESS, increase B to
 P-039,Problem 2,eq:rank_rule,formula,Rank rule: e_hat = argmax_i (rank(-T_i) + rank(-p_hat_i)),,../src/2_rank_vs_pct_cross_season.ipynb,problem2.rules,shared,planned,,implemented
 P-040,Problem 2,eq:pct_rule,formula,Percentage rule: e_hat = argmin_i (T_i/sum T + p_hat_i),,../src/2_rank_vs_pct_cross_season.ipynb,problem2.rules,shared,planned,,implemented
 P-041,Problem 2,eq:dr,metric,Disagreement rate DR_s = 1/|W| sum 1{e_rank != e_pct},DR_s>0.6 frequent,../src/2_rank_vs_pct_cross_season.ipynb,problem2.rules,shared,planned,,implemented
-P-042,Problem 2,2_posterior_probability.png,figure,Posterior agreement (bimodal),visual,../src/2_rank_vs_pct_cross_season.ipynb,problem2.rules,shared,planned,,planned
-P-043,Problem 2,2_weekly_disagreement.png,figure,Weekly disagreement,visual,../src/2_rank_vs_pct_cross_season.ipynb,problem2.rules,shared,planned,,planned
+P-042,Problem 2,2_posterior_probability.png,figure,Posterior agreement (bimodal),visual,../src/2_rank_vs_pct_cross_season.ipynb,problem2.rules,shared,planned,,implemented
+P-043,Problem 2,2_weekly_disagreement.png,figure,Weekly disagreement,visual,../src/2_rank_vs_pct_cross_season.ipynb,problem2.rules,shared,planned,,implemented
 P-044,Problem 2,eq:override,metric,Override rate = 1/|W| sum 1{e_hat != argmin T}; FanWorst = 1{e = argmin p_hat},,../src/2_rank_vs_pct_cross_season.ipynb,problem2.rules,shared,planned,,implemented
-P-045,Problem 2,2_posterior_delta.png,figure,Delta_s = E[Override_rank - Override_pct] < 0 (pct more fan override),visual,../src/2_rank_vs_pct_cross_season.ipynb,problem2.rules,shared,planned,,planned
-P-046,Problem 2,2_threshold_fan_share.png,figure,Threshold fan share for judge-worst to survive,visual,../src/2_rank_vs_pct_cross_season.ipynb,problem2.rules,shared,planned,,planned
+P-045,Problem 2,2_posterior_delta.png,figure,Delta_s = E[Override_rank - Override_pct] < 0 (pct more fan override),visual,../src/2_rank_vs_pct_cross_season.ipynb,problem2.rules,shared,planned,,implemented
+P-046,Problem 2,2_threshold_fan_share.png,figure,Threshold fan share for judge-worst to survive,visual,../src/2_rank_vs_pct_cross_season.ipynb,problem2.rules,shared,planned,,implemented
 P-047,Problem 2,eq:bottom2,formula,"Bottom-2 + save: B = arg two-min S, e_hat = argmin_{i in B} J_i",,../src/b2_save_metrics.py,problem2.rules,shared,planned,,implemented
 P-048,Problem 2,eq:rev_rate,metric,Reversal rate rev_rate = Pr(e_B2 != e_direct),,../src/b2_save_metrics.py,problem2.rules,shared,planned,,implemented
-P-049,Problem 2,3_Reversal_Heatmap_Rank.png,figure,Reversal heatmap (rank),visual,../src/b2_save_metrics.py,problem2.rules,shared,planned,,planned
-P-050,Problem 2,3_Reversal_Heatmap_Percent.png,figure,Reversal heatmap (percentage),visual,../src/b2_save_metrics.py,problem2.rules,shared,planned,,planned
-P-051,Problem 2,3_Discrepancy_Scatter.png,figure,Judge-fan disagreement landscape (top-left quadrant controversies),visual,../src/2_rank_vs_pct_cross_season.ipynb,problem2.cases,shared,planned,,planned
+P-049,Problem 2,3_Reversal_Heatmap_Rank.png,figure,Reversal heatmap (rank),visual,../src/b2_save_metrics.py,problem2.rules,shared,planned,,implemented
+P-050,Problem 2,3_Reversal_Heatmap_Percent.png,figure,Reversal heatmap (percentage),visual,../src/b2_save_metrics.py,problem2.rules,shared,planned,,implemented
+P-051,Problem 2,3_Discrepancy_Scatter.png,figure,Judge-fan disagreement landscape (top-left quadrant controversies),visual,../src/2_rank_vs_pct_cross_season.ipynb,problem2.cases,shared,planned,,implemented
 P-052,Problem 2,tab:selected_cases,table,"Selected controversy cases (|d|, Flip): Jerry Rice 3.69/0.87; B.R.Cyrus 3.25/0.75; B.Palin 4.30/0.97; Bobby Bones 4.00/0.57; Tinashe 8.50/0.57; Vinny G. 9.88/0.33",see description,../src/sim_rank_trend_cases.py,problem2.cases,shared,planned,,implemented
-P-053,Problem 2,4_EliminationProbability_*.png,figure,Six-case elimination probability panels,visual,../src/sim_rank_trend_cases.py,problem2.cases,shared,planned,,planned
-P-054,Problem 2,4_SurvivalCurves_*.png,figure,Six-case survival curves (Save vs Direct),visual,../src/sim_rank_trend_cases.py,problem2.cases,shared,planned,,planned
-P-055,Problem 2,4_RankVsPercentage_*.png,figure,Six-case rank divergence panels,visual,../src/sim_rank_trend_cases.py,problem2.cases,shared,planned,,planned
+P-053,Problem 2,4_EliminationProbability_*.png,figure,Six-case elimination probability panels,visual,../src/sim_rank_trend_cases.py,problem2.cases,shared,planned,,implemented
+P-054,Problem 2,4_SurvivalCurves_*.png,figure,Six-case survival curves (Save vs Direct),visual,../src/sim_rank_trend_cases.py,problem2.cases,shared,planned,,implemented
+P-055,Problem 2,4_RankVsPercentage_*.png,figure,Six-case rank divergence panels,visual,../src/sim_rank_trend_cases.py,problem2.cases,shared,planned,,implemented
 P-056,Problem 2,5_Mechanism phase diagram.png,figure,"Mechanism phase diagram (fan influence x, judge consistency y)",visual,../src/2_rank_vs_pct_cross_season.ipynb,problem2.rules,shared,planned,,implemented
 P-057,Problem 2,recommendation,claim,Recommendation: Percentage base + Bottom-2 judges save,,,problem2.rules,shared,planned,,implemented
 P-058,Problem 3,eq:demo_model,formula,Demographic OLS: Y = alpha + beta_Age Age + sum delta_k I(industry=k),,../src/dwts_pro_celeb_regression.py,problem3.regression,shared,planned,,implemented
@@ -70,28 +70,28 @@ P-068,Problem 3,eq:growth_model,formula,Quadratic interaction G = b0 + b1 S + b2
 P-069,Problem 3,coef_surprise,metric,Surprise linear beta1=0.34 (p<0.001); beta2>0 (Matthew); beta3>0 (leverage),0.34,../src/dwts_pro_celeb_regression.py,problem3.regression,shared,planned,,implemented
 P-070,Problem 3,6_Surprise_Effect_Vote_Growth.png,figure,Surprise -> vote growth linear response,visual,../src/dwts_pro_celeb_regression.py,problem3.regression,shared,planned,,implemented
 P-071,Problem 3,6_Surprise_NonLinearity_and_Interaction.png,figure,Surprise nonlinearity + tenure interaction,visual,../src/dwts_pro_celeb_regression.py,problem3.regression,shared,planned,,implemented
-P-072,Problem 4,eq:shock,metric,Technical shock rate Shock_k = Pr(elim in top-k judges),,../src/season_simulator.py,problem4.mechanisms,shared,planned,,planned
-P-073,Problem 4,eq:v1_gate,formula,V1: judge bottom-K gate B^J = arg K-min J; fans eliminate argmin p in B^J (K=3),K=3,../src/season_simulator.py,problem4.mechanisms,shared,planned,,planned
-P-074,Problem 4,v1_split,hyperparameter,V1 early/late split threshold m=8,m=8,../src/season_simulator.py,problem4.mechanisms,shared,planned,,planned
-P-075,Problem 4,eq:v2_temper,formula,V2 fan tempering p~ = p^gamma / sum p^gamma (0<gamma<=1),,../src/season_simulator2.py,problem4.mechanisms,shared,planned,,planned
-P-076,Problem 4,eq:v2_judge,formula,V2 judge sharpening J~ = J^delta / sum J^delta (delta>=1),,../src/season_simulator2.py,problem4.mechanisms,shared,planned,,planned
-P-077,Problem 4,eq:momentum,formula,Momentum m = T - (1/L)sum T_{t-l}; B = mu tanh(z/c),,../src/season_simulator2.py,problem4.mechanisms,shared,planned,,planned
-P-078,Problem 4,eq:v2_score,formula,V2 score S = w_J J~ + w_F p~ + B; Bottom-2 then judges save,,../src/season_simulator2.py,problem4.mechanisms,shared,planned,,planned
-P-079,Problem 4,v2_params,hyperparameter,"V2 defaults w_J=0.80 w_F=0.20 gamma=0.45 delta=1.35 mu=0.01 L in {2,3}",w_J=.80 w_F=.20 g=.45 d=1.35 mu=.01,../src/season_simulator2.py,problem4.mechanisms,shared,planned,,planned
-P-080,Problem 4,8_V1_plot1.png,figure,V1 delta average rank (S3-S1) heatmap,visual,../src/season_simulator.py,problem4.mechanisms,shared,planned,,planned
-P-081,Problem 4,8_fig_diff_contour_avg_rank_S3_minus_S1.png,figure,Archetype cumulative survival by scheme (V1),visual,../src/season_simulator.py,problem4.mechanisms,shared,planned,,planned
-P-082,Problem 4,8_fig_ribbon_survival_by_archetype.png,figure,V0 vs V2 archetype survival ribbon,visual,../src/season_simulator2.py,problem4.mechanisms,shared,planned,,planned
-P-083,Problem 4,8_fig_sim2_trend_2_Jerry_Rice.png; 8_fig_sim2_trend_4_Billy_Ray_Cyrus.png; 8_fig_sim2_trend_11_Bristol_Palin.png; 8_fig_sim2_trend_27_Bobby_Bones.png; 8_fig_sim2_trend_27_Tinashe.png; 8_fig_sim2_trend_31_Vinny_Guadagnino.png,figure,Six-case simulated weekly rank (V0 vs V2),visual,../src/season_simulator2.py,problem4.mechanisms,shared,planned,,planned
-P-084,Problem 4,v1_immunity,claim,V1 gives popular contestants pre-filter immunity (does not correct canonical cases),,../src/season_simulator.py,problem4.mechanisms,shared,planned,,planned
-P-085,Problem 4,v2_bones,claim,V2: Bobby Bones champion -> 6th; Tinashe protected W7->W8,Bones->6th,../src/season_simulator2.py,problem4.mechanisms,shared,planned,,planned
-P-086,Problem 4,recommendation,claim,"Recommendation: V2 for legitimacy, V1 for engagement, V1-early/V2-late hybrid",,,problem4.mechanisms,shared,planned,,planned
-P-087,Sensitivity,A1,method,"Perturb hyperparameters (tau, kappa)",,../src/sensitivity_analysis_a.py,sensitivity,shared,planned,,planned
-P-088,Sensitivity,A2,method,Perturb regularization balance lambda_u/lambda_beta,,../src/sensitivity_analysis_a.py,sensitivity,shared,planned,,planned
-P-089,Sensitivity,A3,method,Alternative judge-to-share transforms,,../src/sensitivity_analysis_a.py,sensitivity,shared,planned,,planned
-P-090,Sensitivity,A4,method,Leave-one-season-out refits,,../src/sensitivity_analysis_b.py,sensitivity,shared,planned,,planned
-P-091,Sensitivity,10_stability_scatter.png,figure,Stability of inferred fan support (Spearman),visual,../src/sensitivity_viz_a.py,sensitivity,shared,planned,,planned
-P-092,Sensitivity,10_tornado_pcp_mean.png,figure,"PCP sensitivity tornado (tau dominates, then kappa)",visual,../src/sensitivity_viz_b.py,sensitivity,shared,planned,,planned
-P-093,Sensitivity,10_A1_line_pcp_mean_by_kappa.png,figure,"PCP_mean monotonic in tau, kappa shifts upward",visual,../src/sensitivity_viz_a.py,sensitivity,shared,planned,,planned
-P-094,Analysis,strength,claim,Strength: uncertainty-aware inference; end-to-end testable pipeline,,,shared,shared,planned,,planned
-P-095,Analysis,weakness,claim,Weakness: limited identifiability; V2 attribution confounded (needs ablation),,,problem4.mechanisms,shared,planned,,planned
-P-096,Memo,memo_claims,claim,Memo: Actor's curse beta~-0.87; Bones->6th; Tinashe +30% survival,beta~-0.87,../src/season_simulator2.py,problem4.mechanisms,shared,planned,,planned
+P-072,Problem 4,eq:shock,metric,Technical shock rate Shock_k = Pr(elim in top-k judges),,../src/season_simulator.py,problem4.mechanisms,shared,planned,,implemented
+P-073,Problem 4,eq:v1_gate,formula,V1: judge bottom-K gate B^J = arg K-min J; fans eliminate argmin p in B^J (K=3),K=3,../src/season_simulator.py,problem4.mechanisms,shared,planned,,implemented
+P-074,Problem 4,v1_split,hyperparameter,V1 early/late split threshold m=8,m=8,../src/season_simulator.py,problem4.mechanisms,shared,planned,,implemented
+P-075,Problem 4,eq:v2_temper,formula,V2 fan tempering p~ = p^gamma / sum p^gamma (0<gamma<=1),,../src/season_simulator2.py,problem4.mechanisms,shared,planned,,implemented
+P-076,Problem 4,eq:v2_judge,formula,V2 judge sharpening J~ = J^delta / sum J^delta (delta>=1),,../src/season_simulator2.py,problem4.mechanisms,shared,planned,,implemented
+P-077,Problem 4,eq:momentum,formula,Momentum m = T - (1/L)sum T_{t-l}; B = mu tanh(z/c),,../src/season_simulator2.py,problem4.mechanisms,shared,planned,,implemented
+P-078,Problem 4,eq:v2_score,formula,V2 score S = w_J J~ + w_F p~ + B; Bottom-2 then judges save,,../src/season_simulator2.py,problem4.mechanisms,shared,planned,,implemented
+P-079,Problem 4,v2_params,hyperparameter,"V2 defaults w_J=0.80 w_F=0.20 gamma=0.45 delta=1.35 mu=0.01 L in {2,3}",w_J=.80 w_F=.20 g=.45 d=1.35 mu=.01,../src/season_simulator2.py,problem4.mechanisms,shared,planned,,implemented
+P-080,Problem 4,8_V1_plot1.png,figure,V1 delta average rank (S3-S1) heatmap,visual,../src/season_simulator.py,problem4.mechanisms,shared,planned,,implemented
+P-081,Problem 4,8_fig_diff_contour_avg_rank_S3_minus_S1.png,figure,Archetype cumulative survival by scheme (V1),visual,../src/season_simulator.py,problem4.mechanisms,shared,planned,,implemented
+P-082,Problem 4,8_fig_ribbon_survival_by_archetype.png,figure,V0 vs V2 archetype survival ribbon,visual,../src/season_simulator2.py,problem4.mechanisms,shared,planned,,implemented
+P-083,Problem 4,8_fig_sim2_trend_2_Jerry_Rice.png; 8_fig_sim2_trend_4_Billy_Ray_Cyrus.png; 8_fig_sim2_trend_11_Bristol_Palin.png; 8_fig_sim2_trend_27_Bobby_Bones.png; 8_fig_sim2_trend_27_Tinashe.png; 8_fig_sim2_trend_31_Vinny_Guadagnino.png,figure,Six-case simulated weekly rank (V0 vs V2),visual,../src/season_simulator2.py,problem4.mechanisms,shared,planned,,implemented
+P-084,Problem 4,v1_immunity,claim,V1 gives popular contestants pre-filter immunity (does not correct canonical cases),,../src/season_simulator.py,problem4.mechanisms,shared,planned,,implemented
+P-085,Problem 4,v2_bones,claim,V2: Bobby Bones champion -> 6th; Tinashe protected W7->W8,Bones->6th,../src/season_simulator2.py,problem4.mechanisms,shared,planned,,implemented
+P-086,Problem 4,recommendation,claim,"Recommendation: V2 for legitimacy, V1 for engagement, V1-early/V2-late hybrid",,,problem4.mechanisms,shared,planned,,implemented
+P-087,Sensitivity,A1,method,"Perturb hyperparameters (tau, kappa)",,../src/sensitivity_analysis_a.py,sensitivity,shared,planned,,implemented
+P-088,Sensitivity,A2,method,Perturb regularization balance lambda_u/lambda_beta,,../src/sensitivity_analysis_a.py,sensitivity,shared,planned,,implemented
+P-089,Sensitivity,A3,method,Alternative judge-to-share transforms,,../src/sensitivity_analysis_a.py,sensitivity,shared,planned,,implemented
+P-090,Sensitivity,A4,method,Leave-one-season-out refits,,../src/sensitivity_analysis_a.py,sensitivity,shared,planned,,implemented
+P-091,Sensitivity,10_stability_scatter.png,figure,Stability of inferred fan support (Spearman),visual,../src/sensitivity_viz_a.py,sensitivity,shared,planned,,implemented
+P-092,Sensitivity,10_tornado_pcp_mean.png,figure,"PCP sensitivity tornado (tau dominates, then kappa)",visual,../src/sensitivity_viz_a.py,sensitivity,shared,planned,,implemented
+P-093,Sensitivity,10_A1_line_pcp_mean_by_kappa.png,figure,"PCP_mean monotonic in tau, kappa shifts upward",visual,../src/sensitivity_viz_a.py,sensitivity,shared,planned,,implemented
+P-094,Analysis,strength,claim,Strength: uncertainty-aware inference; end-to-end testable pipeline,,,shared,shared,planned,,implemented
+P-095,Analysis,weakness,claim,Weakness: limited identifiability; V2 attribution confounded (needs ablation),,,problem4.mechanisms,shared,planned,,implemented
+P-096,Memo,memo_claims,claim,Memo: Actor's curse beta~-0.87; Bones->6th; Tinashe +30% survival,beta~-0.87,../src/season_simulator2.py,problem4.mechanisms,shared,planned,,implemented

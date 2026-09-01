@@ -42,6 +42,7 @@ from typing import Any
 
 import numpy as np
 import pandas as pd
+from scipy.stats import beta as beta_dist
 
 from dwts_reproduction.config import Paths
 from dwts_reproduction.preprocess import build_all_tables
@@ -53,6 +54,8 @@ from dwts_reproduction.problem1.track_p import (
     posterior_draws_for_week,
 )
 from dwts_reproduction.problem2.rules import (
+    MECHANISMS,
+    ascending_rank,
     descending_rank,
     elim_pct_idx,
     elim_rank_idx,
@@ -254,6 +257,14 @@ class DrawCache:
         w_b = w[:B]
         w_b = w_b / w_b.sum()
         return (w_b[:, None] * p[:B, cols]).sum(axis=0), [n for n in names if n in idx]
+
+    def weights(self, season: int, week: int, B: int) -> np.ndarray:
+        """Renormalized importance weights over the first ``B`` draws."""
+        key = (int(season), int(week))
+        self.week(season, week)  # ensures ``_weights[key]`` is populated
+        w_b = self._weights[key][:B].astype(float)
+        total = float(w_b.sum())
+        return w_b / total
 
 
 def week_judge_vector(
@@ -604,7 +615,12 @@ def case_weekly_probs(
     alpha: float = 0.10,
 ) -> pd.DataFrame:
     """Per-eligible-week elimination probability under each rule (posterior mean
-    and interval over B draws) plus the weekly rank-vs-pct reversal rate."""
+    and interval over B draws) plus the weekly rank-vs-pct reversal rate.
+
+    One row per eligible week in ``season`` for which ``name`` is alive; each row
+    carries the contestant identity so per-case tables stay unambiguous when the
+    same season holds multiple selected cases (e.g. season 27).
+    """
     cfg = config_from_fit(fit, B=B)
     cache = DrawCache(panel, fit, cfg, max_B=B)
     rows: list[dict[str, Any]] = []
@@ -624,6 +640,7 @@ def case_weekly_probs(
             {
                 "season": season_i,
                 "week": week,
+                "celebrity_name": name,
                 "alive_n": len(names),
                 "p_elim_rank": float(p_rank.mean()),
                 "p_elim_pct": float(p_pct.mean()),
@@ -636,6 +653,452 @@ def case_weekly_probs(
             }
         )
     return pd.DataFrame(rows)
+
+
+# --------------------------------------------------------------------------- #
+# Figure source tables (notebook cells 9/13/16/20/29/39) — persisted so figures
+# are rendered only from saved CSVs (P-042..P-055).
+# --------------------------------------------------------------------------- #
+def weekly_posterior_agreement(
+    panel: pd.DataFrame,
+    fit: PooledFit,
+    config: Problem1Config,
+    *,
+    B: int = B_MECHANISM,
+) -> pd.DataFrame:
+    """Per-training-week rule-agreement / override rates over weighted draws.
+
+    Faithful port of the notebook cell 9/10 ``prob_week`` table: for every
+    training week the first ``B`` posterior draws carry softmin importance
+    weights ``w`` (renormalized over the slice), and each draw contributes
+
+    - ``e_rank = argmax(desc_rank(J) + desc_rank(p))``,
+    - ``e_pct = argmin(J_percent + p)``,
+    - ``jw = argmin(J)`` (judge-worst),
+
+    giving ``P_agree = E_w[1{e_rank == e_pct}]`` (the cell-9/10 scatter that
+    backs figure P-042), ``P_override_rank = E_w[1{e_rank != jw}]`` and
+    ``P_override_pct = E_w[1{e_pct != jw}]`` (whose season means back figure
+    P-045).  ``era`` is the panel's week era ('rank'/'percent'); every returned
+    week is a training week, so the judge vector is finite.
+    """
+    cfg = config_from_fit(fit, B=B)
+    cache = DrawCache(panel, fit, cfg, max_B=B)
+    train_weeks = build_train_weeks(panel)
+    era = (
+        panel[panel["alive"]][["season", "week", "era"]]
+        .drop_duplicates()
+        .set_index(["season", "week"])["era"]
+    )
+    rows: list[dict[str, Any]] = []
+    for season, week in train_weeks[["season", "week"]].itertuples(index=False):
+        season, week = int(season), int(week)
+        names, j = week_judge_vector(panel, season, week)
+        if len(names) < 3 or not np.isfinite(j).all():
+            continue
+        p, _ = cache.aligned(season, week, names, B)
+        w = cache.weights(season, week, B)
+        er = np.array([elim_rank_idx(j, pb) for pb in p])
+        ep = np.array([elim_pct_idx(j, pb) for pb in p])
+        jw = judge_worst_idx(j)
+        rows.append(
+            {
+                "season": season,
+                "week": week,
+                "era": str(era.loc[(season, week)]),
+                "n_alive": len(names),
+                "P_agree": float(w @ (er == ep).astype(float)),
+                "P_override_rank": float(w @ (er != jw).astype(float)),
+                "P_override_pct": float(w @ (ep != jw).astype(float)),
+                "B": B,
+            }
+        )
+    return pd.DataFrame(rows)
+
+
+def weekly_reversal_rates(
+    panel: pd.DataFrame,
+    fit: PooledFit,
+    config: Problem1Config,
+    *,
+    B: int = B_MECHANISM,
+) -> pd.DataFrame:
+    """Per-eligible-week rule-reversal and bottom-2 diffusion rates.
+
+    Faithful port of the notebook cell 29 ``rev_df`` (the ``simulate_week``
+    engine — NOT the cell-26 ``_bottom2_probs_from_J`` path).  Per eligible week
+    each of the first ``B`` posterior draws is simulated under the four
+    mechanisms and the table records, exactly as cell 29:
+
+    - ``rev_rate_rank = mean(e_rank_bottom2 != e_rank_direct)``,
+    - ``rev_rate_pct = mean(e_pct_bottom2 != e_pct_direct)``,
+    - ``rev_rate_rank_vs_pct = mean(e_rank_direct != e_pct_direct)``,
+    - ``bottom2_diff_rank = mean(b2_rank_bottom2 != b2_rank_direct)``,
+    - ``bottom2_diff_pct = mean(b2_pct_bottom2 != b2_pct_direct)``
+
+    with ``b2`` tuples sorted per draw.  Backs figures P-049/P-050.
+    """
+    cfg = config_from_fit(fit, B=B)
+    cache = DrawCache(panel, fit, cfg, max_B=B)
+    rows: list[dict[str, Any]] = []
+    for season, week in eligible_weeks(panel):
+        names, j = week_judge_vector(panel, season, week)
+        if len(names) < 3 or not np.isfinite(j).all():
+            continue
+        p, _ = cache.aligned(season, week, names, B)
+        elim: dict[str, list[str]] = {m: [] for m in MECHANISMS}
+        bottom2: dict[str, list[tuple[str, ...]]] = {m: [] for m in MECHANISMS}
+        for pb in p:
+            for m in MECHANISMS:
+                e, b2 = simulate_week(pb, j, names, m)
+                elim[m].append(e)
+                bottom2[m].append(tuple(sorted(b2)))
+        rd = np.asarray(elim["rank_direct"])
+        rb = np.asarray(elim["rank_bottom2"])
+        pd_d = np.asarray(elim["pct_direct"])
+        pb_d = np.asarray(elim["pct_bottom2"])
+        b2_rd = np.asarray(bottom2["rank_direct"], dtype=object)
+        b2_rb = np.asarray(bottom2["rank_bottom2"], dtype=object)
+        b2_pd = np.asarray(bottom2["pct_direct"], dtype=object)
+        b2_pb = np.asarray(bottom2["pct_bottom2"], dtype=object)
+        rows.append(
+            {
+                "season": int(season),
+                "week": int(week),
+                "alive_n": len(names),
+                "rev_rate_rank": float(np.mean(rb != rd)),
+                "rev_rate_pct": float(np.mean(pb_d != pd_d)),
+                "rev_rate_rank_vs_pct": float(np.mean(rd != pd_d)),
+                "bottom2_diff_rank": float(np.mean(b2_rb != b2_rd)),
+                "bottom2_diff_pct": float(np.mean(b2_pb != b2_pd)),
+                "B": B,
+            }
+        )
+    return pd.DataFrame(rows)
+
+
+def weekly_threshold_fan_share(
+    panel: pd.DataFrame,
+    fit: PooledFit,
+    config: Problem1Config,
+    *,
+    B: int = B_DIVERGENCE,
+) -> pd.DataFrame:
+    """Per-alive-week judge-worst threshold fan share (notebook cell 13).
+
+    For every *alive* week (finales included) at the cell-3 point fan share
+    ``p_hat`` (``_week_p_hat``), with ``j`` the within-week judge-percent vector
+    and ``jw = argmin(j)`` the judge-worst contestant, the threshold fan share
+    is the largest ``p_hat_k + j_k - j_jw`` over alive ``k`` — how much the
+    judge-worst contestant trails the field under the percentage rule.  Backs
+    the figure P-046 scatter of ``thr_pct`` against ``alive_size``.  The three
+    non-finite-judge weeks are skipped (D-20260901-09).
+    """
+    cfg = config_from_fit(fit, B=B)
+    cache = DrawCache(panel, fit, cfg, max_B=B)
+    train_weeks = build_train_weeks(panel)
+    train_keys = set(train_weeks[["season", "week"]].itertuples(index=False, name=None))
+    era = (
+        panel[panel["alive"]][["season", "week", "era"]]
+        .drop_duplicates()
+        .set_index(["season", "week"])["era"]
+    )
+    rows: list[dict[str, Any]] = []
+    for season, week in (
+        panel[panel["alive"]][["season", "week"]]
+        .drop_duplicates()
+        .sort_values(["season", "week"])
+        .itertuples(index=False, name=None)
+    ):
+        season, week = int(season), int(week)
+        names, j = week_judge_vector(panel, season, week)
+        if len(names) < 3 or not np.isfinite(j).all():
+            continue
+        p_hat = _week_p_hat(panel, fit, cache, season, week, names, train_keys, B)
+        jw = judge_worst_idx(j)
+        rows.append(
+            {
+                "season": season,
+                "week": week,
+                "era": str(era.loc[(season, week)]),
+                "alive_size": len(names),
+                "thr_pct": float(np.max(p_hat + j - j[jw])),
+                "B": B,
+            }
+        )
+    return pd.DataFrame(rows)
+
+
+def contestant_divergence_index(
+    panel: pd.DataFrame,
+    fit: PooledFit,
+    config: Problem1Config,
+    *,
+    B: int = B_DIVERGENCE,
+) -> pd.DataFrame:
+    """Per-contestant-season-era disagreement index (notebook cell 20).
+
+    Faithful port of cell 20 ``disagree_index`` over every *alive* week at the
+    cell-3 point ``p_hat`` (``_week_p_hat``): ``rF = desc_rank(p_hat)``,
+    ``rJ = desc_rank(J)``, ``delta_r = rF - rJ`` and ``delta_s = p_hat - J_pct``
+    with ``J_pct`` the within-week judge share (``judge_percent`` is the paper's
+    ``T / sum T``, and ranks are invariant to the raw/percent scale).  Rows are
+    aggregated as ``delta_r_bar``/``delta_s_bar`` (means) and ``n_weeks``
+    (distinct weeks) per ``(season, celebrity_name, era)``.  Backs the figure
+    P-051 ``3_Discrepancy_Scatter``.  Non-finite-judge weeks are skipped; pandas
+    mean-skip of NaN makes this agree with the legacy table.
+    """
+    cfg = config_from_fit(fit, B=B)
+    cache = DrawCache(panel, fit, cfg, max_B=B)
+    train_weeks = build_train_weeks(panel)
+    train_keys = set(train_weeks[["season", "week"]].itertuples(index=False, name=None))
+    per_week: list[dict[str, Any]] = []
+    for season, week in (
+        panel[panel["alive"]][["season", "week"]]
+        .drop_duplicates()
+        .sort_values(["season", "week"])
+        .itertuples(index=False, name=None)
+    ):
+        season, week = int(season), int(week)
+        names, j = week_judge_vector(panel, season, week)
+        if len(names) < 3 or not np.isfinite(j).all():
+            continue
+        p_hat = _week_p_hat(panel, fit, cache, season, week, names, train_keys, B)
+        rJ = descending_rank(j)
+        rF = descending_rank(p_hat)
+        for i, name in enumerate(names):
+            per_week.append(
+                {
+                    "season": season,
+                    "week": week,
+                    "celebrity_name": name,
+                    "era": str(era_of(panel, season, week)),
+                    "delta_r": float(rF[i] - rJ[i]),
+                    "delta_s": float(p_hat[i] - j[i]),
+                }
+            )
+    if not per_week:
+        return pd.DataFrame()
+    df = pd.DataFrame(per_week)
+    return df.groupby(["season", "celebrity_name", "era"], as_index=False).agg(
+        delta_r_bar=("delta_r", "mean"),
+        delta_s_bar=("delta_s", "mean"),
+        n_weeks=("week", "nunique"),
+    )
+
+
+def era_of(panel: pd.DataFrame, season: int, week: int) -> str:
+    """Panel ``era`` ('rank'/'percent') of one alive week."""
+    vals = panel.loc[
+        (panel["season"] == season) & (panel["week"] == week) & panel["alive"], "era"
+    ].to_numpy()
+    if len(vals) == 0:
+        return ""
+    return str(vals[0])
+
+
+def _season_path_times(
+    panel: pd.DataFrame,
+    cache: DrawCache,
+    season: int,
+    weeks: list[int],
+    mechanism: str,
+    B: int,
+) -> dict[str, np.ndarray]:
+    """Draw-aligned elimination times for one season under one mechanism.
+
+    Faithful port of the notebook cell 29 ``simulate_season_paths``: each draw
+    replays the eligible weeks, trimming the alive set to the week's name order
+    and stopping the draw when fewer than two survivors remain; the judge vector
+    is the stored ``judge_percent`` and is NOT renormalized over the survivors
+    (argmins are scale-invariant, matching ``_select_J_share``).  Returns
+    ``{name: t_elim}`` with ``np.inf`` marking a draw reaching the finale.
+    """
+    names0, _ = week_judge_vector(panel, season, weeks[0])
+    t_elim = {name: np.full(B, np.inf) for name in names0}
+    j_by_week = {wk: week_judge_vector(panel, season, wk) for wk in weeks}
+    for b in range(B):
+        alive: set[str] = set(names0)
+        for wk in weeks:
+            names_w, p_full = cache.week(season, wk)
+            names = [n for n in names_w if n in alive]
+            if len(names) < 2:
+                break
+            _, j = j_by_week[wk]
+            idx = [names_w.index(n) for n in names]
+            elim, _ = simulate_week(p_full[b, idx], j[idx], names, mechanism)
+            if elim in t_elim and np.isinf(t_elim[elim][b]):
+                t_elim[elim][b] = float(wk)
+            alive.discard(elim)
+    return t_elim
+
+
+def case_survival_curves(
+    panel: pd.DataFrame,
+    fit: PooledFit,
+    config: Problem1Config,
+    cases: list[tuple[int, str]],
+    *,
+    B: int = B_MECHANISM,
+    alpha: float = 0.05,
+) -> pd.DataFrame:
+    """Per-case survival curves under the four mechanisms (cells 29).
+
+    For each case contestant and mechanism, ``S(week) = P(t > week or finale)``
+    over the ``B`` draw-aligned season paths of ``_season_path_times``, with the
+    notebook ``survival_from_t`` Jeffreys interval ``Beta(1+k, 1+B-k)`` where
+    ``k`` is the number of surviving draws.  One row per
+    ``(case, mechanism, eligible week)`` backs figure P-054
+    (``4_SurvivalCurves_<Case>``).
+    """
+    cfg = config_from_fit(fit, B=B)
+    cache = DrawCache(panel, fit, cfg, max_B=B)
+    rows: list[dict[str, Any]] = []
+    for season, name in cases:
+        season = int(season)
+        weeks = [wk for (s, wk) in eligible_weeks(panel) if s == season]
+        if not weeks:
+            continue
+        for mechanism in MECHANISMS:
+            t_elim = _season_path_times(panel, cache, season, weeks, mechanism, B)
+            t_vec = t_elim.get(name)
+            if t_vec is None:
+                continue
+            t = np.asarray(t_vec, dtype=float)
+            for wk in weeks:
+                k = int(np.sum((t > wk) | np.isinf(t)))
+                lo, hi = (
+                    beta_dist.ppf(alpha / 2.0, 1 + k, 1 + B - k),
+                    beta_dist.ppf(1 - alpha / 2.0, 1 + k, 1 + B - k),
+                )
+                rows.append(
+                    {
+                        "season": season,
+                        "celebrity_name": name,
+                        "mechanism": mechanism,
+                        "week": wk,
+                        "S": float(k / B),
+                        "S_lo": float(lo),
+                        "S_hi": float(hi),
+                        "B": B,
+                    }
+                )
+    return pd.DataFrame(rows)
+
+
+def case_weekly_rank_traces(
+    panel: pd.DataFrame,
+    fit: PooledFit,
+    config: Problem1Config,
+    cases: list[tuple[int, str]],
+    *,
+    B: int = B_MECHANISM,
+    wJ: float = 0.5,
+    wF: float = 0.5,
+    fan_ci: tuple[float, float] = (0.05, 0.95),
+) -> pd.DataFrame:
+    """Per-case weekly rank / percentage-rule traces (notebook cell 39).
+
+    Faithful port of ``build_rank_traces``: per eligible week the case
+    contestant was alive, over the first ``B`` posterior draws
+
+    - ``rJ`` — descending judge rank (rank 1 best);
+    - ``rF_mean``/``rF_lo``/``rF_hi`` — mean and ``fan_ci`` quantiles of the
+      descending fan rank;
+    - ``rRank_mean`` — mean *ascending* rank of ``S = rJ + rF`` (rank rule,
+      smaller S better);
+    - ``rPct_mean`` — mean *descending* rank of ``score = wJ*J + wF*p``
+      (percentage rule, larger score better);
+    - ``in_bottom2_rank`` / ``elim_under_save_rank`` /
+      ``in_bottom2_pct`` / ``elim_under_save_pct`` — deterministic
+      Bottom-2 + judges'-save labels for the case contestant, computed from
+      the posterior-mean fan share (notebook ``build_rank_traces`` ``b2_df``):
+      the two worst contestants under each rule's composite score are the
+      Bottom-2, and the judges' save eliminates the worse-ranked judge among
+      them.
+
+    Backs figure P-055 (``4_RankVsPercentage_<Case>``).
+    """
+    cfg = config_from_fit(fit, B=B)
+    cache = DrawCache(panel, fit, cfg, max_B=B)
+    rows: list[dict[str, Any]] = []
+    for season, name in cases:
+        season = int(season)
+        for week in [wk for (s, wk) in eligible_weeks(panel) if s == season]:
+            names_w, p_full = cache.week(season, week)
+            if name not in names_w:
+                continue
+            _, j = week_judge_vector(panel, season, week)
+            if not np.isfinite(j).all():
+                continue
+            rJ_all = descending_rank(j)
+            idx = names_w.index(name)
+            rF_list: list[float] = []
+            rRank_list: list[float] = []
+            rPct_list: list[float] = []
+            for pb in p_full[:B]:
+                rF = descending_rank(pb)
+                rF_list.append(float(rF[idx]))
+                rRank_list.append(float(ascending_rank(rJ_all + rF)[idx]))
+                rPct_list.append(float(descending_rank(wJ * j + wF * pb)[idx]))
+            rF_arr = np.asarray(rF_list)
+            # Deterministic Bottom-2 + judges' save labels from posterior-mean
+            # fan share (legacy ``build_rank_traces`` ``b2_df``).
+            p_mean = p_full[:B].mean(axis=0)
+            in_b2_rank, elim_rank = _bottom2_save_flags(rJ_all, j, p_mean, idx, "rank", wJ, wF)
+            in_b2_pct, elim_pct = _bottom2_save_flags(rJ_all, j, p_mean, idx, "pct", wJ, wF)
+            rows.append(
+                {
+                    "season": season,
+                    "week": int(week),
+                    "celebrity_name": name,
+                    "alive_n": len(names_w),
+                    "rJ": float(rJ_all[idx]),
+                    "rF_mean": float(np.mean(rF_arr)),
+                    "rF_lo": float(np.quantile(rF_arr, fan_ci[0])),
+                    "rF_hi": float(np.quantile(rF_arr, fan_ci[1])),
+                    "rRank_mean": float(np.mean(rRank_list)),
+                    "rPct_mean": float(np.mean(rPct_list)),
+                    "in_bottom2_rank": int(in_b2_rank),
+                    "elim_under_save_rank": int(elim_rank),
+                    "in_bottom2_pct": int(in_b2_pct),
+                    "elim_under_save_pct": int(elim_pct),
+                    "B": B,
+                }
+            )
+    return pd.DataFrame(rows)
+
+
+def _bottom2_save_flags(
+    rJ_all: np.ndarray,
+    j: np.ndarray,
+    p_mean: np.ndarray,
+    idx: int,
+    rule: str,
+    wJ: float,
+    wF: float,
+) -> tuple[bool, bool]:
+    """Deterministic Bottom-2 + judges'-save labels for one contestant (cell 39).
+
+    ``rule="rank"`` scores with ``S = rJ + rF`` (smaller better; the two largest
+    are Bottom-2), using the posterior-mean fan share to induce ``rF``;
+    ``rule="pct"`` scores with ``wJ*J + wF*p_mean`` (larger better; the two
+    smallest are Bottom-2), where ``J`` is the judge vector ``j``.  The judges'
+    save eliminates the Bottom-2 member with the worse judge rank (larger
+    ``rJ``).  Returns ``(in_bottom2, eliminated_under_save)``.
+    """
+    if rule == "rank":
+        rF_all = descending_rank(p_mean)
+        s = rJ_all + rF_all
+        b2 = np.argsort(s)[-2:]  # two worst (largest S)
+    else:
+        s = wJ * j + wF * p_mean
+        b2 = np.argsort(s)[:2]  # two worst (smallest score)
+    in_b2 = idx in b2
+    if not in_b2:
+        return False, False
+    worst_j = int(b2[np.argmax(rJ_all[b2])])  # worse judge rank => larger rJ
+    return True, idx == worst_j
 
 
 # --------------------------------------------------------------------------- #

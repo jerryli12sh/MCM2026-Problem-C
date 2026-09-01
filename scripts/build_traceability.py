@@ -92,6 +92,7 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "",
         PRE,
+        status="implemented",
     ),
     p(
         2,
@@ -102,6 +103,7 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "",
         PRE,
+        status="implemented",
     ),
     p(
         3,
@@ -112,6 +114,7 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "",
         P1,
+        status="implemented",
     ),
     p(
         4,
@@ -122,6 +125,7 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "",
         P1,
+        status="implemented",
     ),
     p(
         5,
@@ -132,6 +136,7 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "",
         P1,
+        status="implemented",
     ),
     p(
         6,
@@ -196,6 +201,7 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "../src/0data_cleaning.ipynb; ../review/srcs_0/dwts_preprocess.py",
         PRE,
+        status="implemented",
     ),
     p(
         12,
@@ -206,6 +212,7 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "../src/0data_cleaning.ipynb",
         PRE,
+        status="implemented",
     ),
     p(
         13,
@@ -216,6 +223,7 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "../src/0data_cleaning.ipynb",
         PRE,
+        status="implemented",
     ),
     p(
         14,
@@ -226,6 +234,7 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "../src/build_event_table.py; ../review/srcs_0/dwts_preprocess.py",
         PRE,
+        status="implemented",
     ),
     p(
         15,
@@ -248,6 +257,7 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "../src/model.py",
         P1,
+        status="implemented",
     ),
     p(
         17,
@@ -258,6 +268,7 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "../src/model.py",
         P1,
+        status="implemented",
     ),
     p(
         18,
@@ -268,6 +279,7 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "../src/model_new.py",
         P1,
+        status="implemented",
     ),
     p(
         19,
@@ -278,6 +290,7 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "../src/model.py",
         P1,
+        status="implemented",
     ),
     p(
         20,
@@ -288,6 +301,7 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "../src/model.py",
         P1,
+        status="implemented",
     ),
     p(
         21,
@@ -299,6 +313,7 @@ PAPER_ROWS: list[list[str]] = [
         "../src/model.py",
         P1,
         "problem1.model (R: integrated marginal)",
+        status="implemented",
     ),
     p(
         22,
@@ -309,6 +324,7 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "../src/model.py",
         P1,
+        status="implemented",
     ),
     p(
         23,
@@ -320,6 +336,7 @@ PAPER_ROWS: list[list[str]] = [
         "../src/posterior_uncertainty.py",
         P1,
         "problem1.model (R)",
+        status="implemented",
     ),
     p(
         24,
@@ -331,6 +348,7 @@ PAPER_ROWS: list[list[str]] = [
         "../src/posterior_uncertainty.py",
         P1,
         "problem1.model (R)",
+        status="implemented",
     ),
     p(
         25,
@@ -529,6 +547,7 @@ PAPER_ROWS: list[list[str]] = [
         "visual",
         "../src/2_rank_vs_pct_cross_season.ipynb",
         P2,
+        status="implemented",
     ),
     p(
         43,
@@ -539,6 +558,7 @@ PAPER_ROWS: list[list[str]] = [
         "visual",
         "../src/2_rank_vs_pct_cross_season.ipynb",
         P2,
+        status="implemented",
     ),
     p(
         44,
@@ -560,6 +580,7 @@ PAPER_ROWS: list[list[str]] = [
         "visual",
         "../src/2_rank_vs_pct_cross_season.ipynb",
         P2,
+        status="implemented",
     ),
     p(
         46,
@@ -570,6 +591,7 @@ PAPER_ROWS: list[list[str]] = [
         "visual",
         "../src/2_rank_vs_pct_cross_season.ipynb",
         P2,
+        status="implemented",
     ),
     p(
         47,
@@ -602,6 +624,7 @@ PAPER_ROWS: list[list[str]] = [
         "visual",
         "../src/b2_save_metrics.py",
         P2,
+        status="implemented",
     ),
     p(
         50,
@@ -612,6 +635,7 @@ PAPER_ROWS: list[list[str]] = [
         "visual",
         "../src/b2_save_metrics.py",
         P2,
+        status="implemented",
     ),
     p(
         51,
@@ -622,6 +646,7 @@ PAPER_ROWS: list[list[str]] = [
         "visual",
         "../src/2_rank_vs_pct_cross_season.ipynb",
         P2C,
+        status="implemented",
     ),
     p(
         52,
@@ -643,6 +668,7 @@ PAPER_ROWS: list[list[str]] = [
         "visual",
         "../src/sim_rank_trend_cases.py",
         P2C,
+        status="implemented",
     ),
     p(
         54,
@@ -653,6 +679,7 @@ PAPER_ROWS: list[list[str]] = [
         "visual",
         "../src/sim_rank_trend_cases.py",
         P2C,
+        status="implemented",
     ),
     p(
         55,
@@ -663,6 +690,7 @@ PAPER_ROWS: list[list[str]] = [
         "visual",
         "../src/sim_rank_trend_cases.py",
         P2C,
+        status="implemented",
     ),
     p(
         56,
@@ -851,6 +879,7 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "../src/season_simulator.py",
         P4,
+        status="implemented",
     ),
     p(
         73,
@@ -861,6 +890,7 @@ PAPER_ROWS: list[list[str]] = [
         "K=3",
         "../src/season_simulator.py",
         P4,
+        status="implemented",
     ),
     p(
         74,
@@ -871,6 +901,7 @@ PAPER_ROWS: list[list[str]] = [
         "m=8",
         "../src/season_simulator.py",
         P4,
+        status="implemented",
     ),
     p(
         75,
@@ -881,6 +912,7 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "../src/season_simulator2.py",
         P4,
+        status="implemented",
     ),
     p(
         76,
@@ -891,6 +923,7 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "../src/season_simulator2.py",
         P4,
+        status="implemented",
     ),
     p(
         77,
@@ -901,6 +934,7 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "../src/season_simulator2.py",
         P4,
+        status="implemented",
     ),
     p(
         78,
@@ -911,6 +945,7 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "../src/season_simulator2.py",
         P4,
+        status="implemented",
     ),
     p(
         79,
@@ -921,6 +956,7 @@ PAPER_ROWS: list[list[str]] = [
         "w_J=.80 w_F=.20 g=.45 d=1.35 mu=.01",
         "../src/season_simulator2.py",
         P4,
+        status="implemented",
     ),
     p(
         80,
@@ -931,6 +967,7 @@ PAPER_ROWS: list[list[str]] = [
         "visual",
         "../src/season_simulator.py",
         P4,
+        status="implemented",
     ),
     p(
         81,
@@ -941,6 +978,7 @@ PAPER_ROWS: list[list[str]] = [
         "visual",
         "../src/season_simulator.py",
         P4,
+        status="implemented",
     ),
     p(
         82,
@@ -951,6 +989,7 @@ PAPER_ROWS: list[list[str]] = [
         "visual",
         "../src/season_simulator2.py",
         P4,
+        status="implemented",
     ),
     p(
         83,
@@ -961,6 +1000,7 @@ PAPER_ROWS: list[list[str]] = [
         "visual",
         "../src/season_simulator2.py",
         P4,
+        status="implemented",
     ),
     p(
         84,
@@ -971,6 +1011,7 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "../src/season_simulator.py",
         P4,
+        status="implemented",
     ),
     p(
         85,
@@ -981,6 +1022,7 @@ PAPER_ROWS: list[list[str]] = [
         "Bones->6th",
         "../src/season_simulator2.py",
         P4,
+        status="implemented",
     ),
     p(
         86,
@@ -991,6 +1033,7 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "",
         P4,
+        status="implemented",
     ),
     # ---- Sensitivity ----
     p(
@@ -1002,6 +1045,7 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "../src/sensitivity_analysis_a.py",
         SEN,
+        status="implemented",
     ),
     p(
         88,
@@ -1012,6 +1056,7 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "../src/sensitivity_analysis_a.py",
         SEN,
+        status="implemented",
     ),
     p(
         89,
@@ -1022,6 +1067,7 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "../src/sensitivity_analysis_a.py",
         SEN,
+        status="implemented",
     ),
     p(
         90,
@@ -1030,8 +1076,9 @@ PAPER_ROWS: list[list[str]] = [
         "method",
         "Leave-one-season-out refits",
         "",
-        "../src/sensitivity_analysis_b.py",
+        "../src/sensitivity_analysis_a.py",
         SEN,
+        status="implemented",
     ),
     p(
         91,
@@ -1042,6 +1089,7 @@ PAPER_ROWS: list[list[str]] = [
         "visual",
         "../src/sensitivity_viz_a.py",
         SEN,
+        status="implemented",
     ),
     p(
         92,
@@ -1050,8 +1098,9 @@ PAPER_ROWS: list[list[str]] = [
         "figure",
         "PCP sensitivity tornado (tau dominates, then kappa)",
         "visual",
-        "../src/sensitivity_viz_b.py",
+        "../src/sensitivity_viz_a.py",
         SEN,
+        status="implemented",
     ),
     p(
         93,
@@ -1062,6 +1111,7 @@ PAPER_ROWS: list[list[str]] = [
         "visual",
         "../src/sensitivity_viz_a.py",
         SEN,
+        status="implemented",
     ),
     # ---- Model analysis + memo ----
     p(
@@ -1073,6 +1123,7 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "",
         SHARED,
+        status="implemented",
     ),
     p(
         95,
@@ -1083,6 +1134,7 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "",
         P4,
+        status="implemented",
     ),
     p(
         96,
@@ -1093,6 +1145,7 @@ PAPER_ROWS: list[list[str]] = [
         "beta~-0.87",
         "../src/season_simulator2.py",
         P4,
+        status="implemented",
     ),
 ]
 
