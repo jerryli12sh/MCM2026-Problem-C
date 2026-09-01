@@ -40,6 +40,12 @@ class Problem1Config:
         batch_size: Choice sets per minibatch.
         B: Number of Dirichlet draws for posterior approximation.
         eps: Floor for numerical stability (q clipping, CI denominator).
+        alpha_floor: Minimum Dirichlet concentration for the Track R MC score
+            gradient.  Below ~0.1 the gamma sampler underflows individual draws
+            to exact ``0.0`` (``log 0 -> -inf`` corrupts the score estimate) and
+            the score variance ``trigamma(alpha_i)`` grows like ``1/alpha_i``;
+            ``0.1`` keeps both bounded while leaving the fit essentially
+            unchanged for any contestant with plausible fan support.
     """
 
     era_mode: str = "legacy"
@@ -54,6 +60,7 @@ class Problem1Config:
     batch_size: int = 32
     B: int = 1200
     eps: float = 1e-6
+    alpha_floor: float = 0.1
 
     def __post_init__(self) -> None:
         if self.era_mode not in {"legacy", "official"}:
@@ -64,6 +71,8 @@ class Problem1Config:
             raise ValueError("temperatures must be positive.")
         if self.kappa <= 0.0:
             raise ValueError("kappa must be positive.")
+        if not (0.0 < self.alpha_floor <= 1.0):
+            raise ValueError("alpha_floor must be in (0, 1].")
 
     @classmethod
     def for_track(cls, track: str) -> Problem1Config:

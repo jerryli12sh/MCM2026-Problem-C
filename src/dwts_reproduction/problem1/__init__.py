@@ -27,6 +27,12 @@ from dwts_reproduction.problem1.track_p import (
     pooled_q_for_week,
     posterior_draws_for_week,
 )
+from dwts_reproduction.problem1.track_r import (
+    fit_integrated_marginal,
+    fit_sensitivity,
+    integrated_week_terms,
+    marginal_likelihood_diagnostics,
+)
 
 __all__ = [
     "PooledFit",
@@ -37,9 +43,13 @@ __all__ = [
     "build_train_weeks",
     "compute_cumulative_consistency",
     "evaluate_top1_accuracy",
+    "fit_integrated_marginal",
     "fit_pooled_softmin",
+    "fit_sensitivity",
     "infer_all_weekly_fan_support",
+    "integrated_week_terms",
     "load_problem1_config",
+    "marginal_likelihood_diagnostics",
     "posterior_draws_for_week",
     "pooled_q_for_week",
     "s_bar",

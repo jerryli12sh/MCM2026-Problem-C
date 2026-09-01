@@ -89,12 +89,19 @@ def dirichlet_log_density_grad(p: np.ndarray, alpha: np.ndarray) -> np.ndarray:
     The gradient is ``psi(alpha0) - psi(alpha_i) + log(p_i)`` per row, where
     ``psi`` is the digamma function.  This is the score of the Dirichlet in the
     Fisher-identity gradient used by the Track R fit.
+
+    A draw component that the RNG rounds to exact ``0.0`` (gamma underflow under
+    a low concentration) would otherwise feed ``log 0 = -inf`` into the score;
+    it is clamped to the smallest positive float so the gradient stays finite
+    (the Track R fit additionally floors ``alpha`` to avoid such draws).
     """
     a = np.asarray(alpha, dtype=float)
     x = np.asarray(p, dtype=float)
     from scipy.special import digamma  # analysis extra; see pyproject.toml
 
-    return np.asarray(digamma(a.sum()) - digamma(a)[None, :] + np.log(x))
+    return np.asarray(
+        digamma(a.sum()) - digamma(a)[None, :] + np.log(np.maximum(x, np.finfo(float).tiny))
+    )
 
 
 def _lgamma(x: np.ndarray) -> np.ndarray:

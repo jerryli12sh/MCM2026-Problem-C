@@ -49,11 +49,14 @@ class PooledFit:
     loss_history: list[float] = field(default_factory=list)
     hyperparameters: dict[str, float] = field(default_factory=dict)
     train_choice_sets: list[tuple[int, int]] = field(default_factory=list)
+    # Track P registers "pooled_softmin_numpy"; Track R registers
+    # "integrated_marginal_mc" so serialized fits are never silently confused.
+    model_type: str = "pooled_softmin_numpy"
 
     def as_dict(self) -> dict[str, Any]:
         """JSON-ready serialization of the fit metadata (arrays excluded)."""
         return {
-            "model_type": "pooled_softmin_numpy",
+            "model_type": self.model_type,
             "beta_hat": self.beta.astype(float).tolist(),
             "bias_hat": float(self.bias),
             "u_hat": self.u.astype(float).tolist(),

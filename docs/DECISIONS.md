@@ -8,7 +8,6 @@ review references, legacy references, and user approval when required.
 - Exact tie handling under each historical mechanism and season.
 - Historical rule/season mapping, especially judge-save seasons and exceptional events.
 - Feature set and identifiability constraints for contestant effects `u`.
-- Approximation and optimization method for the integrated marginal likelihood.
 - Definition of fan-influence/excitement and technical-alignment metrics used for recommendation.
 - Tolerances for numerical equivalence versus deliberate correction of legacy results
   (resolved for Problem 1 metrics in D-20260901-04; other phases still open).
@@ -118,3 +117,41 @@ inspects the relevant legacy code or the owner approves a tolerance.
 - **Rationale:** fan vote totals are unobserved; only eliminations constrain the posterior.
 - **Consequences:** no claim of ground-truth fan votes anywhere in the repository.
 - **Refs:** `../review/problem1_rebuild/outputs/problem1_readme.md`, `CLAUDE.md`.
+
+### D-20260901-08 — Approximation and optimization method for the integrated marginal likelihood
+
+- **Status:** established (2026-09-01).
+- **Context:** Track R requires `P(Y|β,u)=∫P(Y|p,J)Dirichlet(p|κq)dp`, which has no closed form.
+  The review specifies the formulation but not the estimator. The open decision item
+  "Approximation and optimization method for the integrated marginal likelihood" is resolved here.
+- **Options:** (a) Gauss–Hermite / Laplace quadratic approximations; (b) nested Monte Carlo with a
+  reparameterized (pathwise) gradient; (c) score-function (REINFORCE) gradient with self-normalized
+  importance weights; (d) quadrature over a grid of `p`.
+- **Choice:** (c) — `B` fresh Dirichlet draws per choice set per minibatch step, softmin
+  log-likelihood as the unnormalized weight, Dirichlet score `d/dα log Dir(p|α)` as the influence,
+  chained through `α=κq` by the softmax Jacobian. Fit with the same hand-written NumpyAdam as Track
+  P (lr 0.02, betas (0.9, 0.999), eps 1e-8). Single explicit softmin temperature
+  `tau_like=0.15` (D-20260901-03), `era_mode='official'` (D-20260901-01), `B=1200`,
+  `alpha_floor=0.1` (below ~0.1 the gamma sampler underflows to exact zeros whose `log` corrupts
+  the score; 0.1 also bounds the score variance `trigamma(α_i) ≈ 1/α_i`).
+- **Rationale:** the score estimator is unbiased and needs only unnormalized softmin likelihoods
+  (the Dirichlet normalizer cancels in the normalized weights). Three estimator bugs were found and
+  fixed during calibration: self-normalized weights must be renormalized to sum to 1
+  (`exp(log f − log L)` is `f/mean(f)`, off by a factor `B`), the alpha clip must floor at 0.1, and
+  the fit accumulates the negative of `d log L/dη` (Track P's `−1/τ` chain factor already encodes
+  the NLL sign, Track R's positive log-likelihood gradient does not). Validity is pinned by tests:
+  an exact n=2 quadrature identity (sigmoid softmin × Beta) agrees with the MC log-likelihood and
+  gradient to ~0.1%, an FD test of the Dirichlet score, and an in-family synthetic recovery (signal
+  `β_j>0` recovered, zero-signal control stays near 0 with its `u` structure found).
+- **Consequences:** measured Track R (`outputs/problem1_summary_R.json`) vs Track P: overall
+  top-1 `0.8349` vs `0.9495`, mean PCP `0.5342` vs `0.6043`, mean CI width `3.378` vs `3.117`,
+  `S_bar` `0.6331` vs `0.7785`. The top-1 gap is structural: Track P reconditions the weekly
+  posterior on the *same* observed elimination used to fit `q` (internal/explanatory), Track R uses
+  each outcome once. The marginal-likelihood optimum genuinely has `β_j < 0` (full-batch
+  convergence and the gradient at the fitted point both confirm it), so Track R's different
+  coefficients are not a bug. MC error at the fitted point: `mc_se_relative ≈ 0.0045`, mean
+  importance ESS ≈ 1159, and sensitivity across seeds/B spans top-1 `0.803–0.844`. Track P and
+  Track R metrics must always be reported with their track label (D-20260901-02).
+- **Refs:** `../review/notes/review_all.md` (integrated marginal-likelihood proposal),
+  `src/dwts_reproduction/problem1/track_r.py`,
+  `tests/test_problem1_track_r.py`, `outputs/problem1_summary_R.json`.

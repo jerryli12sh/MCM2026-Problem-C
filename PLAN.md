@@ -43,8 +43,22 @@ review-rebuild targets — `top1 = 0.9495412844036697` (bit-for-bit), `mean_pcp_
 (rel 1.4e-5), `mean_ess_ratio = 0.9625174` (rel 3e-6), `mean_ci_rel_width = 3.1171359` (rel 6.4e-5),
 `S_bar = 0.7785` (abs 0.0015 vs 0.78); panel 4199 rows, 218 train weeks, 292 elimination events.
 `scripts/problem1_run.py` writes 11 track-tagged artifacts + a run manifest (input sha
-`7485ffa4…f44b`). 73 tests pass; ruff/mypy clean. Decisions: D-20260901-01 (era mapping), D-20260901-04
-(numpy-vs-torch gap), D-20260901-07 (posterior reweighting mode). Track R still pending.
+`7485ffa4…f44b`). Decisions: D-20260901-01 (era mapping), D-20260901-04 (numpy-vs-torch gap),
+D-20260901-07 (posterior reweighting mode).
+
+**Track R implementation complete (2026-09-01):** `fit_integrated_marginal` fits the review's
+integrated marginal likelihood `P(Y|β,u)=∫P(Y|p,J)Dirichlet(p|κq)dp` with a score-function /
+self-normalized-importance-weights Monte Carlo gradient (B=1200 fresh Dirichlet draws per choice
+set per step, NumpyAdam as Track P, single `tau_like=0.15`, `alpha_floor=0.1`, `era_mode='official'`).
+Validity pinned by tests: n=2 quadrature identity (MC logL and gradient agree to ~0.1%), Dirichlet
+score vs FD, in-family synthetic recovery (signal β_j>0 recovered, zero-signal control |β_j|<0.2
+with u structure found), real-data end-to-end (model_type `integrated_marginal_mc`, official era,
+MC rel_se≈0.0045, ESS≈1159). Measured Track R vs Track P (labeled separately): top1 `0.8349` vs
+`0.9495`, PCP `0.5342` vs `0.6043`, CI width `3.378` vs `3.117`, `S_bar` `0.6331` vs `0.7785`; the
+gap is structural (Track P double-uses the outcome; its metrics are internal/explanatory) and the
+marginal-likelihood optimum genuinely has β_j<0 (full-batch-converged). `scripts/problem1_run.py
+--track R` writes 11 `_R`-tagged artifacts + manifest; sensitivity spans top1 0.803–0.844 across
+seeds/B. 81 tests pass; ruff/mypy clean. Decision: D-20260901-08 (MC estimator + optimizer choice).
 
 Gate: simplex/numerical/gradient tests pass for both tracks; synthetic recovery succeeds; convergence
 and sampling diagnostics meet thresholds; paper-number reproduction, Track P limitations, Track R
