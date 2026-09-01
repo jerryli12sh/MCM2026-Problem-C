@@ -147,9 +147,11 @@ inspects the relevant legacy code or the owner approves a tolerance.
   top-1 `0.8349` vs `0.9495`, mean PCP `0.5342` vs `0.6043`, mean CI width `3.378` vs `3.117`,
   `S_bar` `0.6331` vs `0.7785`. The top-1 gap is structural: Track P reconditions the weekly
   posterior on the *same* observed elimination used to fit `q` (internal/explanatory), Track R uses
-  each outcome once. The marginal-likelihood optimum genuinely has `β_j < 0` (full-batch
-  convergence and the gradient at the fitted point both confirm it), so Track R's different
-  coefficients are not a bug. MC error at the fitted point: `mc_se_relative ≈ 0.0045`, mean
+  each outcome once. The marginal-likelihood optimum provisionally has `β_j < 0` (full-batch
+  convergence and the gradient at the fitted point both confirm it at this snapshot), so Track R's
+  different coefficients are not a bug — but this explanation is **provisional until the final
+  independent audit** (per the governing acceptance instruction); the evidence is preserved and the
+  limitation is not hidden. MC error at the fitted point: `mc_se_relative ≈ 0.0045`, mean
   importance ESS ≈ 1159, and sensitivity across seeds/B spans top-1 `0.803–0.844`. Track P and
   Track R metrics must always be reported with their track label (D-20260901-02).
 - **Refs:** `../review/notes/review_all.md` (integrated marginal-likelihood proposal),
@@ -662,3 +664,35 @@ inspects the relevant legacy code or the owner approves a tolerance.
 - **Refs:** `scripts/build_traceability.py` (R_STATUS), `src/dwts_reproduction/release/compare.py`
   (`_check_b16`, `_check_b17`, `_fig_count`, `_num`), `tests/test_release_compare.py`
   (5 new B-16/B-17 tests), `manifests/baseline.csv` (B-16/B-17).
+
+### D-20260901-24 — B-08 numeric contract and provisional Track R framing (established)
+
+- **Status:** established (2026-09-01).
+- **Context:** The hostile self-review of the Phase 7 comparison found two weaknesses. (1) B-08
+  "Case-study table (|d|, Flip)" verified only the row count and celebrity names; the registered
+  2-decimal |d|/Flip values ("Jerry Rice 3.69/0.87; ...") were printed but never asserted, so drift
+  in the produced posterior quantities would still PASS. (2) PLAN.md and D-20260901-02 stated the
+  Track R marginal-likelihood optimum "genuinely has β_j<0"; the governing acceptance instruction
+  requires this explanation to be treated as provisional until the final independent audit.
+- **Options:** (a) leave the checks as structural-only; (b) parse the abbreviated registration string
+  at runtime; (c) assert the numeric contract against an explicit registered table keyed by the
+  produced full names, with a tolerance equal to the registration's rounding resolution.
+- **Choice:** (c). `_check_b08` now compares each produced `|d|` and `flip` against the registered
+  values within `abs 1e-2` (the 2-decimal rounding of the legacy registration; max observed
+  discrepancy is 0.005). The B-08 tolerance field is recalibrated from `structural (proposed)` to
+  `abs 1e-2 (recalibrated, proposed)` in `manifests/baseline.csv` /
+  `docs/BASELINE_PAPER_OUTPUTS.md` via `scripts/build_baseline.py`. The provisional framing is
+  applied to PLAN.md (Phase 2 Track R note) and D-20260901-02: β_j<0 is "provisionally" negative at
+  this snapshot (full-batch convergence + gradient check), explicitly **awaiting the final
+  independent audit**; the evidence is preserved and the limitation is not hidden.
+- **Rationale:** the registered values are the contract — a check that does not assert them is a
+  print statement, not an acceptance gate. Overstating a result as "genuine" before the independent
+  audit violates the governing instruction's provisional-treatment requirement; wording is corrected
+  without changing the underlying evidence or method.
+- **Consequences:** B-08 is now a real numeric gate (22 release-comparison tests pass, including 4
+  new B-08 drift/missing-case tests); `--verify-only` still reports 20/20 PASS with
+  `release_ok=True`. No paper formula, sample definition, hyperparameter, or conclusion is altered.
+- **Refs:** `src/dwts_reproduction/release/compare.py` (`_check_b08`),
+  `scripts/build_baseline.py`, `tests/test_release_compare.py` (4 new B-08 tests),
+  `manifests/baseline.csv` (B-08), `PLAN.md` (Phase 2 Track R note), `docs/DECISIONS.md`
+  (D-20260901-02 provisional framing).

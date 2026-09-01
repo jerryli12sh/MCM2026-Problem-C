@@ -6,7 +6,7 @@ B-04,Cumulative consistency S-bar,Problem 1 eval,../src/eval_metrics_viz.py,0.78
 B-05,Mean PCP (weighted),problem1_summary.json,../review/problem1_rebuild/outputs/problem1_summary.json,0.6043,abs 0.02 (proposed),registered
 B-06,Mean ESS ratio,problem1_summary.json,../review/problem1_rebuild/outputs/problem1_summary.json,0.9625,abs 0.02 (proposed),registered
 B-07,Mean CI relative width,problem1_summary.json,../review/problem1_rebuild/outputs/problem1_summary.json,3.117,abs 0.05 (proposed),registered
-B-08,"Case-study table (|d|, Flip)",Problem 2 table,../src/sim_rank_trend_cases.py,Jerry Rice 3.69/0.87; B.R.Cyrus 3.25/0.75; B.Palin 4.30/0.97; Bobby Bones 4.00/0.57; Tinashe 8.50/0.57; Vinny G. 9.88/0.33,structural (proposed),registered
+B-08,"Case-study table (|d|, Flip)",Problem 2 table,../src/sim_rank_trend_cases.py,Jerry Rice 3.69/0.87; B.R.Cyrus 3.25/0.75; B.Palin 4.30/0.97; Bobby Bones 4.00/0.57; Tinashe 8.50/0.57; Vinny G. 9.88/0.33,"abs 1e-2 (recalibrated, proposed)",registered
 B-09,V1 parameters,Problem 4,../src/season_simulator.py,K=3; early/late split m=8,exact (proposed),registered
 B-10,V2 parameters,Problem 4,../src/season_simulator2.py,"w_J=0.80 w_F=0.20 gamma=0.45 delta=1.35 mu=0.01 L in {2,3}",exact (proposed),registered
 B-11,Problem 3 age coefficient (judge),Problem 3,../src/dwts_pro_celeb_regression.py,beta_Age ~ -0.04,abs 0.02 (proposed),"reproduced (got -0.0301/-0.0329/-0.0359, D-20260901-17)"

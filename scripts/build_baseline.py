@@ -110,7 +110,7 @@ ROWS: list[list[str]] = [
         "Problem 2 table",
         "../src/sim_rank_trend_cases.py",
         "Jerry Rice 3.69/0.87; B.R.Cyrus 3.25/0.75; B.Palin 4.30/0.97; Bobby Bones 4.00/0.57; Tinashe 8.50/0.57; Vinny G. 9.88/0.33",
-        "structural (proposed)",
+        "abs 1e-2 (recalibrated, proposed)",
     ),
     b(
         9,

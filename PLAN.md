@@ -61,7 +61,7 @@ with u structure found), real-data end-to-end (model_type `integrated_marginal_m
 MC rel_se≈0.0045, ESS≈1159). Measured Track R vs Track P (labeled separately): top1 `0.8349` vs
 `0.9495`, PCP `0.5342` vs `0.6043`, CI width `3.378` vs `3.117`, `S_bar` `0.6331` vs `0.7785`; the
 gap is structural (Track P double-uses the outcome; its metrics are internal/explanatory) and the
-marginal-likelihood optimum genuinely has β_j<0 (full-batch-converged). `scripts/problem1_run.py
+marginal-likelihood optimum provisionally has β_j<0 (full-batch-converged; treated as provisional until the final independent audit, D-20260901-02). `scripts/problem1_run.py
 --track R` writes 11 `_R`-tagged artifacts + manifest; sensitivity spans top1 0.803–0.844 across
 seeds/B. 81 tests pass; ruff/mypy clean. Decision: D-20260901-08 (MC estimator + optimizer choice).
 
@@ -198,6 +198,9 @@ via `src/dwts_reproduction/release/compare.py` (13→18 hermetic tests). Two fal
 resolved (D-20260901-23): B-16 now scopes to the registered R-001..R-019 preprocessing targets, and
 B-17 counts figures across all three manifest schema variants (`figures`/`outputs`/`files`);
 review traceability is now 40/40 `implemented` (R_STATUS mapping). `--verify-only` reports
-**20/20 PASS, release_ok=True**. The full end-to-end default run (≈24 min, includes problem4 sims
-≈15m and problem2 P/R ≈6.4m) is the remaining evidence; then hostile self-review and the final
+**20/20 PASS, release_ok=True**. A hostile self-review then hardened B-08 from a structural
+(names+count only) check to a numeric contract that asserts each registered |d|/Flip value within
+abs 1e-2, and reframed the Track R β_j<0 explanation as provisional awaiting the final independent
+audit (D-20260901-24); 22 release-comparison tests pass. The full end-to-end default run (≈24 min,
+includes problem4 sims ≈15m and problem2 P/R ≈6.4m) is the remaining evidence; then the final
 acceptance packet.

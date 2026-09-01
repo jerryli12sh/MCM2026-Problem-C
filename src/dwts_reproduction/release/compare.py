@@ -197,23 +197,46 @@ def _check_b07(ctx: CheckContext, row: pd.Series) -> CheckResult:
 
 
 def _check_b08(ctx: CheckContext, row: pd.Series) -> CheckResult:
-    """Named controversy cases: |d| / Flip structural check."""
+    """Named controversy cases: |d| / Flip numeric contract against the registered table.
+
+    The baseline registers 2-decimal |d|/Flip values ("Jerry Rice 3.69/0.87; ...",
+    abbreviated names). Produced values are the unrounded posterior quantities; the
+    check asserts each within abs 1e-2 (the registration's rounding resolution).
+    """
+    # Registered |d|/Flip keyed by the produced full celebrity name; the baseline's
+    # abbreviations are Jerry Rice / B.R.Cyrus / B.Palin / Bobby Bones / Tinashe / Vinny G.
+    registered = {
+        "Jerry Rice": (3.69, 0.87),
+        "Billy Ray Cyrus": (3.25, 0.75),
+        "Bristol Palin": (4.30, 0.97),
+        "Bobby Bones": (4.00, 0.57),
+        "Tinashe": (8.50, 0.57),
+        "Vinny Guadagnino": (9.88, 0.33),
+    }
     div = _csv(ctx.outputs / "problem2_case_divergence_P.csv")
     names = sorted(str(x) for x in div["celebrity_name"])
-    expected = sorted(
-        [
-            "Jerry Rice",
-            "Billy Ray Cyrus",
-            "Bristol Palin",
-            "Bobby Bones",
-            "Tinashe",
-            "Vinny Guadagnino",
-        ]
-    )
-    ok = len(div) == 6 and names == expected
-    vals = ", ".join(
-        f"{n}:|d|={r}" for n, r in zip(div["celebrity_name"], div["abs_d"], strict=False)
-    )
+    ok = len(div) == 6 and names == sorted(registered)
+    deltas: list[str] = []
+    tol = 1e-2
+    if ok:
+        for name, (exp_d, exp_flip) in registered.items():
+            found = div[div["celebrity_name"].astype(str) == name]
+            if found.empty:
+                ok = False
+                deltas.append(f"{name}: MISSING")
+                continue
+            d = float(found.iloc[0]["abs_d"])
+            flip = float(found.iloc[0]["flip"])
+            d_ok = abs(d - exp_d) <= tol
+            flip_ok = abs(flip - exp_flip) <= tol
+            if not (d_ok and flip_ok):
+                ok = False
+                deltas.append(
+                    f"{name}:|d|={d}(Δ{abs(d - exp_d):.4f})/flip={flip}(Δ{abs(flip - exp_flip):.4f})"
+                )
+            else:
+                deltas.append(f"{name}:|d|={d}/flip={flip}")
+    vals = "; ".join(deltas) if deltas else "6 rows"
     return CheckResult(
         row["id"],
         str(row["item"]),

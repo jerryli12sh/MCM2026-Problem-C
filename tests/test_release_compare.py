@@ -203,6 +203,105 @@ def test_summarize_counts() -> None:
     }
 
 
+def _write_case_divergence(tmp_path, rows: list[tuple[str, float, float]]) -> None:
+    pd.DataFrame(
+        [{"celebrity_name": name, "abs_d": d, "flip": flip} for name, d, flip in rows]
+    ).to_csv(tmp_path / "problem2_case_divergence_P.csv", index=False)
+
+
+_B08_REGISTERED: list[tuple[str, float, float]] = [
+    ("Jerry Rice", 3.69, 0.87),
+    ("Billy Ray Cyrus", 3.25, 0.75),
+    ("Bristol Palin", 4.30, 0.97),
+    ("Bobby Bones", 4.00, 0.57),
+    ("Tinashe", 8.50, 0.57),
+    ("Vinny Guadagnino", 9.88, 0.33),
+]
+
+
+@pytest.mark.parametrize("col", ["abs_d", "flip"])
+def test_b08_fails_when_value_drifts(tmp_path, col: str) -> None:
+    # Produced unrounded values within the registration's 2-decimal rounding (abs 1e-2).
+    produced = [
+        ("Jerry Rice", 3.6875, 0.8716666667),
+        ("Billy Ray Cyrus", 3.25, 0.7483333333),
+        ("Bristol Palin", 4.3, 0.97),
+        ("Bobby Bones", 4.0, 0.575),
+        ("Tinashe", 8.5, 0.575),
+        ("Vinny Guadagnino", 9.875, 0.3283333333),
+    ]
+    if col == "abs_d":
+        produced[0] = ("Jerry Rice", 4.2, 0.8716666667)  # outside abs 1e-2
+    else:
+        produced[4] = ("Tinashe", 8.5, 0.9)  # outside abs 1e-2
+    _write_case_divergence(tmp_path, produced)
+    baseline = _write_baseline(
+        tmp_path,
+        [
+            {
+                "id": "B-08",
+                "item": "Case-study table (|d|, Flip)",
+                "proposed_tolerance": "abs 1e-2 (recalibrated, proposed)",
+            }
+        ],
+    )
+    results = compare(baseline, str(tmp_path), str(tmp_path), repo_root=tmp_path)
+    assert results[0].verdict == VERDICT_FAIL
+    assert "Δ" in results[0].detail  # the drifted cell is reported with its delta
+
+
+def test_b08_passes_within_registration_rounding(tmp_path) -> None:
+    _write_case_divergence(
+        tmp_path,
+        [
+            ("Jerry Rice", 3.6875, 0.8716666667),
+            ("Billy Ray Cyrus", 3.25, 0.7483333333),
+            ("Bristol Palin", 4.3, 0.97),
+            ("Bobby Bones", 4.0, 0.575),
+            ("Tinashe", 8.5, 0.575),
+            ("Vinny Guadagnino", 9.875, 0.3283333333),
+        ],
+    )
+    baseline = _write_baseline(
+        tmp_path,
+        [
+            {
+                "id": "B-08",
+                "item": "Case-study table (|d|, Flip)",
+                "proposed_tolerance": "abs 1e-2 (recalibrated, proposed)",
+            }
+        ],
+    )
+    results = compare(baseline, str(tmp_path), str(tmp_path), repo_root=tmp_path)
+    assert results[0].verdict == VERDICT_PASS
+    assert "6 rows" in results[0].observed
+
+
+def test_b08_fails_on_missing_case(tmp_path) -> None:
+    _write_case_divergence(
+        tmp_path,
+        [
+            ("Jerry Rice", 3.6875, 0.8716666667),
+            ("Billy Ray Cyrus", 3.25, 0.7483333333),
+            ("Bristol Palin", 4.3, 0.97),
+            ("Bobby Bones", 4.0, 0.575),
+            ("Tinashe", 8.5, 0.575),
+        ],
+    )
+    baseline = _write_baseline(
+        tmp_path,
+        [
+            {
+                "id": "B-08",
+                "item": "Case-study table (|d|, Flip)",
+                "proposed_tolerance": "abs 1e-2 (recalibrated, proposed)",
+            }
+        ],
+    )
+    results = compare(baseline, str(tmp_path), str(tmp_path), repo_root=tmp_path)
+    assert results[0].verdict == VERDICT_FAIL
+
+
 def _write_review_traceability(tmp_path, statuses: dict[str, str]) -> None:
     """Write a minimal traceability_review.csv (B-16's read path)."""
     header = [
