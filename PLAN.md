@@ -201,6 +201,16 @@ review traceability is now 40/40 `implemented` (R_STATUS mapping). `--verify-onl
 **20/20 PASS, release_ok=True**. A hostile self-review then hardened B-08 from a structural
 (names+count only) check to a numeric contract that asserts each registered |d|/Flip value within
 abs 1e-2, and reframed the Track R β_j<0 explanation as provisional awaiting the final independent
-audit (D-20260901-24); 22 release-comparison tests pass. The full end-to-end default run (≈24 min,
-includes problem4 sims ≈15m and problem2 P/R ≈6.4m) is the remaining evidence; then the final
-acceptance packet.
+audit (D-20260901-24); 22 release-comparison tests pass.
+
+**Phase 7 release reproduction complete (2026-09-01):** the full end-to-end default run
+(`scripts/run_release.py`, ≈24 min, 1430.8 s) completed with **all 19 stages exit 0** and
+**20/20 PASS, release_ok=True** (`outputs/release_manifest.json` pins git 847b37e, python 3.13.3,
+per-stage durations, stdout/stderr tails; `outputs/release_comparison.json` pins the comparison
+sha256). Every registered baseline row B-01..B-20 is verified against the freshly produced
+artifacts, including the strengthened B-08 numeric contract. Full test suite: **229 tests pass**;
+ruff format/check and mypy clean. Honest limitations are registered (B-01 XGBoost not
+reproducible, ranking-gap R² claim not reproducible, R-040 not supported, P-057 not testable,
+B-12/B-13 direction-confirmed only, Track R performance/β_j provisional, fan votes never ground
+truth). Acceptance packet: `docs/PHASE7_ACCEPTANCE.md`. Remaining: owner acceptance and the final
+independent audit.

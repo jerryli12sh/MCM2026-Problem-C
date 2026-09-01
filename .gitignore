@@ -8,6 +8,7 @@ __pycache__/
 *.py[cod]
 outputs/**
 !outputs/.gitkeep
+data
 data/
 *.egg-info/
 dist/
