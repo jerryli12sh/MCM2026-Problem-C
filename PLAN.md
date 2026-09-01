@@ -14,6 +14,10 @@ Gate: a fresh environment can validate input hashes and run a smoke test without
 files. Every material paper and review requirement maps to an implementation module and an acceptance
 test; every conflict is classified as Track P versus Track R rather than silently resolved.
 
+**Phase 0 implementation complete (2026-09-01):** `make phase0-accept` passes (24 tests; 174 hashed
+inputs; 96 paper / 35 review traceability rows; 6 conflicts; 17 baseline rows). Evidence in
+`docs/PHASE0_ACCEPTANCE.md`. Awaiting independent audit + owner acceptance; do not enter Phase 1.
+
 ## Phase 1 — Canonical preprocessing (`pending`)
 
 - Parse result states, season lengths, active horizons, structural zeroes, and missing values.
