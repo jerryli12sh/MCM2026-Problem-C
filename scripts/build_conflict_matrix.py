@@ -99,6 +99,17 @@ ROWS: list[list[str]] = [
         "Prevents overclaiming latent fan votes as ground truth.",
         "D-20260901-06",
     ],
+    [
+        "C-07",
+        "Paper reports XGBoost in-season baseline A = 0.806554 (same features as torch; Fig. 1).",
+        "Review does not re-run the xgb baseline; review rebuild outputs only torch top-1 accuracy 0.949541.",
+        "Legacy src/xgb_baseline.py + compare_models_cv.py run today produce xgb week-mean 0.821101 / season-mean 0.817496 (see /tmp/p1e_legacy/xgb_by_week_legacy.csv); the repo port is bit-for-bit identical.",
+        "Preserve the paper's registered target 0.806554 in BASELINE_PAPER_OUTPUTS.md but report the legacy-reproduced line honestly (xgb week-mean 0.821101 / season-mean 0.817496); label the paper number as not reproducible from current legacy code/data.",
+        "Track R has no xgb baseline requirement; it reports the torch rebuild (target 0.949541).",
+        "~1.8% relative gap (0.821101 vs 0.806554); outside the proposed 1e-3 tolerance for B-01.",
+        "The xgb baseline is a comparison line for the torch claim; the discrepancy does not change the torch line (0.952092 reproduced exactly).",
+        "D-20260901-11",
+    ],
 ]
 
 

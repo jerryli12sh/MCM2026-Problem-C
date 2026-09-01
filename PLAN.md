@@ -64,13 +64,33 @@ Gate: simplex/numerical/gradient tests pass for both tracks; synthetic recovery 
 and sampling diagnostics meet thresholds; paper-number reproduction, Track P limitations, Track R
 differences, leakage-safe held-out evaluation, and in-sample reconstruction are reported separately.
 
-## Phase 3 — Evaluation and uncertainty (`pending`)
+## Phase 3 — Evaluation and uncertainty (`active`)
 
 - Top-1 elimination accuracy, rank-sensitive scores, season-path score, PCP, NLL/Brier where valid.
 - XGBoost or simpler observable-feature baseline with season-grouped splits.
 - Credible intervals, relative width, crowded-field analysis, calibration and stability checks.
 
-Gate: metrics are reproducible from one command and every chart is backed by a saved table.
+**Phase 3 Problem-1 evaluation extras complete (2026-09-01):** the in-season accuracy
+baselines (P-027/P-029) and the uncertainty/structural figures (P-025/P-033/P-035/P-037) are
+implemented and tested (`scripts/problem1_extras_run.py` writes 8 saved tables + run manifest;
+`scripts/plot_problem1_figures.py` renders 6 charts from those tables with a figure manifest
+pinning input-table hashes). The torch in-season line reproduces the paper exactly
+(season-mean 0.952092, wins 33/33 seasons, 218 training weeks) and proves the paper's
+aggregation is the mean of per-season means (D-20260901-13). The XGBoost line's paper target
+0.806554 is **not reproducible** from the current legacy code/data — an exhaustive sweep
+(features, kappa 1–30, three seed schemes) tops out at 0.821101 week-mean / 0.817496
+season-mean, and the repo port is bit-for-bit identical to a live legacy run (C-07,
+D-20260901-11); B-01 is updated to preserve the paper target while reporting the honest legacy
+line. The paper's ranking-gap `R^2 > 0.6` claim is not reproducible either: the exact cell-56
+port gives `R^2 = 0.2704`, n=421 (D-20260901-12; jitter is plot-only, D-20260901-15). PCP is
+reported in both variants (paper uniform-weight formula vs importance-weighted reading,
+D-20260901-14), and the S8/S21 uncertainty heatmaps adapt exit-week and p_mean/CI width from the
+saved posterior summary (D-20260901-16). Traceability P-025..P-038 are `implemented`. Decisions:
+D-20260901-11..16.
+
+Gate (recheck): `scripts/problem1_extras_run.py && scripts/plot_problem1_figures.py` reproduce
+every metric and chart from one command; each chart is backed by a saved table and the figure
+manifest pins the input hash. 142 tests pass (`pytest -q`), `ruff check`/`mypy` clean.
 
 ## Phase 4 — Historical and counterfactual mechanisms (`active`)
 

@@ -221,3 +221,135 @@ inspects the relevant legacy code or the owner approves a tolerance.
 - **Refs:** `../paper_Latex/2107542.tex` (Fig 5, P-056/P-057), `../review/notes/review_all.md`
   (R-040), `src/dwts_reproduction/problem2/mechanism_phase.py`,
   `tests/test_mechanism_phase.py`.
+
+### D-20260901-11 — XGBoost baseline accuracy 0.806554 not reproducible from legacy (established)
+
+- **Status:** established (2026-09-01).
+- **Context:** the paper reports the XGBoost in-season baseline ``A = 0.806554``
+  ("same features" as torch; ``../paper_Latex/2107542.tex`` line ~396). The repo port
+  ``evaluate_inseason_accuracy(model_kind='xgb')`` reproduces the legacy pipeline
+  ``src/xgb_baseline.py`` + ``src/compare_models_cv.py`` **bit-for-bit**: a live legacy run today
+  gives xgb week-mean ``0.821101`` / season-mean ``0.817496`` (evidence
+  ``/tmp/p1e_legacy/xgb_by_week_legacy.csv``), identical to the repo's week-mean ``0.821101``.
+- **Options:** (a) fabricate/force the paper number; (b) keep the paper number as the registered
+  target and report the legacy-reproduced line honestly; (c) drop the target silently.
+- **Choice:** (b) — B-01 stays registered in ``docs/BASELINE_PAPER_OUTPUTS.md`` at the proposed
+  rel-1e-3 tolerance, the paper number is explicitly marked **not reproducible from the current
+  legacy code/data**, and the reproduced xgb line is reported with both week-mean (``0.821101``)
+  and season-mean (``0.817496``) labelled P1E/Track P. C-07 added to the conflict matrix.
+- **Rationale:** the discrepancy was diagnosed exhaustively before concluding: exact-legacy port
+  (0.821101), age-filled "same features as torch" variant (0.821101), seed schemes ``s*100`` /
+  ``s*1000`` / ``(s-1)*100`` (0.821101 / 0.825688 / 0.811927), feature-set variants (no-age
+  ``0.899083``, no-era ``0.811927``), and a kappa sweep 1–30 (week-mean ``0.729–0.959``). None
+  reaches 0.806554. Meanwhile the torch season-mean ``0.952092`` reproduces the paper exactly,
+  proving (a) the paper's ``A`` is the mean of per-season means and (b) the torch pipeline is the
+  current legacy one. The xgb gap is therefore a real paper-vs-legacy conflict, not a port bug.
+- **Consequences:** the xgb line is reported as-is with the paper target recorded but unmet; the
+  paper's "wins in every season" comparison still holds (torch season-mean 0.952092 > xgb
+  season-mean 0.817496). The limitation is preserved, not hidden.
+- **Refs:** ``../paper_Latex/2107542.tex``, ``../src/xgb_baseline.py``,
+  ``../src/compare_models_cv.py``, ``/tmp/p1e_legacy/xgb_driver.py``,
+  ``src/dwts_reproduction/problem1/baselines.py``, ``docs/BASELINE_PAPER_OUTPUTS.md`` (B-01),
+  ``docs/CONFLICT_MATRIX.md`` (C-07).
+
+### D-20260901-12 — Ranking-gap "R² > 0.6" paper claim not reproducible (established)
+
+- **Status:** established (2026-09-01).
+- **Context:** the paper claims the ranking-gap quadratic fit has ``R² > 0.6``
+  (``../paper_Latex/2107542.tex`` line ~454). The repo's ``ranking_gap_frame`` is an exact port of
+  ``src/week_evolution.ipynb`` cell 56 (placement first-row, judge_avg mean, audience_mean mean,
+  result_minus_judge, audience_rank groupby rank, polyfit order 2). On the saved Track P posterior
+  summary (kappa=10, B=1200) the fit gives ``n=421``, ``R² = 0.2704``, coeffs
+  ``[-0.0474, 1.0274, 6.5607]``.
+- **Options:** (a) report 0.2704 honestly and mark the paper claim unverifiable; (b) tune
+  kappa/B/subset until R² exceeds 0.6 and claim success; (c) drop the claim.
+- **Choice:** (a) — the figure (P-035) is produced from the saved table with the honest R²; the
+  paper's ``>0.6`` claim is recorded as **not reproducible from the saved posterior data** in
+  ``docs/BASELINE_PAPER_OUTPUTS.md`` and the traceability doc.
+- **Rationale:** the paper's figure apparently used posterior data not recoverable from the saved
+  tables (or a different model variant); manufacturing an R² above 0.6 would overstate the result
+  and violate the honesty rules. Reproducing the pipeline faithfully is the deliverable.
+- **Consequences:** P-035's summary/fit JSON carry ``ranking_gap_claim_r2_gt_0_6: false`` and the
+  reproduced R² is reported with its n. The ranking-gap *table* (n=421) is a faithful pipeline
+  reproduction.
+- **Refs:** ``../paper_Latex/2107542.tex``, ``../src/week_evolution.ipynb`` cell 56,
+  ``src/dwts_reproduction/problem1/structural.py``,
+  ``outputs/problem1_extras_summary_P1E.json``.
+
+### D-20260901-13 — P-029 accuracy line is a visual item; torch aggregation = mean of per-season means (established)
+
+- **Status:** established (2026-09-01).
+- **Context:** the paper Fig. 1 accuracy line (P-029) compares per-season torch vs xgb accuracy.
+  The torch overall number 0.952092 is reproduced **exactly** by the repo's per-season
+  ``fit_pooled_softmin`` + ``posterior_draws_for_week`` port when aggregated as the mean of
+  per-season means (season-mean 0.952092); the week-mean is 0.954128. This proves the paper's
+  ``A`` is ``mean_s(A_s)``, not the mean over weeks.
+- **Options:** (a) register a numeric target for the torch line; (b) treat it as a visual item with
+  the aggregation convention documented.
+- **Choice:** (b) — the line is registered as a visual item (P-029) with no numeric target in
+  ``docs/BASELINE_PAPER_OUTPUTS.md``; the aggregation convention ``mean of per-season means`` is
+  documented here and in ``accuracy_by_season``. D-20260901-04 already registers the torch top-1
+  accuracy target.
+- **Rationale:** the line's purpose is the per-season comparison; the exact overall reproduction is
+  a bonus proof of the aggregation convention, not a separate target.
+- **Consequences:** ``accuracy_by_season`` documents "mean of per-season means"; the by-week table
+  is kept as the source of truth so either aggregation is reproducible.
+- **Refs:** ``../src/plot_cv_accuracy_line.py``, ``../src/compare_models_cv.py``,
+  ``src/dwts_reproduction/problem1/baselines.py``, ``docs/BASELINE_PAPER_OUTPUTS.md``.
+
+### D-20260901-14 — P-033 PCP weighted vs unweighted variants (established)
+
+- **Status:** established (2026-09-01).
+- **Context:** the paper's PCP formula (``../paper_Latex/2107542.tex`` line ~435) averages with
+  uniform weights ``1/B`` over posterior draws — i.e. **unweighted** over the draw population. The
+  Track P posterior summary also carries softmin *importance weights* (the same likelihood used to
+  reweight draws); weighting by them is the conditional-expectation estimate of the same quantity.
+- **Options:** (a) paper formula only (uniform); (b) importance-weighted only; (c) both.
+- **Choice:** (c) — the table reports ``pcp_weighted`` and ``pcp_unweighted`` side by side.
+  ``pcp_unweighted`` is the paper formula (uniform ``1/B``); ``pcp_weighted`` is the importance-
+  weighted variant. Both are computed from the same saved posterior draws so the parameter
+  discrepancy is visible, never silently merged.
+- **Rationale:** the review's corrected posterior (Track R) is exactly the importance-weighted
+  reading; keeping both makes the paper-vs-corrected difference explicit.
+- **Consequences:** the crowded-field figure (P-033) renders both variants from the saved table;
+  the paper headline number, when reported, is ``pcp_unweighted``.
+- **Refs:** ``../paper_Latex/2107542.tex``, ``src/dwts_reproduction/problem1/structural.py``,
+  ``outputs/problem1_extras_crowded_field_P1E.csv``.
+
+### D-20260901-15 — Ranking-gap frame is an exact cell-56 port; jitter is plot-only (established)
+
+- **Status:** established (2026-09-01).
+- **Context:** the paper's ranking-gap scatter (P-035) originates in ``src/week_evolution.ipynb``
+  cell 56, which applies a small normal jitter before plotting. The repo's ``ranking_gap_frame``
+  produces the **un-jittered** table; jitter is applied only inside ``plot_ranking_gap`` (seeded
+  ``default_rng(42)``, ``scale=0.15``) and never to ``x``/``y`` before the fit, so the quadratic
+  fit and R² are deterministic functions of the saved table.
+- **Options:** (a) jitter in the table (as the notebook did); (b) jitter only in the plot.
+- **Choice:** (b) — fit on un-jittered data; jitter in the rendering only.
+- **Rationale:** the fit must be reproducible from the saved CSV alone (CLAUDE.md: figures only from
+  saved source tables); jitter in the data would make R² depend on the RNG.
+- **Consequences:** the figure's scatter is jittered for legibility; the fit band and R² (0.2704,
+  see D-20260901-12) are recomputed from the un-jittered table in
+  ``scripts/plot_problem1_figures.py``.
+- **Refs:** ``../src/week_evolution.ipynb`` cell 56,
+  ``src/dwts_reproduction/problem1/structural.py``, ``src/dwts_reproduction/problem1/figures.py``.
+
+### D-20260901-16 — Season 8 / Season 21 heatmaps adapt exit-week and p_mean (established)
+
+- **Status:** established (2026-09-01).
+- **Context:** the paper's heatmaps (P-025 Season 8, P-037 Season 21) visualize per-week posterior
+  fan support and credible-interval width across a season's alive rosters. The paper's exact grid
+  layout (who is alive in which week) is not recoverable from the saved posterior summary alone, so
+  the heatmaps use the posterior summary's per-week ``p_mean`` (S8) and ``ci_rel_width`` (S21) over
+  the alive roster each week, ordered by the reproduction's stable contestant ordering.
+- **Options:** (a) reconstruct the paper grid exactly; (b) render from the saved posterior summary
+  with the exit-week/``p_mean`` adaptation and document it.
+- **Choice:** (b) — the source tables carry ``season``/``week``/``celebrity_name``/``p_mean``/
+  ``ci_rel_width``/exit-week; the figure is a faithful rendering of the saved posterior, with the
+  adaptation recorded here.
+- **Rationale:** the paper's exact grid would require re-running the posterior with the paper's
+  (unstated) ordering; the saved-summary rendering is reproducible and does not overstate fidelity.
+- **Consequences:** P-025/P-037 are registered as renderings of the saved posterior tables; the
+  adaptation is visible in the traceability doc.
+- **Refs:** ``../paper_Latex/2107542.tex``, ``outputs/problem1_extras_s8_heatmap_P1E.csv``,
+  ``outputs/problem1_extras_s21_heatmap_P1E.csv``, ``src/dwts_reproduction/problem1/figures.py``.

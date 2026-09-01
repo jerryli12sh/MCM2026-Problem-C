@@ -14,7 +14,11 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
-VALID_TRACKS = ("P", "R")
+# "P" and "R" are the two analytical tracks; "P1E" tags Problem 1 evaluation
+# extras (in-season baselines, PCP, ranking gap, heatmaps) that build on the
+# Track P posterior summary — see docs/TRACEABILITY.md. The list is kept closed
+# so an unexpected tag cannot be recorded silently.
+VALID_TRACKS = ("P", "R", "P1E")
 VALID_STATUSES = ("pending", "running", "success", "failed", "skipped")
 
 _REQUIRED_FIELDS = (

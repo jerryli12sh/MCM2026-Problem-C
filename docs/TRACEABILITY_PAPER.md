@@ -30,20 +30,20 @@
 | P-022 | Problem 1 | eq:nll | formula | Penalized NLL L = sum [C_i*/tau + log sum exp(-C_k/tau)] + l_beta\|\|beta\|\|^2 + l_u\|\|u\|\|^2 |  | ../src/model.py | problem1.model | shared | planned |  | planned |
 | P-023 | Problem 1 | eq:posterior | formula | Dirichlet posterior pi(p\|i*) propto (prod p_i^{kappa q_i - 1}) * softmin evidence |  | ../src/posterior_uncertainty.py | problem1.model | problem1.model (R) | planned |  | planned |
 | P-024 | Problem 1 | is | formula | Importance sampling: draw p^b ~ Dirichlet(kappa q), reweight by softmin, weighted posterior |  | ../src/posterior_uncertainty.py | problem1.model | problem1.model (R) | planned |  | planned |
-| P-025 | Problem 1 | week_trajectory.jpg | figure | Posterior fan-support trajectories (Season 8) heatmap | visual | ../src/plot_uncertainty.py | problem1.model | shared | planned |  | planned |
-| P-026 | Problem 1 | eq:top1 | metric | Top-1 accuracy A = 1/N sum 1{argmin C_hat = i*} |  | ../src/eval_metrics_viz.py | problem1.eval | shared | planned |  | planned |
-| P-027 | Problem 1 | acc_xgb | metric | XGBoost baseline top-1 accuracy | 0.806554 | ../src/xgb_baseline.py | problem1.eval | shared | planned |  | planned |
-| P-028 | Problem 1 | acc_torch | metric | torch_model top-1 accuracy (wins every season) | 0.952092 | ../src/model.py; ../src/model_new.py | problem1.eval | shared | planned |  | planned |
-| P-029 | Problem 1 | 1_model_accuracy_line.png | figure | In-season accuracy by season (torch vs xgboost) | visual | ../src/plot_cv_accuracy_line.py | problem1.eval | shared | planned |  | planned |
-| P-030 | Problem 1 | eq:cum_consistency | metric | Cumulative consistency S_s = (1/H_K) sum_k (1/k)(n'_s,k / n_s,k) |  | ../src/eval_metrics_viz.py | problem1.eval | shared | planned |  | planned |
-| P-031 | Problem 1 | cum_S | metric | Season-averaged cumulative consistency | 0.78 | ../src/eval_metrics_viz.py | problem1.eval | shared | planned |  | planned |
-| P-032 | Problem 1 | eq:pcp | metric | PCP = 1/B sum 1{argmin(J+p^b) = i*} |  | ../src/posterior_uncertainty.py | problem1.eval | shared | planned |  | planned |
-| P-033 | Problem 1 | pcp_vs_alive.jpg | figure | Crowded-field effect: PCP rises as alive set shrinks | visual | ../src/eval_metrics_viz.py | problem1.eval | shared | planned |  | planned |
-| P-034 | Problem 1 | eq:ranking_gap | metric | Ranking gap Delta R = Rank_final - Rank_judge |  | ../src/eval_metrics_viz.py | problem1.eval | shared | planned |  | planned |
-| P-035 | Problem 1 | ranking_gap.jpg | figure | Popularity premium: inferred fan rank vs ranking gap (R^2>0.6) | R^2>0.6 | ../src/eval_metrics_viz.py | problem1.eval | shared | planned |  | planned |
-| P-036 | Problem 1 | eq:ci | metric | 90% credible interval CI90 = [Q_0.05, Q_0.95]; relative width RW = (hi-lo)/(p_hat+eps) |  | ../src/posterior_uncertainty.py | problem1.eval | shared | planned |  | planned |
-| P-037 | Problem 1 | 1_fig2_ci_heatmap_S21.png | figure | Season 21 relative CI width heatmap (heterogeneous uncertainty) | visual | ../src/plot_uncertainty.py | problem1.eval | shared | planned |  | planned |
-| P-038 | Problem 1 | ess | method | ESS diagnostic per week; flag low-ESS, increase B to stabilize |  | ../src/posterior_uncertainty.py | problem1.eval | shared | planned |  | planned |
+| P-025 | Problem 1 | week_trajectory.jpg | figure | Posterior fan-support trajectories (Season 8) heatmap | visual | ../src/plot_uncertainty.py | problem1.model | shared | planned |  | implemented |
+| P-026 | Problem 1 | eq:top1 | metric | Top-1 accuracy A = 1/N sum 1{argmin C_hat = i*} |  | ../src/eval_metrics_viz.py | problem1.eval | shared | planned |  | implemented |
+| P-027 | Problem 1 | acc_xgb | metric | XGBoost baseline top-1 accuracy (paper 0.806554; legacy run gives week-mean 0.821101 / season-mean 0.817496, D-20260901-11) | 0.806554 | ../src/xgb_baseline.py | problem1.eval | shared | planned |  | implemented |
+| P-028 | Problem 1 | acc_torch | metric | torch_model top-1 accuracy (wins every season) | 0.952092 | ../src/model.py; ../src/model_new.py | problem1.eval | shared | planned |  | implemented |
+| P-029 | Problem 1 | 1_model_accuracy_line.png | figure | In-season accuracy by season (torch vs xgboost) | visual | ../src/plot_cv_accuracy_line.py | problem1.eval | shared | planned |  | implemented |
+| P-030 | Problem 1 | eq:cum_consistency | metric | Cumulative consistency S_s = (1/H_K) sum_k (1/k)(n'_s,k / n_s,k) |  | ../src/eval_metrics_viz.py | problem1.eval | shared | planned |  | implemented |
+| P-031 | Problem 1 | cum_S | metric | Season-averaged cumulative consistency | 0.78 | ../src/eval_metrics_viz.py | problem1.eval | shared | planned |  | implemented |
+| P-032 | Problem 1 | eq:pcp | metric | PCP = 1/B sum 1{argmin(J+p^b) = i*} |  | ../src/posterior_uncertainty.py | problem1.eval | shared | planned |  | implemented |
+| P-033 | Problem 1 | pcp_vs_alive.jpg | figure | Crowded-field effect: PCP rises as alive set shrinks | visual | ../src/eval_metrics_viz.py | problem1.eval | shared | planned |  | implemented |
+| P-034 | Problem 1 | eq:ranking_gap | metric | Ranking gap Delta R = Rank_final - Rank_judge |  | ../src/eval_metrics_viz.py | problem1.eval | shared | planned |  | implemented |
+| P-035 | Problem 1 | ranking_gap.jpg | figure | Popularity premium: inferred fan rank vs ranking gap (paper claims R^2>0.6; reproduced R^2=0.2704, n=421, D-20260901-12) | R^2>0.6 | ../src/eval_metrics_viz.py | problem1.eval | shared | planned |  | implemented |
+| P-036 | Problem 1 | eq:ci | metric | 90% credible interval CI90 = [Q_0.05, Q_0.95]; relative width RW = (hi-lo)/(p_hat+eps) |  | ../src/posterior_uncertainty.py | problem1.eval | shared | planned |  | implemented |
+| P-037 | Problem 1 | 1_fig2_ci_heatmap_S21.png | figure | Season 21 relative CI width heatmap (heterogeneous uncertainty) | visual | ../src/plot_uncertainty.py | problem1.eval | shared | planned |  | implemented |
+| P-038 | Problem 1 | ess | method | ESS diagnostic per week; flag low-ESS, increase B to stabilize |  | ../src/posterior_uncertainty.py | problem1.eval | shared | planned |  | implemented |
 | P-039 | Problem 2 | eq:rank_rule | formula | Rank rule: e_hat = argmax_i (rank(-T_i) + rank(-p_hat_i)) |  | ../src/2_rank_vs_pct_cross_season.ipynb | problem2.rules | shared | planned |  | implemented |
 | P-040 | Problem 2 | eq:pct_rule | formula | Percentage rule: e_hat = argmin_i (T_i/sum T + p_hat_i) |  | ../src/2_rank_vs_pct_cross_season.ipynb | problem2.rules | shared | planned |  | implemented |
 | P-041 | Problem 2 | eq:dr | metric | Disagreement rate DR_s = 1/\|W\| sum 1{e_rank != e_pct} | DR_s>0.6 frequent | ../src/2_rank_vs_pct_cross_season.ipynb | problem2.rules | shared | planned |  | implemented |

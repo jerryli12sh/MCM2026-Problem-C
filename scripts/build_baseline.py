@@ -41,8 +41,9 @@ def b(
     producer: str,
     expected: str,
     tol: str,
+    status: str = "registered",
 ) -> list[str]:
-    return [f"B-{idx:02d}", item, loc, producer, expected, tol, "registered"]
+    return [f"B-{idx:02d}", item, loc, producer, expected, tol, status]
 
 
 ROWS: list[list[str]] = [
@@ -51,8 +52,9 @@ ROWS: list[list[str]] = [
         "Top-1 accuracy (XGBoost baseline)",
         "Problem 1 eval",
         "../src/xgb_baseline.py",
-        "0.806554",
+        "0.806554 (paper target; NOT reproducible from current legacy — legacy line 0.821101 week-mean / 0.817496 season-mean, see D-20260901-11 / C-07)",
         "rel 1e-3 (proposed)",
+        "not-reproduced (paper target preserved)",
     ),
     b(
         2,

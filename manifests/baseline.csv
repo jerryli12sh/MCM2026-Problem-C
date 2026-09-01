@@ -1,5 +1,5 @@
 id,item,source_loc,legacy_producer,expected_value,proposed_tolerance,status
-B-01,Top-1 accuracy (XGBoost baseline),Problem 1 eval,../src/xgb_baseline.py,0.806554,rel 1e-3 (proposed),registered
+B-01,Top-1 accuracy (XGBoost baseline),Problem 1 eval,../src/xgb_baseline.py,"0.806554 (paper target; NOT reproducible from current legacy — legacy line 0.821101 week-mean / 0.817496 season-mean, see D-20260901-11 / C-07)",rel 1e-3 (proposed),not-reproduced (paper target preserved)
 B-02,Top-1 accuracy (torch_model),Problem 1 eval,../src/model.py; ../src/model_new.py,0.952092,rel 1e-3 (proposed),registered
 B-03,Top-1 accuracy (review rebuild),problem1_summary.json,../review/problem1_rebuild/problem1_fan_support.py,0.949541,rel 1e-3 (proposed),registered
 B-04,Cumulative consistency S-bar,Problem 1 eval,../src/eval_metrics_viz.py,0.78,abs 0.02 (proposed),registered

@@ -338,6 +338,7 @@ PAPER_ROWS: list[list[str]] = [
         "visual",
         "../src/plot_uncertainty.py",
         P1,
+        status="implemented",
     ),
     p(
         26,
@@ -348,16 +349,18 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "../src/eval_metrics_viz.py",
         P1E,
+        status="implemented",
     ),
     p(
         27,
         "Problem 1",
         "acc_xgb",
         "metric",
-        "XGBoost baseline top-1 accuracy",
+        "XGBoost baseline top-1 accuracy (paper 0.806554; legacy run gives week-mean 0.821101 / season-mean 0.817496, D-20260901-11)",
         "0.806554",
         "../src/xgb_baseline.py",
         P1E,
+        status="implemented",
     ),
     p(
         28,
@@ -368,6 +371,7 @@ PAPER_ROWS: list[list[str]] = [
         "0.952092",
         "../src/model.py; ../src/model_new.py",
         P1E,
+        status="implemented",
     ),
     p(
         29,
@@ -378,6 +382,7 @@ PAPER_ROWS: list[list[str]] = [
         "visual",
         "../src/plot_cv_accuracy_line.py",
         P1E,
+        status="implemented",
     ),
     p(
         30,
@@ -388,6 +393,7 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "../src/eval_metrics_viz.py",
         P1E,
+        status="implemented",
     ),
     p(
         31,
@@ -398,6 +404,7 @@ PAPER_ROWS: list[list[str]] = [
         "0.78",
         "../src/eval_metrics_viz.py",
         P1E,
+        status="implemented",
     ),
     p(
         32,
@@ -408,6 +415,7 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "../src/posterior_uncertainty.py",
         P1E,
+        status="implemented",
     ),
     p(
         33,
@@ -418,6 +426,7 @@ PAPER_ROWS: list[list[str]] = [
         "visual",
         "../src/eval_metrics_viz.py",
         P1E,
+        status="implemented",
     ),
     p(
         34,
@@ -428,16 +437,18 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "../src/eval_metrics_viz.py",
         P1E,
+        status="implemented",
     ),
     p(
         35,
         "Problem 1",
         "ranking_gap.jpg",
         "figure",
-        "Popularity premium: inferred fan rank vs ranking gap (R^2>0.6)",
+        "Popularity premium: inferred fan rank vs ranking gap (paper claims R^2>0.6; reproduced R^2=0.2704, n=421, D-20260901-12)",
         "R^2>0.6",
         "../src/eval_metrics_viz.py",
         P1E,
+        status="implemented",
     ),
     p(
         36,
@@ -448,6 +459,7 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "../src/posterior_uncertainty.py",
         P1E,
+        status="implemented",
     ),
     p(
         37,
@@ -458,6 +470,7 @@ PAPER_ROWS: list[list[str]] = [
         "visual",
         "../src/plot_uncertainty.py",
         P1E,
+        status="implemented",
     ),
     p(
         38,
@@ -468,6 +481,7 @@ PAPER_ROWS: list[list[str]] = [
         "",
         "../src/posterior_uncertainty.py",
         P1E,
+        status="implemented",
     ),
     # ---- Problem 2 ----
     p(
