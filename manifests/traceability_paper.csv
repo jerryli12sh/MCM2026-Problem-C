@@ -8,7 +8,7 @@ P-006,Prep,A6,assumption,Counterfactual invariance: rule change does not change 
 P-007,Prep,A7,assumption,Within-season judging standard stable enough that judge-signal changes track real improvement,,,problem3.regression,shared,planned,,implemented
 P-008,Prep,A8,assumption,"Fan support comparable across seasons at matched checkpoints, not across weeks within a season",,,problem3.regression,shared,planned,,implemented
 P-009,Prep,A9,assumption,Bottom-2 judges save: judges eliminate technically weaker of the bottom two,,,problem2.rules,shared,planned,,implemented
-P-010,Prep,notations,table,"Notations table: core symbols (s,t,i,A,J,p,q,kappa,S,tau,i*,PCP,e_hat,Bottom2)",,,shared,shared,planned,,planned
+P-010,Prep,notations,table,"Notations table: core symbols (s,t,i,A,J,p,q,kappa,S,tau,i*,PCP,e_hat,Bottom2)",docs/METHOD_SPEC.md#shared-notation,docs/METHOD_SPEC.md#shared-notation,shared,shared,planned,,implemented
 P-011,Prep,preprocess-1,formula,Structural-zero handling: post-elimination zeros recoded NaN; original N/A preserved,,../src/0data_cleaning.ipynb; ../review/srcs_0/dwts_preprocess.py,preprocessing,shared,planned,,implemented
 P-012,Prep,preprocess-2,formula,"Outcome parsing: elim_week_result, is_withdrew, is_place; withdrawals excluded",,../src/0data_cleaning.ipynb,preprocessing,shared,planned,,implemented
 P-013,Prep,preprocess-3,formula,Season length and activity window (active_until) -> weekly alive set,,../src/0data_cleaning.ipynb,preprocessing,shared,planned,,implemented

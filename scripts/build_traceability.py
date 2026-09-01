@@ -188,9 +188,10 @@ PAPER_ROWS: list[list[str]] = [
         "notations",
         "table",
         "Notations table: core symbols (s,t,i,A,J,p,q,kappa,S,tau,i*,PCP,e_hat,Bottom2)",
-        "",
-        "",
+        "docs/METHOD_SPEC.md#shared-notation",
+        "docs/METHOD_SPEC.md#shared-notation",
         SHARED,
+        status="implemented",
     ),
     p(
         11,

@@ -11,6 +11,28 @@ Shared components must be reused where mathematically identical. Conflicting com
 separate behind explicit configuration. Every output filename, table, figure, metric, and manifest
 must contain its track.
 
+## Shared notation
+
+Core symbols used throughout the specification and the implementation (both tracks).
+Definitions are pinned to the code in `src/dwts_reproduction/`; see each module's
+docstrings for the exact table/column names.
+
+| Symbol | Definition |
+| --- | --- |
+| `s`, `t` | Season and week indices; the canonical unit is contestant-season-week `(contestant_id, s, t)`. |
+| `i` | Contestant index within a season's alive set. |
+| `A` (`A_{s,t}`) | Alive set: eligible contestant set at season `s`, week `t`. Judge and fan signals normalize only within `A`. |
+| `J` | Judge signal: normalized judge total (percentage share) or summed judge rank, over `A`. |
+| `p` | Latent weekly fan-share probability vector over `A`; also the survival-support vector used by the elimination likelihood. |
+| `q` | Pooled support center, `q = softmax(X beta + u)` over `A`, with feature matrix `X`, coefficient vector `beta`, and contestant-season effect `u`. |
+| `kappa` | Dirichlet concentration multiplier; weekly prior `p ~ Dirichlet(kappa q)`. |
+| `S` | Season-path consistency score `S_s` (per season); `S_bar` is the mean over seasons. Reported separately per track (Track P `S_bar = 0.78`; Track R lower, see D-20260901-08). |
+| `tau` | Softmin temperature in the elimination likelihood: `tau_like = 0.15` for conditioning, `tau_train = 0.05` for the pooled fit. |
+| `i*` | Observed eliminatee: the true eliminated contestant index for a given elimination event. |
+| `e_hat` | Estimated eliminatee: `e_hat = argmax_i pi_hat_i` with `pi_hat = softmax(-(J + p_mean) / tau)`, where `p_mean` is the posterior mean fan share. |
+| `PCP` | Pointwise coverage probability of the posterior mass on the observed eliminatee `i*`; reported as `pcp_weighted` (importance-weighted) and `pcp_uniform` variants. |
+| `Bottom2` | Bottom-2 judges-save rule: the two lowest-scoring contestants under a rank or percentage criterion are exposed to a judges' save; flags are deterministic per week. |
+
 ## Shared data contract
 
 The canonical unit is contestant-season-week `(contestant_id, season, week)`. Define season length

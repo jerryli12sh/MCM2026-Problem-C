@@ -18,6 +18,11 @@ test; every conflict is classified as Track P versus Track R rather than silentl
 inputs; 96 paper / 35 review traceability rows; 6 conflicts; 17 baseline rows). Evidence in
 `docs/PHASE0_ACCEPTANCE.md`. Awaiting independent audit + owner acceptance; do not enter Phase 1.
 
+**P-010 notations table complete (2026-09-01):** the last non-implemented traceability row is now
+`implemented` — the shared notations table lives in `docs/METHOD_SPEC.md#shared-notation` (core
+symbols `s,t,i,A,J,p,q,kappa,S,tau,i*,PCP,e_hat,Bottom2`, definitions pinned to the code).
+All 96 paper traceability rows are now `status=implemented` (verified programmatically).
+
 ## Phase 1 — Canonical preprocessing (`pending`)
 
 - Parse result states, season lengths, active horizons, structural zeroes, and missing values.
