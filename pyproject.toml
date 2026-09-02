@@ -48,6 +48,12 @@ select = ["E", "F", "W", "I", "UP", "B"]
 ignore = ["E501"]  # line length is enforced by `ruff format`, not lint
 
 [tool.mypy]
+# Type-check against the validated interpreter (Python 3.13), not the 3.11 floor:
+# installed numpy 2.x inline stubs use 3.12-only `type` statements, so a 3.11
+# mypy target fails inside numpy before it checks our code. 3.11-compatible
+# *syntax* is instead enforced by ruff's target-version = "py311" above.
+# Support matrix: requires-python >= 3.11 (syntax-gated); type-checked and
+# validated on Python 3.13 (the documented release environment).
 python_version = "3.13"
 files = ["src/dwts_reproduction"]
 warn_return_any = true

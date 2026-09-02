@@ -1,7 +1,11 @@
-# DWTS reproduction — Phase 0 development commands.
+# DWTS reproduction — development commands.
 #
 # All commands run inside the repository-local virtual environment. `make install` sets it
-# up. `make phase0-accept` runs every Phase 0 gate without modifying any file.
+# up with every dependency needed to run the full analysis AND the dev toolchain
+# (`pip install -e ".[analysis,dev]"`); the core package itself is numpy/pandas only, but the
+# full pipeline needs scipy/matplotlib/scikit-learn/statsmodels/xgboost too. Torch is NOT
+# required (the softmin fit uses a hand-written Adam; see pyproject.toml). `make phase0-accept`
+# runs every gate without modifying any file.
 
 VENV := .venv
 PY := $(VENV)/bin/python
@@ -14,7 +18,7 @@ venv:
 	$(PIP) install --upgrade pip
 
 install: venv
-	$(PIP) install -e ".[dev]"
+	$(PIP) install -e ".[analysis,dev]"
 
 format:
 	$(PY) -m ruff format .

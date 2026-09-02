@@ -4,12 +4,18 @@ All external (read-only) inputs — raw data, the paper, the review notes, and t
 implementation — live in the *parent* of this repository. This module resolves them from a
 single ``source_root`` so that no absolute, machine-specific path appears in library code.
 
+``source_root`` is resolved in this order: (1) the ``DWTS_SOURCE_ROOT`` environment
+variable (absolute, or relative to this repository's root) if set; (2) the
+``configs/paths.yaml`` ``source_root`` key. The environment override lets a published
+standalone clone point at a local read-only source bundle without editing a tracked file.
+
 The repository root is discovered from the location of this file (``parents[2]`` of
 ``src/dwts_reproduction/config.py``), so editable installs and direct imports both work.
 """
 
 from __future__ import annotations
 
+import os
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -74,12 +80,22 @@ def load_paths(paths_yaml: Path | None = None) -> Paths:
 
     Raises:
         ValueError: If ``source_root`` is missing, or if any derived source directory
-            resolves to a location inside the repository (sources must be read-only and
-            live outside ``repo/``).
+            resolves to a location inside the repository unless ``allow_inside: true`` is
+            set in the paths configuration (the default keeps sources read-only and outside
+            ``repo/``; ``allow_inside`` exists only for an owner who has decided to vendor
+            the inputs into the repository).
     """
     yaml_path = Path(paths_yaml) if paths_yaml else DEFAULT_PATHS_YAML
     data = yaml.safe_load(yaml_path.read_text(encoding="utf-8")) or {}
     raw_root = data.get("source_root")
+    allow_inside = bool(data.get("allow_inside", False))
+
+    # Environment override wins so a clean clone can target a local source bundle without
+    # editing the tracked configuration.
+    env_root = os.environ.get("DWTS_SOURCE_ROOT")
+    if env_root:
+        raw_root = env_root
+
     if raw_root is None:
         raise ValueError(f"{yaml_path} must declare a `source_root` key")
 
@@ -95,18 +111,21 @@ def load_paths(paths_yaml: Path | None = None) -> Paths:
         figure_dir=source_root / "figure",
     )
 
-    # Enforce that the read-only sources live outside the repository.
-    for name, path in (
-        ("source_root", source_root),
-        ("data_dir", paths.data_dir),
-        ("src_dir", paths.src_dir),
-        ("review_dir", paths.review_dir),
-        ("paper_latex_dir", paths.paper_latex_dir),
-        ("figure_dir", paths.figure_dir),
-    ):
-        if path.resolve().is_relative_to(REPO_ROOT.resolve()):
-            raise ValueError(
-                f"{name} resolves to {path}, which is inside the repository; "
-                "read-only sources must live outside repo/"
-            )
+    # Enforce that the read-only sources live outside the repository, unless the owner has
+    # explicitly opted in to vendored inputs.
+    if not allow_inside:
+        for name, path in (
+            ("source_root", source_root),
+            ("data_dir", paths.data_dir),
+            ("src_dir", paths.src_dir),
+            ("review_dir", paths.review_dir),
+            ("paper_latex_dir", paths.paper_latex_dir),
+            ("figure_dir", paths.figure_dir),
+        ):
+            if path.resolve().is_relative_to(REPO_ROOT.resolve()):
+                raise ValueError(
+                    f"{name} resolves to {path}, which is inside the repository; "
+                    "read-only sources must live outside repo/ (or set "
+                    "`allow_inside: true` in paths.yaml to vendor them explicitly)"
+                )
     return paths
