@@ -1,0 +1,5 @@
+# Byte-for-byte archival mirror: never line-ending-normalize the review note.
+# Source of record lives OUTSIDE this repo (source_root/review/notes/review_all.md);
+# the tracked copy is a verbatim shipping mirror for reviewers/readers, verified
+# byte-identical by SHA-256 in docs/STATUS.md and by the phase-0 gate.
+review/notes/review_all.md -text

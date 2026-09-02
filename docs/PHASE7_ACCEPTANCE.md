@@ -121,11 +121,12 @@ comparison scoping · -24 B-08 numeric contract + provisional Track R framing.
 ## Rerun commands
 
 ```bash
-.venv/bin/python scripts/run_release.py            # full release, ≈24 min
+.venv/bin/python scripts/run_release.py            # full release, 1375.8 s (≈ 23 min)
 .venv/bin/python scripts/run_release.py --verify-only   # fast re-check
 .venv/bin/python -m pytest -q                      # full test suite (229)
 .venv/bin/ruff format --check . && .venv/bin/ruff check . && .venv/bin/mypy src/dwts_reproduction
 ```
 
-Runtime cost of the full release: ≈24 min wall-clock on this machine (problem4 sims ≈15 min,
-problem2 Track P/R ≈6.4 min). No API/token cost beyond local compute.
+Runtime cost of the full release: 1375.8 s (≈ 23 min) wall-clock on this machine (problem4 sims
+≈ 15 min, problem2 Track P/R ≈ 6.4 min); "≈ 24 min" is the coarse planning estimate. No API/token
+cost beyond local compute.

@@ -204,8 +204,8 @@ abs 1e-2, and reframed the Track R β_j<0 explanation as provisional awaiting th
 audit (D-20260901-24); 22 release-comparison tests pass.
 
 **Phase 7 release reproduction complete (2026-09-01):** the full end-to-end default run
-(`scripts/run_release.py`, ≈24 min, 1430.8 s) completed with **all 19 stages exit 0** and
-**20/20 PASS, release_ok=True** (`outputs/release_manifest.json` pins git 847b37e, python 3.13.3,
+(`scripts/run_release.py`, 1375.8 s ≈ 23 min) completed with **all 19 stages exit 0** and
+**20/20 PASS, release_ok=True** (`outputs/release_manifest.json` pins git 569994b, python 3.13.3,
 per-stage durations, stdout/stderr tails; `outputs/release_comparison.json` pins the comparison
 sha256). Every registered baseline row B-01..B-20 is verified against the freshly produced
 artifacts, including the strengthened B-08 numeric contract. Full test suite: **229 tests pass**;
