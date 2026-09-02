@@ -97,6 +97,7 @@ manifests/                 machine-readable ground truth (baseline 20, paper 96,
 review/notes/review_all.md byte-for-byte mirror of the external review note (Track R spec)
 outputs/                   generated tables/figures/manifests (gitignored; regenerable)
 evidence/                 committed representative figure snapshot + provenance
+.github/workflows/ci.yml  public CI — hermetic gate only (no contest data; see docs/CI.md)
 prompts/, .claude/, CLAUDE.md   maintainer agent-workflow notes (not part of the science)
 Makefile                   install / format / lint / type / test / verify-inputs / smoke
 pyproject.toml             package + tool config (ruff, mypy, pytest, extras)
@@ -128,6 +129,12 @@ Fast correctness gates (no heavy compute):
 # or the whole gate at once:
 make phase0-accept
 ```
+
+> **These gates need the source bundle** (they read the raw data / paper / review /
+> legacy files). Public CI cannot hold those files, so `.github/workflows/ci.yml` runs the
+> hermetic subset that needs only this repository — format, lint, type, and 81 pure-logic
+> tests. What runs where is spelled out in [`docs/CI.md`](docs/CI.md); nothing is skipped
+> silently.
 
 Reproduce the release evidence:
 
@@ -185,6 +192,7 @@ snapshot with the recipe in [`docs/ENVIRONMENT.md`](docs/ENVIRONMENT.md) § Veri
 | Document | What it is |
 |---|---|
 | [`docs/STATUS.md`](docs/STATUS.md) | **Authoritative status + reconciliation hub** |
+| [`docs/CI.md`](docs/CI.md) | What CI runs (hermetic) vs. what needs the source bundle (owner) |
 | [`docs/ENVIRONMENT.md`](docs/ENVIRONMENT.md) | Environment, install, snapshot verification |
 | [`docs/RUNBOOK.md`](docs/RUNBOOK.md) | Owner operating procedure (phase loop, stop rules) |
 | [`docs/METHOD_SPEC.md`](docs/METHOD_SPEC.md) | Method spec + shared-notation table |
