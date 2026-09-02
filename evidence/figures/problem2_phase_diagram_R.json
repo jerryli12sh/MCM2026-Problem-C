@@ -1,0 +1,12 @@
+{
+  "track": "R",
+  "source_table": "outputs/problem2_phase_metrics_R.csv",
+  "source_table_sha256": "29f84b29e89d4b0c2f541ab505e0246a392c4a41579d68c871e75da4df07ac07",
+  "y_column": "y_review_posterior_mean",
+  "x_column": "x_posterior_mean",
+  "run_manifest": "outputs/problem2_run_manifest_R.json",
+  "run_manifest_outputs_match": true,
+  "git_commit": "569994b330177e77fea731936ed6b1bdfeb5c5d5",
+  "n_seasons": 34,
+  "n_rows": 136
+}

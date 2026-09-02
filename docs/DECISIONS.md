@@ -231,8 +231,8 @@ inspects the relevant legacy code or the owner approves a tolerance.
   ("same features" as torch; ``../paper_Latex/2107542.tex`` line ~396). The repo port
   ``evaluate_inseason_accuracy(model_kind='xgb')`` reproduces the legacy pipeline
   ``src/xgb_baseline.py`` + ``src/compare_models_cv.py`` **bit-for-bit**: a live legacy run today
-  gives xgb week-mean ``0.821101`` / season-mean ``0.817496`` (evidence
-  ``/tmp/p1e_legacy/xgb_by_week_legacy.csv``), identical to the repo's week-mean ``0.821101``.
+  gives xgb week-mean ``0.821101`` / season-mean ``0.817496`` (evidence: that live legacy run's
+  per-week output, held outside this repository), identical to the repo's week-mean ``0.821101``.
 - **Options:** (a) fabricate/force the paper number; (b) keep the paper number as the registered
   target and report the legacy-reproduced line honestly; (c) drop the target silently.
 - **Choice:** (b) — B-01 stays registered in ``docs/BASELINE_PAPER_OUTPUTS.md`` at the proposed
@@ -250,9 +250,8 @@ inspects the relevant legacy code or the owner approves a tolerance.
   paper's "wins in every season" comparison still holds (torch season-mean 0.952092 > xgb
   season-mean 0.817496). The limitation is preserved, not hidden.
 - **Refs:** ``../paper_Latex/2107542.tex``, ``../src/xgb_baseline.py``,
-  ``../src/compare_models_cv.py``, ``/tmp/p1e_legacy/xgb_driver.py``,
-  ``src/dwts_reproduction/problem1/baselines.py``, ``docs/BASELINE_PAPER_OUTPUTS.md`` (B-01),
-  ``docs/CONFLICT_MATRIX.md`` (C-07).
+  ``../src/compare_models_cv.py``, ``src/dwts_reproduction/problem1/baselines.py``,
+  ``docs/BASELINE_PAPER_OUTPUTS.md`` (B-01), ``docs/CONFLICT_MATRIX.md`` (C-07).
 
 ### D-20260901-12 — Ranking-gap "R² > 0.6" paper claim not reproducible (established)
 

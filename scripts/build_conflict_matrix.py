@@ -103,7 +103,7 @@ ROWS: list[list[str]] = [
         "C-07",
         "Paper reports XGBoost in-season baseline A = 0.806554 (same features as torch; Fig. 1).",
         "Review does not re-run the xgb baseline; review rebuild outputs only torch top-1 accuracy 0.949541.",
-        "Legacy src/xgb_baseline.py + compare_models_cv.py run today produce xgb week-mean 0.821101 / season-mean 0.817496 (see /tmp/p1e_legacy/xgb_by_week_legacy.csv); the repo port is bit-for-bit identical.",
+        "Legacy src/xgb_baseline.py + compare_models_cv.py re-run today give xgb week-mean 0.821101 / season-mean 0.817496 (live legacy re-run; the per-week scratch output is held outside this repo); the repo port is bit-for-bit identical to that run.",
         "Preserve the paper's registered target 0.806554 in BASELINE_PAPER_OUTPUTS.md but report the legacy-reproduced line honestly (xgb week-mean 0.821101 / season-mean 0.817496); label the paper number as not reproducible from current legacy code/data.",
         "Track R has no xgb baseline requirement; it reports the torch rebuild (target 0.949541).",
         "~1.8% relative gap (0.821101 vs 0.806554); outside the proposed 1e-3 tolerance for B-01.",

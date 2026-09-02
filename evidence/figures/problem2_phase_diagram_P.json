@@ -1,0 +1,12 @@
+{
+  "track": "P",
+  "source_table": "outputs/problem2_phase_metrics_P.csv",
+  "source_table_sha256": "a86c2018a4cdfa06c08aaedaf7c6bc8cacd0cca1f45f017da38add0dfedcb75b",
+  "y_column": "y_posterior_mean",
+  "x_column": "x_posterior_mean",
+  "run_manifest": "outputs/problem2_run_manifest_P.json",
+  "run_manifest_outputs_match": true,
+  "git_commit": "569994b330177e77fea731936ed6b1bdfeb5c5d5",
+  "n_seasons": 34,
+  "n_rows": 136
+}

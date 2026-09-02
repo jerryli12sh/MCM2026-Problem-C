@@ -34,11 +34,17 @@ The recorded full-release run is the evidence every other "release" claim must r
 | Comparison evidence | `outputs/release_comparison.json` (20/20 PASS; content sha256 pinned and matching) |
 | Full test suite | `pytest -q` → **229 passed**; `ruff format --check` / `ruff check` clean; `mypy` clean |
 
-> Since that run, two *non-analysis* commits landed on `reproduction/main`:
-> **`83ca82a`** (LF line endings in generated manifests/inventories; prunes caches from inventory)
-> and **`08833da`** (reproducible install guide, frozen py313 snapshot, `DWTS_SOURCE_ROOT` override).
-> Neither changes any analysis output, formula, sample definition, or metric. The recorded release
-> evidence pins `569994b`; the `--verify-only` path re-checks the comparison against current code.
+> Since that run, eight *non-analysis* commits landed on `reproduction/main`: **`a400657`** (phase-7
+> acceptance packet), **`83ca82a`** (LF line endings in generated manifests/inventories; prunes caches
+> from inventory), **`08833da`** (reproducible install guide, frozen py313 snapshot, `DWTS_SOURCE_ROOT`
+> override), **`71dbeda`** (this STATUS doc + the verbatim review mirror), **`a18da17`** (public
+> README), **`1054106`** (committed evidence-figure snapshot), **`98c0ee1`** (hermetic CI workflow),
+> and **`bae7671`** (exclude the monorepo-layout test from the public CI gate). None changes any
+> analysis output, formula, sample definition, or metric — together they add acceptance/environment/CI
+> documentation, normalize generated-manifest line endings, freeze the Python 3.13 environment, and
+> commit a figure snapshot plus the review mirror. The recorded release evidence pins `569994b`;
+> `run_release.py --verify-only` re-checks the 20-row baseline comparison against current code and
+> passes **20/20 (`release_ok=True`) at `bae7671`**, confirming no science drift under those commits.
 > The authoritative full-run manifest therefore remains the `569994b` run.
 
 ## Manifest ground truth (current, programmatically verified)
@@ -96,10 +102,17 @@ Track R spec that produced the Track R results.
 
 ## Process status (honest)
 
-- **Nothing in this repository has been formally owner-accepted** and **no independent audit has been
-  completed**. Phase 0 (baseline/provenance) and Phase 7 (release reproduction) each pass their
-  automated gates but both still list "remaining: owner acceptance and the final independent audit"
-  (`PLAN.md`; `docs/PHASE0_ACCEPTANCE.md`; `docs/PHASE7_ACCEPTANCE.md`).
+- **Nothing in this repository has been formally owner-accepted.** The **independent audit is
+  complete**: an independent auditor re-ran the hermetic gate in a faithful split-out public clone,
+  scanned every tracked file for secrets/private references, reconciled each headline number and
+  manifest count, and byte-verified the review mirror. Its three minor documentation/provenance
+  findings were all fixed (see [`docs/FINAL_INDEPENDENT_AUDIT.md`](FINAL_INDEPENDENT_AUDIT.md)).
+  What remains is **owner acceptance** — the owner's sign-off decision; nothing here is formally
+  accepted until then (the release notes that accompany publication state this explicitly).
+- The Phase 0 and Phase 7 acceptance packets (`PLAN.md`, `docs/PHASE0_ACCEPTANCE.md`,
+  `docs/PHASE7_ACCEPTANCE.md`) were written before the audit and list "remaining: owner acceptance
+  and the final independent audit". The audit portion of that item is now satisfied by
+  `docs/FINAL_INDEPENDENT_AUDIT.md`; the owner portion still stands.
 - Claims above are recorded evidence or registered decisions — never narrative overstatement.
 
 ## Reconciliation log

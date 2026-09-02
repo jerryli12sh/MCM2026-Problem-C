@@ -20,8 +20,10 @@ release.
 
 Each committed PNG below is byte-for-byte the file the recorded release wrote to `outputs/`. The
 SHA-256 is computed on the committed bytes and matches the recorded figure-manifest hash for the
-eight figures that carry one; the two phase diagrams carry a sidecar (`problem2_phase_diagram_{P,R}.json`)
-that pins their source-table hash, git commit, and run-manifest match.
+eight figures that carry one; the two phase diagrams each carry a **committed sidecar**
+(`problem2_phase_diagram_{P,R}.json`, sitting next to the PNG here) that pins the source-table
+SHA-256, the git commit, and the run-manifest match for that figure, so the provenance is verifiable
+from a clone without `outputs/`.
 
 | Committed figure | Shows (traceability) | SHA-256 (first 16) |
 |---|---|---|
