@@ -225,7 +225,7 @@ def main() -> int:
     csv_path = paths.manifest_dir / "baseline.csv"
     csv_path.parent.mkdir(parents=True, exist_ok=True)
     with csv_path.open("w", newline="", encoding="utf-8") as fh:
-        writer = csv.writer(fh)
+        writer = csv.writer(fh, lineterminator="\n")
         writer.writerow(HEADER)
         writer.writerows(ROWS)
 

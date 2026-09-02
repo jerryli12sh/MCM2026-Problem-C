@@ -38,6 +38,11 @@ def _src_breakdown(src_dir: Path) -> dict[str, int]:
     for file_path in src_dir.rglob("*"):
         if not file_path.is_file() or file_path.name == ".DS_Store":
             continue
+        # Skip interpreter caches and virtual environments so the inventory is
+        # deterministic regardless of what has been imported or installed locally
+        # (mirrors the pruning in ``hashing._is_excluded``).
+        if "__pycache__" in file_path.parts or ".venv" in file_path.parts:
+            continue
         if file_path.suffix == ".py":
             counts["py"] += 1
         elif file_path.suffix == ".ipynb":
@@ -106,7 +111,7 @@ def main() -> int:
     csv_path = paths.manifest_dir / "legacy_inventory.csv"
     csv_path.parent.mkdir(parents=True, exist_ok=True)
     with csv_path.open("w", newline="", encoding="utf-8") as fh:
-        writer = csv.writer(fh)
+        writer = csv.writer(fh, lineterminator="\n")
         writer.writerow(["role", "relative_path", "sha256", "size_bytes"])
         for role, digest, rel in rows:
             size = (paths.source_root / rel).stat().st_size

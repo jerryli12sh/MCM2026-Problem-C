@@ -21,7 +21,7 @@
 |---|---|
 | `.py` sources | 22 |
 | `.ipynb` notebooks | 9 |
-| `.pyc` compiled caches | 8 |
+| `.pyc` compiled caches | 0 |
 | other | 0 |
 
 ## Per-role files
