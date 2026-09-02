@@ -95,7 +95,8 @@ tests/                     229 unit/invariant/integration tests
 manifests/                 machine-readable ground truth (baseline 20, paper 96,
                            review 40, conflicts 7, legacy inventory 174, input sha256)
 review/notes/review_all.md byte-for-byte mirror of the external review note (Track R spec)
-outputs/                   generated tables/figures/manifests (gitignored; see Artifacts)
+outputs/                   generated tables/figures/manifests (gitignored; regenerable)
+evidence/                 committed representative figure snapshot + provenance
 prompts/, .claude/, CLAUDE.md   maintainer agent-workflow notes (not part of the science)
 Makefile                   install / format / lint / type / test / verify-inputs / smoke
 pyproject.toml             package + tool config (ruff, mypy, pytest, extras)
@@ -169,8 +170,11 @@ snapshot with the recipe in [`docs/ENVIRONMENT.md`](docs/ENVIRONMENT.md) § Veri
 - `outputs/` is **gitignored and regenerable**: every table, figure, and run manifest is produced by
   a documented script, and every figure is registered in a figure manifest that pins its input-table
   hash. Reproducibility evidence is the *recipe + hashes*, not the bytes.
-- Committed evidence lives in `docs/` (acceptance packets, baseline/traceability/conflict tables) and
-  `manifests/` (machine-readable rows). The review mirror is the one committed *byte artifact*.
+- Committed evidence lives in `docs/` (acceptance packets, baseline/traceability/conflict tables),
+  `manifests/` (machine-readable rows), and `evidence/figures/` (a **frozen representative snapshot**
+  of 10 headline figures from the recorded release, each byte-verified against its figure-manifest
+  hash — see [`evidence/README.md`](evidence/README.md)). The review mirror is the one other committed
+  *byte artifact*.
 - Nothing in `outputs/` is evidence unless its run manifest records command, seeds, input hashes, git
   commit, and environment (see `docs/RUN_MANIFEST.md`).
 
