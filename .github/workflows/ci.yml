@@ -63,10 +63,13 @@ jobs:
       - name: Compile all modules (incl. data-bound ones not run here)
         run: python -m compileall -q src scripts
 
-      - name: Hermetic test selection (81 tests; no external source bundle)
+      - name: Hermetic test selection (78 tests; no external source bundle)
         # Only modules whose tests need committed repo files. The six
-        # `--deselect`ed tests read the external source bundle and are covered
-        # by the owner's local `make phase0-accept`. See docs/CI.md.
+        # `--deselect`ed tests read the external source bundle, and
+        # `test_scope.py` is excluded because it asserts the *monorepo* git
+        # layout (git root = parent of repo/), which does not exist once this
+        # directory is split out as its own repository; both are covered by the
+        # owner's local `make phase0-accept`. See docs/CI.md.
         run: |
           python -m pytest -q \
             tests/test_config.py \
@@ -75,7 +78,6 @@ jobs:
             tests/test_problem2_rules.py \
             tests/test_release_compare.py \
             tests/test_run_manifest.py \
-            tests/test_scope.py \
             tests/test_inventory_completeness.py \
             tests/test_sensitivity.py \
             tests/test_smoke.py \

@@ -7,7 +7,7 @@ accident of configuration — it follows from what this repository is allowed to
 
 | Gate | What it runs | Where it runs |
 |---|---|---|
-| **Hermetic gate** | Formatting (`ruff format --check`), lint (`ruff check`), typing (`mypy`), byte-compile of every module, and an 81-test selection that needs only committed repo files. | **Public CI** (`.github/workflows/ci.yml`) on every push/PR, on a source-less clone. |
+| **Hermetic gate** | Formatting (`ruff format --check`), lint (`ruff check`), typing (`mypy`), byte-compile of every module, and a 78-test selection that needs only committed repo files. | **Public CI** (`.github/workflows/ci.yml`) on every push/PR, on a source-less clone. |
 | **Data-bound gate** | The full **229-test** suite, the 20-row baseline comparison (`run_release.py --verify-only` / full), and `hash_inputs.py --validate` (174 input hashes). | **Owner's machine** (and any trusted machine holding the read-only source bundle) via `make phase0-accept`. |
 
 ## Why there are two gates
@@ -28,19 +28,18 @@ design is to run everything that *can* run without the bundle, document exactly 
 excluded and why, and keep the authoritative full gate on the machine that holds the
 bundle. Nothing is silently skipped: every deselected test is named below.
 
-## What the hermetic 81 actually covers
+## What the hermetic 78 actually covers
 
 `tests/test_config.py` (5) · `tests/test_hashing.py` (4) · `tests/test_mechanism_phase.py`
 (9) · `tests/test_problem2_rules.py` (14) · `tests/test_release_compare.py` (22) ·
-`tests/test_run_manifest.py` (7) · `tests/test_scope.py` (3) ·
-`tests/test_inventory_completeness.py` (2) · `tests/test_sensitivity.py` (14) ·
-`tests/test_smoke.py` (1).
+`tests/test_run_manifest.py` (7) · `tests/test_inventory_completeness.py` (2) ·
+`tests/test_sensitivity.py` (14) · `tests/test_smoke.py` (1).
 
 That selection exercises the mechanism **rule functions** (rank/percentage ×
 direct/bottom-2+save), the **release-comparison engine** (all 20 baseline-row checks),
-the **run-manifest schema**, the **path/scope guardrails**, the **hashing primitives**,
-and the pure-logic portions of the mechanism-phase, sensitivity, smoke, and inventory
-code — everything whose inputs are committed.
+the **run-manifest schema**, the **source-root/path guardrails**, the **hashing
+primitives**, and the pure-logic portions of the mechanism-phase, sensitivity, smoke, and
+inventory code — everything whose inputs are committed.
 
 The six tests deselected inside those modules, and the modules not collected at all
 (`test_preprocess.py`, all `test_problem1_*.py`, `test_problem2_replay.py`,
@@ -55,6 +54,16 @@ from it:
   — cross-check the 174-file inventory against the files on disk.
 - `test_smoke.py::{test_raw_shape, test_run_smoke_checks_pass}` — read the raw data file
   and run the smoke comparison against it.
+
+One whole module is left out of public CI for a *different* reason than the bundle:
+`tests/test_scope.py`. Its three tests assert the **monorepo** git layout — that the git
+root is the *parent* of this directory (`repo/`) and that no staged path begins outside
+`repo/`. That invariant exists to protect the owner's working copy, which also tracks the
+read-only sources and unrelated files at the parent level. Once this directory is split
+out as its own repository, the git root *is* the directory itself, so the invariant is
+meaningless — one of the tests (`test_git_toplevel_is_parent`) structurally cannot pass in
+that topology. The scope gate therefore stays an owner-side hygiene check: `make
+phase0-accept` runs the full suite inside the monorepo, where `test_scope.py` passes 3/3.
 
 ## Determinism
 
@@ -92,6 +101,9 @@ recipe.
   in a hermetic module, must be added to the `--deselect` list in
   `.github/workflows/ci.yml` and documented here). If it is neither, CI will error on it —
   loudly, never silently.
+- A test that asserts the **monorepo** git layout (git root = parent of `repo/`, staging
+  scope) belongs in `tests/test_scope.py`, which is intentionally excluded from public CI
+  and documented above. Such a test can never pass in the split-out public repository.
 - A new hermetic test may be added to any module listed above; CI picks it up
   automatically.
 - If `ruff`/`mypy` versions are upgraded in `pyproject.toml`, update the pins in the

@@ -132,7 +132,7 @@ make phase0-accept
 
 > **These gates need the source bundle** (they read the raw data / paper / review /
 > legacy files). Public CI cannot hold those files, so `.github/workflows/ci.yml` runs the
-> hermetic subset that needs only this repository — format, lint, type, and 81 pure-logic
+> hermetic subset that needs only this repository — format, lint, type, and 78 pure-logic
 > tests. What runs where is spelled out in [`docs/CI.md`](docs/CI.md); nothing is skipped
 > silently.
 
