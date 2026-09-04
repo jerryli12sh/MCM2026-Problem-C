@@ -2,9 +2,8 @@
 
 These prove that every literal figure/table in the paper is present in the paper inventory,
 that the critical review requirements are present in the review inventory, and that every
-conflict maps to a decision ID. The manual `docs/TRACEABILITY_COVERAGE.md` checklist
-(verified by the independent audit) covers formulas, claims, assumptions, and conclusions
-that automated parsing cannot.
+conflict maps to a decision ID. The manual `docs/TRACEABILITY_COVERAGE.md` checklist covers
+formulas, claims, assumptions, and conclusions that automated parsing cannot.
 """
 
 from __future__ import annotations

@@ -1,22 +1,6 @@
-# Continuous integration for the public DWTS reproduction repository.
-#
-# Design boundary (see docs/CI.md for the full rationale):
-#   The full 229-test suite, the 20-row baseline comparison, `hash_inputs.py
-#   --validate`, and the ~23-minute release pipeline all read the external
-#   read-only **source bundle** (contest data, submitted paper, review note,
-#   legacy implementation/outcomes — 174 hashed files). That bundle is not
-#   redistributed with this repository and cannot exist in a public CI
-#   checkout. This workflow therefore runs the *hermetic* gate — every check
-#   that needs only the committed repository — so a third party can see the
-#   code is formatted, typed, internally consistent, and passes its pure-logic
-#   test set. The data-bound suite is the owner's local gate (`make
-#   phase0-accept`; see docs/CI.md and docs/ENVIRONMENT.md).
-#
-# ruff and mypy are pinned to the versions that produced the recorded release,
-# because `ruff format` output and mypy diagnostics evolve between releases and
-# an unpinned install would turn this workflow red through version drift rather
-# than an actual defect. The exact third-party environment is frozen in
-# docs/python313-release-freeze-20260903.txt.
+# Public, source-free quality gate. The full numerical suite needs the external
+# read-only contest source bundle; see docs/CI.md. Ruff and mypy are pinned to
+# the versions used for the recorded release.
 
 name: ci
 
@@ -44,12 +28,11 @@ jobs:
           python-version: "3.13"
           cache: pip
 
-      - name: Install package + analysis/dev dependencies
+      - name: Install recorded dependencies and package
         run: |
           python -m pip install --upgrade pip
-          python -m pip install -e ".[analysis,dev]"
-          # Pin the toolchain that produced the recorded release evidence.
-          python -m pip install "ruff==0.16.5" "mypy==2.3.1"
+          python -m pip install -r requirements-lock.txt
+          python -m pip install -e . --no-deps
 
       - name: Format check (ruff)
         run: python -m ruff format --check .
@@ -63,13 +46,9 @@ jobs:
       - name: Compile all modules (incl. data-bound ones not run here)
         run: python -m compileall -q src scripts
 
-      - name: Hermetic test selection (78 tests; no external source bundle)
-        # Only modules whose tests need committed repo files. The six
-        # `--deselect`ed tests read the external source bundle, and
-        # `test_scope.py` is excluded because it asserts the *monorepo* git
-        # layout (git root = parent of repo/), which does not exist once this
-        # directory is split out as its own repository; both are covered by the
-        # owner's local `make phase0-accept`. See docs/CI.md.
+      - name: Source-free tests
+        # Six data-bound cases in otherwise source-free modules are explicitly
+        # deselected. The complete list and rationale live in docs/CI.md.
         run: |
           python -m pytest -q \
             tests/test_config.py \

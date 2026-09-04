@@ -12,11 +12,11 @@ dependency set.
 | Python interpreter | 3.13.3 (CPython) |
 | Install mode | `pip install -e ".[analysis,dev]"` into a repo-local `.venv` |
 | Packages installed | 37 third-party pins + `dwts-reproduction` (local editable) — see frozen snapshot |
-| Release-evidence commit | `a400657` (docs(phase7): acceptance packet) and successors on `reproduction/main` |
-| Frozen snapshot | [`python313-release-freeze-20260903.txt`](python313-release-freeze-20260903.txt) |
+| Release-evidence commit | `569994b` in the original workspace history |
+| Frozen snapshot | [`requirements-lock.txt`](../requirements-lock.txt) |
 
-> The snapshot is a *point-in-time* record of the exact environment that ran the Phase 0 / Phase 7
-> acceptance gates and produced `outputs/release_manifest.json`. It is evidence of what was tested,
+> The snapshot is a *point-in-time* record of the exact environment that ran the recorded release
+> and produced `outputs/release_manifest.json`. It is evidence of what was tested,
 > not a promise that pip will resolve identically forever; see
 > [Reproducibility limits](#reproducibility-limits).
 
@@ -63,7 +63,7 @@ from the recorded snapshot.
 ```bash
 .venv/bin/python --version   # expect 3.13.3
 .venv/bin/pip freeze | grep -v -E "^-e |#egg=dwts|subdirectory=repo" \
-  | diff - <(sed -e '/^#/d' -e '/^$/d' docs/python313-release-freeze-20260903.txt) \
+  | diff - <(sed -e '/^#/d' -e '/^$/d' requirements-lock.txt) \
   && echo "identical to recorded snapshot"
 ```
 
@@ -75,27 +75,27 @@ and the `sed` strips the snapshot's comment header, leaving the two pin lists to
 
 ## Reproducibility limits (honest)
 
-- The snapshot fixes *top-level* pins as resolved on 2026-09-03. Sub-dependencies are transitive and
-  not separately pinned, so a later `pip install` may pull newer builds within the same ranges.
+- The lock records the full resolved third-party set from 2026-09-03. A future install still depends
+  on those exact releases and compatible wheels remaining available for the target platform.
 - pandas/numpy/scipy wheels are platform-specific; an equivalent Linux wheel set will resolve to
   different build hashes. The recorded numbers should be reproduced *within registered tolerances*,
   not bit-for-bit, across platforms.
-- If exact, long-lived reproducibility matters, generate a `constraints.txt` (or migrate to a full
-  lockfile tool) at release time and commit it here. This snapshot is the evidence-based first step.
+- The file pins versions, not wheel hashes. For supply-chain-grade reproducibility, add
+  platform-specific hashes with a dedicated lockfile tool.
 
-## Gate commands (used for the acceptance packet)
+## Verification commands
 
 ```bash
 .venv/bin/python -m ruff format --check .
 .venv/bin/python -m ruff check .
 .venv/bin/python -m mypy src/dwts_reproduction
-.venv/bin/python -m pytest -q            # 229 tests
+.venv/bin/python -m pytest -q            # 226 tests in the public-ready tree
 .venv/bin/python scripts/hash_inputs.py --validate
 .venv/bin/python scripts/smoke_test.py
-.venv/bin/python scripts/check_scope.py
 .venv/bin/python scripts/run_release.py --verify-only   # fast re-check of the full release
 .venv/bin/python scripts/run_release.py                 # full release, ≈24 min
 ```
 
-See [`RUNBOOK.md`](RUNBOOK.md) for the operating procedure and
-[`PHASE7_ACCEPTANCE.md`](PHASE7_ACCEPTANCE.md) for the recorded results of these gates.
+Use `make check` for the source-free public gate, `make verify-data` for the complete local gate,
+and `make release` to regenerate every result. See [`CI.md`](CI.md) and
+[`VERIFICATION.md`](VERIFICATION.md) for the scope and recorded evidence.

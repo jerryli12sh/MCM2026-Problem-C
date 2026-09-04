@@ -1,15 +1,23 @@
 .DS_Store
 .env
+.idea/
+.vscode/
 .venv/
 __pycache__/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
+.coverage
+htmlcov/
 *.py[cod]
+*.egg-info/
+build/
+dist/
+*.ipynb_checkpoints/
+
+# Reproducible analysis products. Keep only the empty-directory marker.
 outputs/**
 !outputs/.gitkeep
-data
+
+# Licensed/provenance-controlled inputs live outside the public repository.
 data/
-*.egg-info/
-dist/
-build/

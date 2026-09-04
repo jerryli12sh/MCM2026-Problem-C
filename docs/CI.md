@@ -1,111 +1,63 @@
-# CI: what runs where, and why
+# Continuous integration and data boundary
 
-This repository has **two distinct test gates**, and the boundary between them is not an
-accident of configuration — it follows from what this repository is allowed to *contain*.
+The repository has two verification levels because the public tree deliberately excludes the
+official contest dataset, submitted paper source, and legacy workspace.
 
-## The two-tier gate
+## Public source-free gate
 
-| Gate | What it runs | Where it runs |
-|---|---|---|
-| **Hermetic gate** | Formatting (`ruff format --check`), lint (`ruff check`), typing (`mypy`), byte-compile of every module, and a 78-test selection that needs only committed repo files. | **Public CI** (`.github/workflows/ci.yml`) on every push/PR, on a source-less clone. |
-| **Data-bound gate** | The full **229-test** suite, the 20-row baseline comparison (`run_release.py --verify-only` / full), and `hash_inputs.py --validate` (174 input hashes). | **Owner's machine** (and any trusted machine holding the read-only source bundle) via `make phase0-accept`. |
+GitHub Actions runs on every push and pull request:
 
-## Why there are two gates
+- Ruff formatting and lint checks;
+- mypy type checking for `src/dwts_reproduction`;
+- byte-compilation of all modules and scripts;
+- tests whose inputs are entirely committed to the repository.
 
-The full suite and the release pipeline read the **external read-only source bundle** —
-the contest data (`2026_MCM_Problem_C_Data.csv`, `data_3.csv`), the submitted paper
-(`2107542.tex`), the consolidated review note, the legacy implementation, and the legacy
-outcomes: **174 hashed files** listed in `manifests/legacy_inventory.csv` and pinned by
-`manifests/input_manifest.sha256`. Those inputs live *outside* this repository
-(`configs/paths.yaml`, `source_root: ..`) and are **not redistributed** with it — the
-contest dataset's terms are the owner's to confirm, and this artifact ships a code
-reproduction, not the contest materials.
+The test selection covers configuration, hashing primitives, hand-worked mechanism rules, release
+comparison logic, run-manifest validation, sensitivity utilities, and smoke/inventory logic. Six
+individual cases are explicitly deselected because they open external data or generated release
+outputs:
 
-A standalone public clone therefore cannot hold those files, and GitHub Actions cannot
-fetch them. A CI job that ran the whole suite on a source-less checkout would not pass —
-it would fail on `FileNotFoundError` for the very files it is meant to verify. The honest
-design is to run everything that *can* run without the bundle, document exactly what is
-excluded and why, and keep the authoritative full gate on the machine that holds the
-bundle. Nothing is silently skipped: every deselected test is named below.
+- `test_mechanism_phase.py::test_real_phase_metrics_structural_p`;
+- `test_inventory_completeness.py::test_paper_figures_covered`;
+- `test_inventory_completeness.py::test_paper_tables_covered`;
+- `test_sensitivity.py::test_panel_with_variant_preserves_shape_on_real_data`;
+- `test_smoke.py::test_raw_shape`;
+- `test_smoke.py::test_run_smoke_checks_pass`.
 
-## What the hermetic 78 actually covers
-
-`tests/test_config.py` (5) · `tests/test_hashing.py` (4) · `tests/test_mechanism_phase.py`
-(9) · `tests/test_problem2_rules.py` (14) · `tests/test_release_compare.py` (22) ·
-`tests/test_run_manifest.py` (7) · `tests/test_inventory_completeness.py` (2) ·
-`tests/test_sensitivity.py` (14) · `tests/test_smoke.py` (1).
-
-That selection exercises the mechanism **rule functions** (rank/percentage ×
-direct/bottom-2+save), the **release-comparison engine** (all 20 baseline-row checks),
-the **run-manifest schema**, the **source-root/path guardrails**, the **hashing
-primitives**, and the pure-logic portions of the mechanism-phase, sensitivity, smoke, and
-inventory code — everything whose inputs are committed.
-
-The six tests deselected inside those modules, and the modules not collected at all
-(`test_preprocess.py`, all `test_problem1_*.py`, `test_problem2_replay.py`,
-`test_problem3.py`, `test_problem4.py`), read the external bundle or outputs generated
-from it:
-
-- `test_mechanism_phase.py::test_real_phase_metrics_structural_p` — reads fitted phase
-  outputs.
-- `test_sensitivity.py::test_panel_with_variant_preserves_shape_on_real_data` — builds a
-  panel on real data.
-- `test_inventory_completeness.py::{test_paper_figures_covered, test_paper_tables_covered}`
-  — cross-check the 174-file inventory against the files on disk.
-- `test_smoke.py::{test_raw_shape, test_run_smoke_checks_pass}` — read the raw data file
-  and run the smoke comparison against it.
-
-One whole module is left out of public CI for a *different* reason than the bundle:
-`tests/test_scope.py`. Its three tests assert the **monorepo** git layout — that the git
-root is the *parent* of this directory (`repo/`) and that no staged path begins outside
-`repo/`. That invariant exists to protect the owner's working copy, which also tracks the
-read-only sources and unrelated files at the parent level. Once this directory is split
-out as its own repository, the git root *is* the directory itself, so the invariant is
-meaningless — one of the tests (`test_git_toplevel_is_parent`) structurally cannot pass in
-that topology. The scope gate therefore stays an owner-side hygiene check: `make
-phase0-accept` runs the full suite inside the monorepo, where `test_scope.py` passes 3/3.
-
-## Determinism
-
-`ruff` and `mypy` are **pinned to exact versions** (`ruff==0.16.5`, `mypy==2.3.1`) in the
-workflow because both evolve between releases: an unpinned `ruff format --check` can go
-red from a formatting rule change, not a defect. The broader third-party environment that
-produced the recorded release is frozen in
-[`docs/python313-release-freeze-20260903.txt`](python313-release-freeze-20260903.txt).
-
-CI is a **consistency gate**, not the release evidence. The authoritative numbers are the
-recorded release run and its manifests (see [`docs/STATUS.md`](STATUS.md) and
-[`docs/PHASE7_ACCEPTANCE.md`](PHASE7_ACCEPTANCE.md)), which CI does not recreate.
-
-## The data-bound gate (owner)
-
-With the source bundle in place (a directory whose `data/`, `src/`, `review/`,
-`paper_Latex/` sit next to each other — pointed at via `$DWTS_SOURCE_ROOT` or by placing
-the bundle as this repository's parent), the full gate is:
+Run the same gate locally with:
 
 ```bash
-.venv/bin/python scripts/hash_inputs.py --validate  # 174 input hashes
-.venv/bin/python -m pytest -q                        # 229 tests
-.venv/bin/python scripts/run_release.py --verify-only # 20/20 baselines (~min)
-.venv/bin/python scripts/run_release.py               # full 19-stage release (~23 min)
-# or, for the whole correctness gate at once:
-make phase0-accept
+make check
 ```
 
-See [`docs/ENVIRONMENT.md`](ENVIRONMENT.md) for the install and snapshot-verification
-recipe.
+## Owner/data-bound gate
 
-## Maintenance rules
+With an authorized source bundle available through `DWTS_SOURCE_ROOT` (or as the repository's parent
+directory), run:
 
-- A test that reads the source bundle **belongs in a data-bound module** (or, if it lives
-  in a hermetic module, must be added to the `--deselect` list in
-  `.github/workflows/ci.yml` and documented here). If it is neither, CI will error on it —
-  loudly, never silently.
-- A test that asserts the **monorepo** git layout (git root = parent of `repo/`, staging
-  scope) belongs in `tests/test_scope.py`, which is intentionally excluded from public CI
-  and documented above. Such a test can never pass in the split-out public repository.
-- A new hermetic test may be added to any module listed above; CI picks it up
-  automatically.
-- If `ruff`/`mypy` versions are upgraded in `pyproject.toml`, update the pins in the
-  workflow to the versions that actually produced the recorded release, and re-run
-  `make phase0-accept` locally before relying on CI.
+```bash
+make verify-data
+```
+
+That command collects the complete 226-test suite, validates all 174 input hashes, and runs raw-data
+smoke checks. On a cleaned tree, 27 tests that require generated release files skip. `make release`
+regenerates the full 19-stage analysis and figure set and performs the 20-row baseline comparison;
+`make release-verify` rechecks an existing release.
+
+The earlier recorded release had 229 tests. Three of those asserted that this directory was nested
+inside the owner's original monorepo. They were intentionally removed during publication cleanup:
+such tests fail by design after this directory becomes the public Git root and say nothing about the
+analysis.
+
+## Why the public gate does not download data
+
+Automatically fetching an unofficial copy would weaken provenance and could violate redistribution
+terms. A fake miniature dataset would test only plumbing, not the registered numerical claims. The
+project therefore makes the boundary explicit: pure logic is publicly checked; data-bound claims are
+checked against a locally authorized, SHA-256-pinned source bundle.
+
+## Dependency stability
+
+CI uses Python 3.13 and pins Ruff/mypy to the versions used during release verification. The broader
+environment is recorded in `requirements-lock.txt`. Numerical equality is judged by
+registered tolerances; PNG byte identity is not assumed across operating systems.

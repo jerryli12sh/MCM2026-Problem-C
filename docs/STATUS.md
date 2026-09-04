@@ -1,146 +1,110 @@
-# Repository status — authoritative reconciliation
+# Repository status and result reconciliation
 
-This is the single source of truth for **what this repository contains, what the recorded numbers
-are, what is still open, and how the claims in the other documents line up**. When two documents
-disagree, this page states the reconciled fact and records where the disagreement came from.
-Track P and Track R are never conflated; no metric is reported without a track label.
+This is the authoritative summary of what the repository implements and what the recorded analysis
+found. Track P and Track R are always labeled separately.
 
-## What this repository is
+## Scope
 
-A clean, testable, dependency-pinned reproduction of the DWTS (MCM 2026 Problem C) paper analysis,
-built from the submitted paper (`Track P`) and its external review note (`Track R`):
+- **Track P (paper-faithful):** reproduces the submitted two-stage method. It first fits pooled
+  support from elimination outcomes, then conditions weekly fan shares on those outcomes. Its
+  reconstruction metrics are internal/explanatory because the outcome is used twice.
+- **Track R (review-corrected):** implements the integrated marginal likelihood proposed in
+  `review/notes/review_all.md`, using each elimination once.
+- **Problems 2–4:** replay historical rules, analyze contestant/partner pathways, and simulate a new
+  mechanism.
+- **Sensitivity:** varies concentration, temperature, regularization, judge representation, and
+  held-out seasons.
 
-- **Track P** — faithful reproduction of the paper's two-stage procedure: fit `q` from elimination
-  outcomes, then condition weekly `p` on the observed elimination. Its reconstruction metrics are
-  **internal/explanatory** (double-use limitation, D-20260901-02).
-- **Track R** — the review-corrected variant: the integrated marginal-likelihood formulation
-  `P(Y|β,u)=∫P(Y|p,J)Dirichlet(p|κq)dp`, which uses each outcome once (D-20260901-08).
-- Legacy scripts/notebooks are read-only evidence, never edited. All deviations from the paper,
-  review, or legacy results are registered in [`DECISIONS.md`](DECISIONS.md) (24 decisions,
-  D-20260901-01 .. D-20260901-24).
+Legacy scripts, the submitted paper, and raw data are external read-only evidence. All material
+deviations are registered in [`DECISIONS.md`](DECISIONS.md).
 
-## Authoritative release evidence
-
-The recorded full-release run is the evidence every other "release" claim must reconcile to:
+## Recorded release
 
 | Item | Value |
 |---|---|
-| Command | `.venv/bin/python scripts/run_release.py` |
-| Result | 19/19 stages exit 0; comparison `checked=20 pass=20 fail=0 info=0 release_ok=True` |
-| Total wall-clock | **1375.8 s** (≈ 23 min) |
-| Git commit | **`569994b`** (fix(release): harden B-08 numeric contract and reframe Track R β_j as provisional) |
-| Python | 3.13.3, platform darwin/arm64 |
-| Pinned evidence | `outputs/release_manifest.json` (per-stage timings, exit codes, tails, git/python) |
-| Comparison evidence | `outputs/release_comparison.json` (20/20 PASS; content sha256 pinned and matching) |
-| Full test suite | `pytest -q` → **229 passed**; `ruff format --check` / `ruff check` clean; `mypy` clean |
+| Release command | `.venv/bin/python scripts/run_release.py` |
+| Pipeline | 19/19 stages completed |
+| Baseline comparison | 20/20 passed; `release_ok=True` |
+| Runtime | 1375.8 seconds (about 23 minutes) |
+| Recorded commit | `569994b` in the original workspace history |
+| Environment | CPython 3.13.3, macOS arm64 |
+| Full data-bound suite at release | 229 tests passed |
+| Current cleaned-tree suite | 226 collected: 199 passed, 27 output-dependent tests skipped |
 
-> Since that run, eight *non-analysis* commits landed on `reproduction/main`: **`a400657`** (phase-7
-> acceptance packet), **`83ca82a`** (LF line endings in generated manifests/inventories; prunes caches
-> from inventory), **`08833da`** (reproducible install guide, frozen py313 snapshot, `DWTS_SOURCE_ROOT`
-> override), **`71dbeda`** (this STATUS doc + the verbatim review mirror), **`a18da17`** (public
-> README), **`1054106`** (committed evidence-figure snapshot), **`98c0ee1`** (hermetic CI workflow),
-> and **`bae7671`** (exclude the monorepo-layout test from the public CI gate). None changes any
-> analysis output, formula, sample definition, or metric — together they add acceptance/environment/CI
-> documentation, normalize generated-manifest line endings, freeze the Python 3.13 environment, and
-> commit a figure snapshot plus the review mirror. The recorded release evidence pins `569994b`;
-> `run_release.py --verify-only` re-checks the 20-row baseline comparison against current code and
-> passes **20/20 (`release_ok=True`) at `bae7671`**, confirming no science drift under those commits.
-> The authoritative full-run manifest therefore remains the `569994b` run.
+The publication cleanup changed documentation, repository topology checks, and ignored local
+artifacts only. It did not change formulas, samples, model code, or numerical evidence. Current
+verification is recorded in [`VERIFICATION.md`](VERIFICATION.md).
 
-## Manifest ground truth (current, programmatically verified)
+## Headline comparison
 
-| Manifest / document | Rows | Meaning |
-|---|---|---|
-| `manifests/traceability_paper.csv` | 96 | every paper requirement row `status=implemented` |
-| `manifests/traceability_review.csv` | 40 | every review requirement row `status=implemented` |
-| `manifests/baseline.csv` | 20 | registered baseline rows B-01..B-20 with paper targets + tolerances |
-| `manifests/conflict_matrix.csv` | 7 | paper-vs-review conflicts C-01..C-07, each tracked to decisions |
-| `manifests/legacy_inventory.csv` | 174 | hashed read-only inputs/evidence (paper_spec 68, legacy_output 58, legacy_impl 34, review_spec 7, raw_input 5, reference 2) |
-| `manifests/input_manifest.sha256` | 174 | input hashes validated by `scripts/hash_inputs.py --validate` |
-| `docs/DECISIONS.md` | 24 | D-20260901-01 .. D-20260901-24 |
+| Quantity | Track P | Track R |
+|---|---:|---:|
+| Top-1 elimination reconstruction | 0.9495 | 0.8349 |
+| Mean weighted PCP | 0.6043 | 0.5342 |
+| Mean relative credible-interval width | 3.117 | 3.378 |
+| Season-path consistency, `S-bar` | 0.7785 | 0.6331 |
 
-The manifests are regenerated by the release driver (`scripts/run_release.py` stage 19) and their
-row counts are asserted by the release comparison.
+Track P's stronger historical reconstruction is expected after conditioning twice on the outcome;
+it is not a held-out predictive advantage. Track R is structurally more defensible but its
+negative fitted judge coefficient and lower headline values should be treated as model findings
+with sensitivity, not universal truths.
 
-## Track comparison (labeled; from the recorded release)
+## Registered evidence
 
-| Quantity | Track P (paper two-stage) | Track R (review marginal) |
-|---|---|---|
-| Top-1 accuracy | 0.9495 (bit-for-bit vs review rebuild) | 0.8349 (sensitivity 0.803–0.844) |
-| Mean PCP (weighted) | 0.6043 | 0.5342 |
-| Mean CI relative width | 3.117 | 3.378 |
-| Cumulative consistency S-bar | 0.7785 | 0.6331 |
+| Artifact | Count | Meaning |
+|---|---:|---|
+| `manifests/traceability_paper.csv` | 96 rows | paper requirement to implementation/test mapping |
+| `manifests/traceability_review.csv` | 40 rows | review requirement to implementation/test mapping |
+| `manifests/baseline.csv` | 20 rows | expected outputs and tolerances |
+| `manifests/conflict_matrix.csv` | 7 rows | paper/review/legacy conflicts |
+| `manifests/legacy_inventory.csv` | 174 rows | external source inventory |
+| `manifests/input_manifest.sha256` | 174 rows | external input fingerprints |
+| `docs/DECISIONS.md` | 24 decisions | resolved modeling and reproduction ambiguities |
+| `evidence/figures/` | 10 PNGs | representative release figures |
 
-Track P metrics are internal/explanatory (double-use limitation). The Track R numbers, and the
-provisional negative `β_j` at the marginal-likelihood optimum, are **provisional until the final
-independent audit** (D-20260901-02, D-20260901-24). No metric above is reported without its track.
+## Findings that did not reproduce cleanly
 
-## Honest limitations (registered, not hidden)
+1. The paper's XGBoost target `0.806554` was not reproducible from the available legacy code/data.
+   The faithful live legacy line was 0.821101 by week and 0.817496 by season
+   (D-20260901-11).
+2. The paper's ranking-gap claim `R² > 0.6` reproduced as `R² = 0.2704`, `n = 421`
+   (D-20260901-12).
+3. Review claim R-040—percentage plus Bottom-2 having the best reported mechanism position—was not
+   supported. `rank_bottom2` led the reproduced quantities on both tracks (D-20260901-10).
+4. Paper claim P-057 could not be tested because its `x >= 0.3` subset was empty
+   (D-20260901-10).
+5. Actor and partner targets were direction-confirmed only; the surprise-by-experience interaction
+   was directional but not significant (`0.0104`, `p = 0.51`) (D-20260901-17).
+6. Fan shares remain latent posterior estimates constrained by eliminations, never observed vote
+   totals (D-20260901-06).
 
-1. **B-01 XGBoost paper target 0.806554 is not reproducible** from the current legacy code/data;
-   the honest legacy line is week 0.821101 / season 0.817496 (D-20260901-11, C-07).
-2. **Paper ranking-gap `R² > 0.6` claim not reproducible** — exact cell-56 port gives `R² = 0.2704`,
-   n=421 (D-20260901-12; jitter is plot-only, D-20260901-15).
-3. **Review claim R-040** (Perc+Bottom2-highest) is **not supported**; top mechanism by all reported
-   quantities is `rank_bottom2` on both tracks (D-20260901-10).
-4. **P-057** (paper `x >= 0.3` fan-influence subset) is **not testable** — subset empty (D-20260901-10).
-5. **B-12 actor / B-13 partner r** direction-confirmed only; paper targets outside tolerance.
-   Problem 3 `beta3` (S×H_exp) directional only (0.0104, p=0.51) (D-20260901-17).
-6. **Latent fan votes are never ground truth** — posterior estimates constrained by observed
-   outcomes (D-20260901-06).
+## The review-note mirror
 
-## The review note mirror (byte-for-byte)
+`review/notes/review_all.md` is the repository's conceptual core and a byte-for-byte mirror of the
+external source note:
 
-`review/notes/review_all.md` is a **verbatim shipping mirror** of the external source of record at
-`<source_root>/review/notes/review_all.md`. It is included so a standalone published clone carries the
-Track R spec that produced the Track R results.
+- SHA-256:
+  `a0e265acb9c36bb5d3acd5bde0b3ec0a6798b2e93e75e5bc5996e950e3070ea5`;
+- `.gitattributes` marks it `-text`, preventing line-ending normalization;
+- it defines the corrected statistical direction, rule comparison, explanatory models, and new-rule
+  design that the code makes executable.
 
-- Source SHA-256: `a0e265acb9c36bb5d3acd5bde0b3ec0a6798b2e93e75e5bc5996e950e3070ea5`
-- Mirror SHA-256: identical (`cmp` byte-identical, pure LF, no trailing newline — unmodified)
-- `.gitattributes` pins `review/notes/review_all.md -text` so git never line-ending-normalizes it.
-- The mirror is verified byte-identical in this document and by the phase-0 gate.
+## Publication status
 
-## Process status (honest)
+The technical tree is ready to publish as a standalone repository after running the documented
+source-free gate. The official dataset, submitted paper source, and legacy workspace are deliberately
+excluded. No open-source license is granted; any broader reuse or redistribution remains an owner
+decision.
 
-- **Nothing in this repository has been formally owner-accepted.** The **independent audit is
-  complete**: an independent auditor re-ran the hermetic gate in a faithful split-out public clone,
-  scanned every tracked file for secrets/private references, reconciled each headline number and
-  manifest count, and byte-verified the review mirror. Its three minor documentation/provenance
-  findings were all fixed (see [`docs/FINAL_INDEPENDENT_AUDIT.md`](FINAL_INDEPENDENT_AUDIT.md)).
-  What remains is **owner acceptance** — the owner's sign-off decision; nothing here is formally
-  accepted until then (the release notes that accompany publication state this explicitly).
-- The Phase 0 and Phase 7 acceptance packets (`PLAN.md`, `docs/PHASE0_ACCEPTANCE.md`,
-  `docs/PHASE7_ACCEPTANCE.md`) were written before the audit and list "remaining: owner acceptance
-  and the final independent audit". The audit portion of that item is now satisfied by
-  `docs/FINAL_INDEPENDENT_AUDIT.md`; the owner portion still stands.
-- Claims above are recorded evidence or registered decisions — never narrative overstatement.
+## Where to go next
 
-## Reconciliation log
-
-Consistency fixes applied while making this document authoritative:
-
-1. `PLAN.md` pinned the recorded release run to git `847b37e` / 1430.8 s while its own completion
-   text and the on-disk `outputs/release_manifest.json` describe the post-hardening state at git
-   `569994b` / 1375.8 s. **Reconciled to `569994b` / 1375.8 s / ≈ 23 min.**
-2. `docs/PHASE7_ACCEPTANCE.md` used "≈ 23 min" in one place and "≈ 24 min" in two others for the same
-   recorded run (1375.8 s). **Reconciled to 1375.8 s (≈ 23 min)** with the coarse "≈ 24 min" noted as
-   a conservative planning estimate.
-3. Historical growth is real and expected (review traceability 35 → 40 rows as Phase-3/4 requirements
-   were added, baseline 17 → 20, conflicts 6 → 7); current counts above are the reconciled truth.
-
-## Where everything lives
-
-| Concern | Location |
+| Need | Document |
 |---|---|
-| Status / this document | `docs/STATUS.md` |
-| Environment & install | [`docs/ENVIRONMENT.md`](ENVIRONMENT.md) + frozen snapshot `docs/python313-release-freeze-20260903.txt` |
-| Owner operating procedure | [`docs/RUNBOOK.md`](RUNBOOK.md) |
-| Method specification & shared notation | [`docs/METHOD_SPEC.md`](METHOD_SPEC.md) |
-| Decisions | [`docs/DECISIONS.md`](DECISIONS.md) |
-| Baseline table | [`docs/BASELINE_PAPER_OUTPUTS.md`](BASELINE_PAPER_OUTPUTS.md) |
-| Conflict matrix | [`docs/CONFLICT_MATRIX.md`](CONFLICT_MATRIX.md) |
-| Paper / review traceability | `docs/TRACEABILITY_PAPER.md`, `docs/TRACEABILITY_REVIEW.md`, `manifests/traceability_{paper,review}.csv` |
-| Data dictionary | [`docs/DATA_DICTIONARY.md`](DATA_DICTIONARY.md) |
-| Legacy inventory | `docs/LEGACY_INVENTORY.md`, `manifests/legacy_inventory.csv` |
-| Run manifests (schemas) | `docs/RUN_MANIFEST.md` |
-| Plan (phase-by-phase) | `PLAN.md` |
+| Understand the whole repository in Chinese | [`REPOSITORY_GUIDE.zh-CN.md`](REPOSITORY_GUIDE.zh-CN.md) |
+| Follow the modeling argument | [`../review/notes/review_all.md`](../review/notes/review_all.md) |
+| Check notation and algorithms | [`METHOD_SPEC.md`](METHOD_SPEC.md) |
+| See why choices were made | [`DECISIONS.md`](DECISIONS.md) |
+| Inspect data/table meanings | [`DATA_DICTIONARY.md`](DATA_DICTIONARY.md) |
+| Review the engineering journey | [`DEVELOPMENT.md`](DEVELOPMENT.md) |
+| Reproduce the environment | [`ENVIRONMENT.md`](ENVIRONMENT.md) |
+| Understand public vs. data-bound CI | [`CI.md`](CI.md) |

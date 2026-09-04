@@ -606,7 +606,7 @@ inspects the relevant legacy code or the owner approves a tolerance.
   traceability id + sha256). No figure exists without a manifest record.
 - **Refs:** ``../paper_Latex/2107542.tex`` (Figure 2/3/4 macros), ``../src/2_rank_vs_pct_cross_season.ipynb``
   (cells 5, 10, 13, 16, 23, 27, 34, 39), ``scripts/plot_problem2_figures.py``,
-  ``outputs/problem2_fig_manifest_{P,R}.json``, ``docs/TRACEABILITY_PAPER.md`` (P-042..P-055).
+  ``outputs/problem2_fig_manifest_{P,R}.json``, and the P-042..P-055 traceability records.
 
 ### D-20260901-22 — Deterministic Bottom-2 labels persisted in the rank-trace table (P-055)
 
@@ -670,9 +670,9 @@ inspects the relevant legacy code or the owner approves a tolerance.
 - **Context:** The hostile self-review of the Phase 7 comparison found two weaknesses. (1) B-08
   "Case-study table (|d|, Flip)" verified only the row count and celebrity names; the registered
   2-decimal |d|/Flip values ("Jerry Rice 3.69/0.87; ...") were printed but never asserted, so drift
-  in the produced posterior quantities would still PASS. (2) PLAN.md and D-20260901-02 stated the
+  in the produced posterior quantities would still PASS. (2) The development record and D-20260901-02 stated the
   Track R marginal-likelihood optimum "genuinely has β_j<0"; the governing acceptance instruction
-  requires this explanation to be treated as provisional until the final independent audit.
+  requires this explanation to remain provisional and to be reported with sensitivity evidence.
 - **Options:** (a) leave the checks as structural-only; (b) parse the abbreviated registration string
   at runtime; (c) assert the numeric contract against an explicit registered table keyed by the
   produced full names, with a tolerance equal to the registration's rounding resolution.
@@ -681,7 +681,7 @@ inspects the relevant legacy code or the owner approves a tolerance.
   discrepancy is 0.005). The B-08 tolerance field is recalibrated from `structural (proposed)` to
   `abs 1e-2 (recalibrated, proposed)` in `manifests/baseline.csv` /
   `docs/BASELINE_PAPER_OUTPUTS.md` via `scripts/build_baseline.py`. The provisional framing is
-  applied to PLAN.md (Phase 2 Track R note) and D-20260901-02: β_j<0 is "provisionally" negative at
+  applied to the Phase 2 Track R record and D-20260901-02: β_j<0 is "provisionally" negative at
   this snapshot (full-batch convergence + gradient check), explicitly **awaiting the final
   independent audit**; the evidence is preserved and the limitation is not hidden.
 - **Rationale:** the registered values are the contract — a check that does not assert them is a
@@ -693,5 +693,5 @@ inspects the relevant legacy code or the owner approves a tolerance.
   `release_ok=True`. No paper formula, sample definition, hyperparameter, or conclusion is altered.
 - **Refs:** `src/dwts_reproduction/release/compare.py` (`_check_b08`),
   `scripts/build_baseline.py`, `tests/test_release_compare.py` (4 new B-08 tests),
-  `manifests/baseline.csv` (B-08), `PLAN.md` (Phase 2 Track R note), `docs/DECISIONS.md`
+  `manifests/baseline.csv` (B-08), the Phase 2 Track R record, `docs/DECISIONS.md`
   (D-20260901-02 provisional framing).

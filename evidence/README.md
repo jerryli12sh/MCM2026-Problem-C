@@ -44,7 +44,7 @@ from a clone without `outputs/`.
   *recipe + manifests*, not committed bytes: rerun `scripts/run_release.py` (or `--verify-only`) and
   compare against the 20 registered baseline rows and the figure manifests.
 - **This snapshot answers "what does the result look like?"** at a glance. It is not the comparison
-  evidence; `outputs/release_comparison.json` and `docs/PHASE7_ACCEPTANCE.md` are.
+  evidence; the 20 registered checks in `manifests/baseline.csv` and `docs/STATUS.md` are.
 - Refresh procedure (owner only): run the full release, review the git diff of the 20 registered
   baselines, then re-copy the desired figures from `outputs/` into `evidence/figures/` and update the
   SHA-256 column above. Do not refresh silently.
