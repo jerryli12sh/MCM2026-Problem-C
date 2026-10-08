@@ -1,6 +1,6 @@
 # 从淘汰结果到观众投票：DWTS 支持度推断与赛制设计
 
-**2026 MCM Problem C · Meritorious Winner · Team 2623768**
+**2026 MCM Problem C · Meritorious Winner**
 
 在观众票数未公开的条件下，如何还原选手的支持度，并评估一套赛制如何改变比赛结果？本项目基于 *Dancing with the Stars* 的 **34 季、421 个选手—赛季观测**，完成了从比赛数据重建、潜在观众支持度估计，到投票规则回放、选手特征分析和赛制模拟的完整流程。
 
@@ -192,4 +192,3 @@ MCM2026-Problem-C/
 
 原始数据来自 [COMAP 2026 MCM Problem C](https://www.contest.comap.com/undergraduate/contests/mcm/contests/2026/problems/2026_MCM_Problem_C.pdf)；[官方 CSV 下载](https://www.contest.comap.com/undergraduate/contests/mcm/contests/2026/problems/2026_MCM_Problem_C_Data.csv)。随附中间表来自本项目原分析，生成与使用关系见[数据说明](docs/DATA.md)。
 
-论文为团队比赛成果；当前仓库将建模程序整理为统一的 Python 分析包，并补齐可运行入口、结果表和图示。原论文保留比赛提交时的内容，本次重新运行的数值以 `results/` 和对应文档为准。赛题与原始数据版权归 COMAP，项目代码和论文用于学习、研究与成果展示；引用时请注明来源。
