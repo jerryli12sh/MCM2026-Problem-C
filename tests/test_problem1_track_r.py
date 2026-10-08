@@ -212,7 +212,8 @@ def _synth_config() -> Problem1Config:
         lr=0.02,
         n_steps=500,
         batch_size=64,
-        B=1200,
+        # Gradient accuracy is checked separately against quadrature.
+        B=300,
         l2_beta=0.02,
         l2_u=0.02,
         seed=7,

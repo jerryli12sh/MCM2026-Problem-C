@@ -678,9 +678,9 @@ def weekly_posterior_agreement(
                 "week": week,
                 "era": str(era.loc[(season, week)]),
                 "n_alive": len(names),
-                "P_agree": float(w @ (er == ep).astype(float)),
-                "P_override_rank": float(w @ (er != jw).astype(float)),
-                "P_override_pct": float(w @ (ep != jw).astype(float)),
+                "P_agree": float(np.clip(w @ (er == ep).astype(float), 0.0, 1.0)),
+                "P_override_rank": float(np.clip(w @ (er != jw).astype(float), 0.0, 1.0)),
+                "P_override_pct": float(np.clip(w @ (ep != jw).astype(float), 0.0, 1.0)),
                 "B": B,
             }
         )
