@@ -120,6 +120,8 @@ V5 相对 V4 降低 **5.99 个百分点，降幅 49.7%**。案例层面，Jerry 
 | P/R 并列 | 同时改变估计方式和年代映射 | 展示两套完整实现的结果 |
 | 回归名次与舞伴历史率 | 统一官方名次及实际历史次数 | 当前属性分析的计算口径 |
 
+XGBoost 的随附数值来自 macOS Apple silicon 环境；固定依赖、平台与随机种子后逐周结果可重复。其跨平台抽样与浮点差异见 [XGBoost 复现说明](https://xgboost.readthedocs.io/en/stable/tutorials/dask.html#reproducible-result)。自动测试验证固定种子的逐周复现与基线比较，计算线程固定为 1。
+
 ## 7. 运行与验证
 
 数值运行日期：2026-10-08。环境为 Python 3.13，所用版本见 [`requirements.txt`](../requirements.txt)。完整入口为 `python scripts/reproduce.py`，会重建中间表并覆盖结果目录中的分析文件。本次 10 个阶段完整运行用时 1,412.6 秒（约 24 分钟）。

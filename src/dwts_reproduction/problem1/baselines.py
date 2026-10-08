@@ -128,7 +128,7 @@ def _require_xgb() -> Any:
     if xgb is None:
         raise ImportError(
             "xgboost is required for the XGBoost baseline. Install with "
-            f"`pip install .[analysis]`. Original import error: {_XGB_IMPORT_ERROR}"
+            f"`pip install -r requirements.txt`. Original import error: {_XGB_IMPORT_ERROR}"
         )
     return xgb
 
@@ -183,6 +183,7 @@ def fit_xgb_pooled(
         objective="binary:logistic",
         eval_metric="logloss",
         random_state=seed,
+        n_jobs=1,
         scale_pos_weight=scale_pos_weight,
     )
     model.fit(X, y)
@@ -200,6 +201,7 @@ def fit_xgb_pooled(
         hyperparams={
             "kappa": kappa,
             "n_estimators": n_estimators,
+            "n_jobs": 1,
             "max_depth": max_depth,
             "learning_rate": learning_rate,
             "subsample": subsample,
