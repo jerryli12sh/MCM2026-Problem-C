@@ -1,0 +1,22 @@
+{
+  "track": "P3",
+  "n_data3_rows": 392,
+  "placement_source": "official raw placement column",
+  "partner_rate_denominator": "number of prior observed seasons",
+  "paper_P059_age_judge": {
+    "judge_w1": -0.0301,
+    "judge_w6": -0.0329,
+    "judge_w11": -0.0359
+  },
+  "paper_P059_age_within_abs_0_02": true,
+  "paper_P060_actor_judge_w1": 0.254,
+  "paper_P060_actor_fan_w6": -1.0221,
+  "paper_P060_within_abs_0_1": false,
+  "paper_P064_r_Hexp_judge_w1": 0.134,
+  "paper_P064_within_abs_0_05": false,
+  "paper_P069_beta1_tw6": 0.3419,
+  "paper_P069_within_abs_0_05": true,
+  "paper_P070_beta2_gt_0": true,
+  "paper_P071_beta3_gt_0": true,
+  "partner_n_fe_partners": 59
+}

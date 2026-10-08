@@ -1,0 +1,7 @@
+claim,y_column,n_seasons,mean_delta_y,mean_delta_x,mean_delta_y_lo,mean_delta_y_hi,supporting
+Direct->Bottom2 y lift (rank),y_posterior_mean,34,0.03781921164220845,0.0006375569629191178,0.0014012681159419785,0.06591349569899996,
+Direct->Bottom2 y lift (pct),y_posterior_mean,34,0.008885995510948711,0.0008690009622597609,-0.015803972703268887,0.036717755399230445,
+Pct tail-risk: Bottom2 vs Direct y (x >= 0.3),y_posterior_mean,0,,,,,not testable: no season reaches the high fan-influence threshold on the reproduced data
+Top mechanism by overall y_posterior_mean,y_posterior_mean,34,-1.5193472449939314,0.10242031577667127,-1.5193472449939314,-1.5193472449939314,disagrees with review claim (top = rank_bottom2)
+Top mechanism by overall y_review_posterior_mean,y_review_posterior_mean,34,-0.08551408905636845,0.10242031577667127,-0.08551408905636845,-0.08551408905636845,disagrees with review claim (top = rank_bottom2)
+Top mechanism by overall x,x_posterior_mean,34,0.10242031577667127,0.10242031577667127,0.10242031577667127,0.10242031577667127,disagrees with review claim (top = rank_bottom2)

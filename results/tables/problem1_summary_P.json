@@ -1,0 +1,10 @@
+{
+  "overall_top1_accuracy": 0.9495412844036697,
+  "mean_pcp_weighted": 0.604317270016347,
+  "mean_ess_ratio": 0.9625173837179117,
+  "mean_ci_rel_width": 3.117135858655068,
+  "s_bar": 0.7785311681432541,
+  "n_panel_rows": 4199,
+  "n_train_weeks": 218,
+  "track": "P"
+}

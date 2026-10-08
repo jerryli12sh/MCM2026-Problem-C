@@ -1,0 +1,5 @@
+claim_id,track,statement,metric,value,target,status
+P-091,P,Stability of inferred fan support: high Spearman between baseline and scenarios,min/median Spearman (n scenarios),"{'min': 0.7917, 'median': 0.9956, 'n': 58}",min >= 0.9 (high rank stability),fail
+P-092,P,"PCP sensitivity tornado: tau dominates, then kappa",rel range of pcp_mean (tau vs kappa),"{'tau': 0.3295, 'kappa': 0.1731, 'all': {'tau': 0.3295, 'kappa': 0.1731, 'lambda_ratio': 0.0945, 'judge_transform': 0.0488, 'leave_one_season_out': 0.0222}}",effect(tau) > effect(kappa),pass
+P-093a,P,PCP_mean decreases monotonically with tau (per kappa line),monotone non-increasing lines,4/4,all kappa lines monotone non-increasing,pass
+P-093b,P,Larger kappa uniformly shifts PCP_mean upward,upward kappa pairs (at fixed tau),10/10,all kappa pairs shift upward,pass

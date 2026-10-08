@@ -1,0 +1,9 @@
+# Python 3.13; versions used for the published results.
+numpy==2.5.3
+pandas==3.0.6
+scipy==1.18.1
+matplotlib==3.11.2
+scikit-learn==1.9.1
+statsmodels==0.15.0
+PyYAML==6.0.3
+xgboost==3.4.1

@@ -1,0 +1,174 @@
+season,celebrity_name,industry_grp,ballroom_partner,H_exp,S,G
+2,Drew Lachey,Singer/Rapper,Cheryl Burke,0,3.0079596726908377,3.041513704565021
+2,Jerry Rice,Athlete,Anna Trebunskaya,0,-1.0385170562432937,-0.3200308464242301
+2,Stacy Keibler,Athlete,Tony Dovolani,0,0.23313455412765793,-2.8570621667049245
+2,Lisa Rinna,Actor/Actress,Louis van Amstel,0,-0.1552546162814834,-0.6502803784011695
+2,George Hamilton,Actor/Actress,Edyta Sliwinska,0,0.18099207229721198,-1.0228298733955803
+2,Tia Carrere,Actor/Actress,Maksim Chmerkoskiy,0,0.110735718029072,-1.1010408962064622
+4,Apolo Anton Ohno,Athlete,Julianne Hough,0,-0.2794127607661776,-0.005570209453011898
+4,Joey Fatone,Singer/Rapper,Kym Johnson,1,2.6363168626461517,0.39598999279080416
+4,Laila Ali,Athlete,Maksim Chmerkoskiy,2,1.1433478891977455,-1.5663920091897818
+4,Ian Ziering,Actor/Actress,Cheryl Burke,2,0.09960349830853965,-0.3497234861002275
+4,Billy Ray Cyrus,Singer/Rapper,Karina Smirnoff,1,-0.6436821217808318,-0.4545436984239668
+4,John Ratzenberger,Actor/Actress,Edyta Sliwinska,2,-0.6441699796610156,-1.0068447353876444
+5,Helio Castroneves,Other,Julianne Hough,1,0.8512826339046905,0.7181359543148852
+5,Mel B,Singer/Rapper,Maksim Chmerkoskiy,3,0.22429753145707454,-2.945995362521835
+5,Marie Osmond,Singer/Rapper,Jonathan Roberts,2,-1.6155772126794816,-0.10625339499699815
+5,Jennie Garth,Actor/Actress,Derek Hough,0,-0.3421589337878683,-0.7221024979879904
+5,Cameron Mathison,Actor/Actress,Edyta Sliwinska,3,-0.2188841235635049,-0.8055764858007795
+5,Jane Seymour,Actor/Actress,Tony Dovolani,2,-0.2993043419263625,-0.9390615210794696
+6,Kristi Yamaguchi,Athlete,Mark Ballas,1,3.114003944737838,2.5668607213011483
+6,Jason Taylor,Athlete,Edyta Sliwinska,4,-1.6862733940441486,-3.200580112635522
+6,Cristian de la Fuente,Actor/Actress,Cheryl Burke,4,-0.8900543393640374,0.011540866777077774
+6,Marissa Jaret Winokur,Actor/Actress,Tony Dovolani,3,-0.22772114623408818,-0.6341971188921263
+6,Mario,Singer/Rapper,Karina Smirnoff,3,0.5508238631048558,-0.44335667780796845
+6,Shannon Elizabeth,Actor/Actress,Derek Hough,1,0.19601243479011,-0.9178134180696267
+7,Brooke Burke,TV Personality,Derek Hough,2,2.751242508080116,-0.045101928625072896
+7,Warren Sapp,Athlete,Kym Johnson,4,-0.8281951806699539,-0.12684040739465696
+7,Lance Bass,Singer/Rapper,Lacey Schwimmer,0,-0.03197612598984323,-0.1986625269814779
+7,Cody Linley,Actor/Actress,Julianne Hough,3,-0.36911350896342227,-0.25496435617033275
+7,Maurice Greene,Athlete,Cheryl Burke,5,-0.6439482260791141,-0.8231524096408389
+7,Susan Lucci,Actor/Actress,Tony Dovolani,4,0.4969147127537484,-0.9307874675199631
+8,Shawn Johnson,Athlete,Mark Ballas,3,-0.5659562569153466,0.03636302745559705
+8,Gilles Marini,Actor/Actress,Cheryl Burke,6,2.4386314510830007,0.5179212813446334
+8,Melissa Rycroft,TV Personality,Tony Dovolani,5,-0.47128813352897114,0.026864914172829213
+8,Ty Murray,Athlete,Chelsie Hightower,0,-1.2387896245801429,-0.6443563227870781
+8,Lil' Kim,Singer/Rapper,Derek Hough,3,0.9842814811272449,-1.9657469366992646
+8,Chuck Wicks,Singer/Rapper,Julianne Hough,4,-0.1038919520549701,-1.3397386298133207
+10,Nicole Scherzinger,Singer/Rapper,Derek Hough,5,3.069818831384921,0.25995871656448477
+10,Evan Lysacek,Athlete,Anna Trebunskaya,4,-0.9441408925806666,-2.1166374127113663
+10,Erin Andrews,Other,Maksim Chmerkoskiy,6,-0.64221854814028,0.0009168152721561462
+10,Chad Ochocinco,Athlete,Cheryl Burke,7,-0.4217808392558795,-0.15024226534770058
+10,Niecy Nash,Actor/Actress,Louis van Amstel,4,-0.6883550930139326,-0.6705730262955065
+10,Pamela Anderson,Model,Damian Whitewood,0,-0.9083049440181497,-1.4689161552056098
+11,Jennifer Grey,Actor/Actress,Derek Hough,6,1.6629581981069501,0.04853126308266775
+11,Kyle Massey,Actor/Actress,Lacey Schwimmer,3,-1.0318902092571753,0.0033649347186783807
+11,Bristol Palin,TV Personality,Mark Ballas,6,-2.013686740019537,-0.0903663784901696
+11,Brandy,Singer/Rapper,Maksim Chmerkoskiy,7,1.2140440705624127,-1.2353832650995509
+11,Kurt Warner,Athlete,Anna Trebunskaya,5,-1.7932046804187562,-0.8375467618166513
+11,Rick Fox,Athlete,Cheryl Burke,8,0.24108456247063442,-1.300253512351234
+12,Hines Ward,Athlete,Kym Johnson,8,-0.5803593894461965,-2.940830519021035
+12,Kirstie Alley,Actor/Actress,Maksim Chmerkoskiy,8,0.33820311041429074,1.1904389396333426
+12,Chelsea Kane,Actor/Actress,Mark Ballas,7,0.2949937128217417,-0.29219759718811145
+12,Ralph Macchio,Actor/Actress,Karina Smirnoff,8,1.4860403418297614,0.43368808141855264
+12,Romeo,Singer/Rapper,Chelsie Hightower,4,0.6219635516333265,0.29508480434903717
+12,Kendra Wilkinson,TV Personality,Louis van Amstel,6,-0.1306469490068124,-1.0717149826393273
+13,J.R. Martinez,Actor/Actress,Karina Smirnoff,9,2.3009978590441675,2.314527847631769
+13,Rob Kardashian,TV Personality,Cheryl Burke,10,-1.3235119573864267,-0.6486895925690459
+13,Ricki Lake,Actor/Actress,Derek Hough,7,0.43638607555107556,-2.6738346885680886
+13,Hope Solo,Athlete,Maksim Chmerkoskiy,9,-1.0151031782436157,-0.7337543662139585
+13,Nancy Grace,TV Personality,Tristan MacManus,0,-0.253345199918231,-0.8670689183860003
+13,David Arquette,Actor/Actress,Kym Johnson,9,0.6034024919645528,-1.158200059009716
+14,Donald Driver,Athlete,Peta Murgatroyd,1,-0.9258459372101748,-0.5714082649781034
+14,Katherine Jenkins,Singer/Rapper,Mark Ballas,9,2.610293652514586,2.083174472364478
+14,William Levy,Actor/Actress,Cheryl Burke,11,-0.7486619766347036,-3.010865609773518
+14,Maria Menounos,TV Personality,Derek Hough,8,-1.7132279692197023,-0.4106529495743717
+14,Melissa Gilbert,Actor/Actress,Maksim Chmerkoskiy,10,-1.0234966937503955,-0.6555433434030766
+14,Roshon Fegan,Actor/Actress,Chelsie Hightower,5,-1.9964562018421739,-2.001952360995997
+16,Kellie Pickler,Singer/Rapper,Derek Hough,9,-0.21755360207209407,-0.6645766090758745
+16,Zendaya,Actor/Actress,Valentin Chmerkovskiy,2,2.3442072566367167,0.21286063615507578
+16,Jacoby Jones,Athlete,Karina Smirnoff,11,-1.1827405046864177,0.06767221285928438
+16,Alexandra Raisman,Athlete,Mark Ballas,10,0.029395174824056403,-0.9694410112632177
+16,Ingo Rademacher,Actor/Actress,Kym Johnson,11,-0.15715801701856252,0.023120373397505056
+16,Sean Lowe,TV Personality,Peta Murgatroyd,2,-0.21018015304206278,-1.131224143387996
+17,Amber Riley,Actor/Actress,Derek Hough,10,3.158189058090755,2.4909015749345746
+17,Corbin Bleu,Actor/Actress,Karina Smirnoff,12,-2.261566881959675,-3.128096902436517
+17,Jack Osbourne,TV Personality,Cheryl Burke,13,-2.5801432052644797,-0.2092865784863991
+17,Bill Engvall,Comedian,Emma Slater,0,-2.8456973925457847,-0.20101252492689303
+17,Leah Remini,Actor/Actress,Tony Dovolani,13,-0.6351112034085307,-0.8543634735434193
+17,Elizabeth Berkley Lauren,Actor/Actress,Valentin Chmerkovskiy,3,0.7982604978811902,-1.237170293933889
+18,Meryl Davis,Athlete,Maksim Chmerkoskiy,11,-0.0673242166721768,-0.013746141511411292
+18,Amy Purdy,Athlete,Derek Hough,11,-0.13850825591702765,-2.438907255632121
+18,Candace Cameron Bure,Actor/Actress,Mark Ballas,12,-2.0143963514816225,0.11477029326869337
+18,James Maslow,Actor/Actress,Peta Murgatroyd,4,-1.0231862387357333,-0.10201824671613768
+18,Charlie White,Athlete,Sharna Burgess,2,2.3883923699896332,0.33714192265431975
+18,Danica McKellar,Actor/Actress,Valentin Chmerkovskiy,4,0.5944767678612086,-0.8961004674498138
+19,Alfonso Ribeiro,Actor/Actress,Witney Carson,1,3.131677990079005,0.5420823514109685
+19,Sadie Robertson,TV Personality,Mark Ballas,13,-0.8840890730563481,-0.021457225959840676
+19,Janel Parrish,Actor/Actress,Valentin Chmerkovskiy,5,-0.6341133122899727,-2.5307534185055234
+19,Bethany Mota,Social Media Personality,Derek Hough,12,-0.5508213375642215,-0.09271637643558472
+19,Tommy Chong,Comedian,Peta Murgatroyd,5,-1.5430071660704785,-0.7802894775122905
+19,Lea Thompson,Actor/Actress,Artem Chigvintsev,0,-0.012982599359095293,-1.0445428240153931
+20,Rumer Willis,Actor/Actress,Valentin Chmerkovskiy,6,2.3884810714223943,0.08622935171041624
+20,Riker Lynch,Actor/Actress,Allison Holker,1,1.1610219345389123,-0.9880447518243238
+20,Noah Galloway,Other,Sharna Burgess,4,-1.4388367592678142,-0.4301140237498766
+20,Nastia Liukin,Athlete,Derek Hough,13,0.8777937019164407,-0.9373726137462386
+20,Chris Soules,TV Personality,Witney Carson,2,-1.217467685339426,-0.3824529742293905
+20,Robert Herjavec,Other,Kym Johnson,12,-1.8634573546196196,-0.440738075254798
+21,Bindi Irwin,TV Personality,Derek Hough,14,2.5749455618322523,-0.07472220669552976
+21,Nick Carter,Singer/Rapper,Sharna Burgess,5,2.397717250540401,1.5790974540323632
+21,Alek Skarlatos,Other,Lindsay Arnold,1,-1.615754615545003,-0.6857265905846103
+21,Carlos PenaVega,Actor/Actress,Witney Carson,3,-0.17434420447954502,-0.8038875784675487
+21,Alexa PenaVega,Actor/Actress,Mark Ballas,15,-1.050185164627667,-2.3428259444778576
+22,Nyle DiMarco,Model,Peta Murgatroyd,7,0.28482616865974747,1.5803938753611653
+22,Paige VanZant,Athlete,Mark Ballas,16,-0.14730092787123072,-1.1014333822108913
+22,Ginger Zee,Other,Valentin Chmerkovskiy,7,0.4876341829193613,-0.8664801893793572
+22,Wanya Morris,Singer/Rapper,Lindsay Arnold,2,2.0447242015972495,1.1571722422886692
+22,Antonio Brown,Athlete,Sharna Burgess,6,-0.757498999305287,-0.8170578709200997
+22,Jodie Sweetin,Actor/Actress,Keo Motsepe,3,-0.2012100782223381,-2.0293931242276866
+23,Laurie Hernandez,Athlete,Valentin Chmerkovskiy,8,2.0939875669302492,-0.04698707896051846
+23,James Hinchcliffe,Other,Sharna Burgess,7,2.3035369850342082,2.5413774700104446
+23,Calvin Johnson Jr.,Athlete,Lindsay Arnold,3,-0.7250226649858472,-0.14272742390148552
+23,Jana Kramer,Singer/Rapper,Gleb Savchenko,1,-0.16453146604859392,-2.8342232778629577
+23,Terra Jole,TV Personality,Sasha Farber,2,-1.7664718588251043,-0.08669419932038602
+23,Marilu Henner,Actor/Actress,Derek Hough,15,0.1965668187448646,-1.0593039023000679
+25,Jordan Fisher,Actor/Actress,Lindsay Arnold,5,2.7100400278810435,-0.09577406670315858
+25,Lindsey Stirling,Other,Mark Ballas,17,1.602873068068081,1.4762347536496099
+25,Frankie Muniz,Actor/Actress,Witney Carson,7,-1.5304113727093942,-0.6356174216176019
+25,Drew Scott,TV Personality,Emma Slater,6,-2.382524319775899,-0.39833999073621906
+25,Victoria Arlen,Athlete,Valentin Chmerkovskiy,10,-0.9471678764508914,-1.0736001329747726
+25,Terrell Owens,Athlete,Cheryl Burke,17,0.6800639396369093,-1.04040579723564
+26,Adam Rippon,Athlete,Jenna Johnson,1,2.8047081512674197,-0.24544048299199872
+26,Josh Norman,Athlete,Sharna Burgess,10,2.4870151622229457,1.8518210970971867
+26,Tonya Harding,Athlete,Sasha Farber,4,0.5963321378146305,-0.5674417213049981
+26,Mirai Nagasu,Athlete,Alan Bersten,1,-0.7199444130057653,0.2108516044229567
+26,Chris Mazdzer,Athlete,Witney Carson,8,-1.0641484700619894,0.05893331168980831
+26,Jennie Finch Daigle,Athlete,Keo Motsepe,6,-1.5669791080921878,-0.21951814398689198
+27,Bobby Bones,Other,Sharna Burgess,11,-1.8308701435092292,-0.09506637438099985
+27,Milo Manheim,Actor/Actress,Witney Carson,9,0.7721929370332439,-1.0965371433178466
+27,Evanna Lynch,Actor/Actress,Keo Motsepe,7,0.5007843602352001,-1.2237313968735828
+27,Alexis Ren,Social Media Personality,Alan Bersten,2,-0.018060851339177342,-1.2579535493337624
+27,Juan Pablo Di Pace,Actor/Actress,Cheryl Burke,18,1.0991627758448286,-1.9710099017011715
+27,Joe Amabile,TV Personality,Jenna Johnson,2,-1.3094858059448098,-0.3345956817066902
+28,Hannah Brown,TV Personality,Alan Bersten,3,-0.9524900573710662,-0.35170675793677997
+28,Kel Mitchell,Actor/Actress,Witney Carson,10,0.17962456022397388,-1.0194520587291185
+28,Ally Brooke,Singer/Rapper,Sasha Farber,6,-0.8636319727850481,-0.7723097884561058
+28,Lauren Alaina,Singer/Rapper,Gleb Savchenko,6,-0.2710635959757779,-0.308745704307124
+28,James Van Der Beek,Actor/Actress,Emma Slater,9,1.5675249773857476,-0.7217100119835614
+28,Sean Spicer,Other,Lindsay Arnold,8,-0.1134607615458293,-0.9055004592314739
+29,Kaitlyn Bristowe,TV Personality,Artem Chigvintsev,8,0.4805711889039924,-0.9676539824288796
+29,Nev Schulman,Other,Jenna Johnson,4,0.26062988879627946,-1.0483131246862838
+29,Nelly,Singer/Rapper,Daniella Karagach,0,-0.3127923181347686,-0.8617078318829863
+29,Justina Machado,Actor/Actress,Sasha Farber,7,0.9754444584566615,-0.9934058383273381
+29,Skai Jackson,Actor/Actress,Alan Bersten,4,-1.0511651558362867,-0.9228077784637784
+29,Johnny Weir,Athlete,Britt Stewart,0,-0.3648301875013973,-0.9947280195517065
+30,Iman Shumpert,Athlete,Daniella Karagach,1,0.65731164231566,-0.9711299185964485
+30,JoJo Siwa,Social Media Personality,Jenna Johnson,5,0.8075410277155773,-1.0211409660623494
+30,Cody Rigsby,Other,Cheryl Burke,20,-0.12861788338501157,-0.4800269497146703
+30,Amanda Kloots,TV Personality,Alan Bersten,5,0.4057392421946584,-0.864522677438371
+30,Suni Lee,Athlete,Sasha Farber,8,0.20718897809715675,-0.5246769106775568
+30,Melora Hardin,Actor/Actress,Artem Chigvintsev,9,0.2737493941171568,-0.9008985848417512
+31,Charli D'Amelio,Social Media Personality,Mark Ballas,18,0.9224223224331612,-0.9863558444910928
+31,Gabby Windey,TV Personality,Valentin Chmerkovskiy,15,0.3703911515123248,-0.6195341621085589
+31,Wayne Brady,Comedian,Witney Carson,12,-0.32246689015659635,-0.5382139292389705
+31,Shangela,TV Personality,Gleb Savchenko,9,0.1453298194030731,-0.7267043723777133
+31,Daniel Durant,Actor/Actress,Britt Stewart,2,-0.17223750475667898,-0.868561582717017
+31,Trevor Donovan,Actor/Actress,Emma Slater,12,-0.31362986748601296,-0.88980968572686
+32,Xochitl Gomez,Actor/Actress,Valentin Chmerkovskiy,16,0.07406814605715728,-1.694541717861024
+32,Jason Mraz,Singer/Rapper,Daniella Karagach,3,-0.4099995675111857,-1.3794199902776219
+32,Ariana Madix,TV Personality,Pasha Pashkov,4,-0.30493956212105644,-0.7928968008537646
+32,Charity Lawson,TV Personality,Artem Chigvintsev,11,-0.8773775023952329,-0.7864097761285962
+32,Alyson Hannigan,Actor/Actress,Sasha Farber,9,-1.6952835441320016,-1.3074997491896936
+32,Harry Jowsey,TV Personality,Rylee Arnold,0,-2.2500474390650114,-1.7438916747147408
+33,Joey Graziadei,TV Personality,Jenna Johnson,7,0.03872005537482348,-0.8288078606471754
+33,Ilona Maher,Athlete,Alan Bersten,8,-0.8638759017251403,-0.7180635927093443
+33,Chandler Kinney,Actor/Actress,Brandon Armstrong,5,0.5512673702686595,-1.297438666795849
+33,Stephen Nedoroscik,Athlete,Rylee Arnold,1,-0.40688984884484614,-0.7657246422298305
+33,Danny Amendola,Athlete,Witney Carson,13,-0.1948013047508449,-0.7338524877150658
+33,Dwight Howard,Athlete,Daniella Karagach,4,1.0310057204702026,-1.073966859083635
+34,Robert Irwin,Other,Witney Carson (Xoshitl Gomez week 9),0,-0.1370361313799724,-0.9654021059845717
+34,Alix Earle,Other,Val Chmerkovskiy (Joey Graziadei week 9),0,-0.5513919302405198,-0.79994679469001
+34,Jordan Chiles,Athlete,Ezra Sosa (Apolo Anton Ohno week 9),0,0.003371964692490348,-1.1044444707684906
+34,Dylan Efron,TV Personality,Daniella Karagach (Rumer Willis week 9),0,-1.0276068877951503,-0.8765670316687681
+34,Elaine Hendrix,Actor/Actress,Alan Bersten (Rashad Jennings week 9),0,0.19877073010219581,-1.290388672959604
+34,Whitney Leavitt,TV Personality,Mark Ballas,19,1.3907845239740801,-1.1587630281207926

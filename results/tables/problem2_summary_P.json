@@ -1,0 +1,197 @@
+{
+  "track": "P",
+  "era_mode": "legacy",
+  "model_type": "pooled_softmin_numpy",
+  "n_season_metrics_rows": 204,
+  "n_case_rows": 6,
+  "n_weekly_rows": 38,
+  "n_b2_rows": 12,
+  "n_phase_rows": 136,
+  "n_phase_claim_rows": 6,
+  "phase_claim_checks": [
+    {
+      "claim": "Direct->Bottom2 y lift (rank)",
+      "y_column": "y_posterior_mean",
+      "n_seasons": 34,
+      "mean_delta_y": 0.039926187665989855,
+      "mean_delta_x": 0.0001511135053930894,
+      "mean_delta_y_lo": 0.008173611111111001,
+      "mean_delta_y_hi": 0.08948177337895043,
+      "supporting": null
+    },
+    {
+      "claim": "Direct->Bottom2 y lift (pct)",
+      "y_column": "y_posterior_mean",
+      "n_seasons": 34,
+      "mean_delta_y": -0.012169393270283761,
+      "mean_delta_x": 0.0019125049344264353,
+      "mean_delta_y_lo": -0.06876496996997002,
+      "mean_delta_y_hi": 0.020123575268816724,
+      "supporting": null
+    },
+    {
+      "claim": "Pct tail-risk: Bottom2 vs Direct y (x >= 0.3)",
+      "y_column": "y_posterior_mean",
+      "n_seasons": 0,
+      "mean_delta_y": null,
+      "mean_delta_x": null,
+      "mean_delta_y_lo": null,
+      "mean_delta_y_hi": null,
+      "supporting": "not testable: no season reaches the high fan-influence threshold on the reproduced data"
+    },
+    {
+      "claim": "Top mechanism by overall y_posterior_mean",
+      "y_column": "y_posterior_mean",
+      "n_seasons": 34,
+      "mean_delta_y": -1.9200752423212029,
+      "mean_delta_x": 0.10152799438451836,
+      "mean_delta_y_lo": -1.9200752423212029,
+      "mean_delta_y_hi": -1.9200752423212029,
+      "supporting": "disagrees with review claim (top = rank_bottom2)"
+    },
+    {
+      "claim": "Top mechanism by overall y_review_posterior_mean",
+      "y_column": "y_review_posterior_mean",
+      "n_seasons": 34,
+      "mean_delta_y": -0.09103349938460235,
+      "mean_delta_x": 0.10152799438451836,
+      "mean_delta_y_lo": -0.09103349938460235,
+      "mean_delta_y_hi": -0.09103349938460235,
+      "supporting": "disagrees with review claim (top = rank_bottom2)"
+    },
+    {
+      "claim": "Top mechanism by overall x",
+      "y_column": "x_posterior_mean",
+      "n_seasons": 34,
+      "mean_delta_y": 0.10152799438451836,
+      "mean_delta_x": 0.10152799438451836,
+      "mean_delta_y_lo": 0.10152799438451836,
+      "mean_delta_y_hi": 0.10152799438451836,
+      "supporting": "disagrees with review claim (top = rank_bottom2)"
+    }
+  ],
+  "n_agree_week_rows": 218,
+  "n_reversal_week_rows": 218,
+  "n_threshold_week_rows": 332,
+  "n_divergence_index_rows": 421,
+  "n_case_survival_rows": 160,
+  "n_case_rank_traces_rows": 38,
+  "n_skipped_weeks": 3,
+  "skipped_weeks": [
+    [
+      1,
+      6
+    ],
+    [
+      3,
+      10
+    ],
+    [
+      18,
+      2
+    ]
+  ],
+  "B_div": 1200,
+  "B_flip": 600,
+  "B_metrics": 600,
+  "B_phase": 600,
+  "table1_comparison": {
+    "table": [
+      {
+        "season": 2,
+        "celebrity_name": "Jerry Rice",
+        "abs_d_ref": 3.69,
+        "abs_d_got": 3.6875,
+        "abs_d_dev": -0.0024999999999999467,
+        "abs_d_within_tol": true,
+        "flip_ref": 0.87,
+        "flip_got": 0.8716666666666667,
+        "flip_dev": 0.0016666666666667052,
+        "flip_within_tol": true,
+        "flip_week_got": 6
+      },
+      {
+        "season": 4,
+        "celebrity_name": "Billy Ray Cyrus",
+        "abs_d_ref": 3.25,
+        "abs_d_got": 3.25,
+        "abs_d_dev": 0.0,
+        "abs_d_within_tol": true,
+        "flip_ref": 0.75,
+        "flip_got": 0.7483333333333333,
+        "flip_dev": -0.0016666666666667052,
+        "flip_within_tol": true,
+        "flip_week_got": 9
+      },
+      {
+        "season": 11,
+        "celebrity_name": "Bristol Palin",
+        "abs_d_ref": 4.3,
+        "abs_d_got": 4.3,
+        "abs_d_dev": 0.0,
+        "abs_d_within_tol": true,
+        "flip_ref": 0.97,
+        "flip_got": 0.97,
+        "flip_dev": 0.0,
+        "flip_within_tol": true,
+        "flip_week_got": 9
+      },
+      {
+        "season": 27,
+        "celebrity_name": "Bobby Bones",
+        "abs_d_ref": 4.0,
+        "abs_d_got": 4.0,
+        "abs_d_dev": 0.0,
+        "abs_d_within_tol": true,
+        "flip_ref": 0.57,
+        "flip_got": 0.575,
+        "flip_dev": 0.0050000000000000044,
+        "flip_within_tol": true,
+        "flip_week_got": 4
+      },
+      {
+        "season": 27,
+        "celebrity_name": "Tinashe",
+        "abs_d_ref": 8.5,
+        "abs_d_got": 8.5,
+        "abs_d_dev": 0.0,
+        "abs_d_within_tol": true,
+        "flip_ref": 0.57,
+        "flip_got": 0.575,
+        "flip_dev": 0.0050000000000000044,
+        "flip_within_tol": true,
+        "flip_week_got": 4
+      },
+      {
+        "season": 31,
+        "celebrity_name": "Vinny Guadagnino",
+        "abs_d_ref": 9.88,
+        "abs_d_got": 9.875,
+        "abs_d_dev": -0.005000000000000782,
+        "abs_d_within_tol": true,
+        "flip_ref": 0.33,
+        "flip_got": 0.3283333333333333,
+        "flip_dev": -0.0016666666666667052,
+        "flip_within_tol": true,
+        "flip_week_got": 7
+      }
+    ]
+  },
+  "b2_comparison": {
+    "n_compared": 12,
+    "max_abs_deviation": {
+      "p_b2": 0.0003333333333333105,
+      "p_rev_given_b2": 0.003731343283582156,
+      "p_rev": 0.00023809523809520394,
+      "dE_T": 0.006666666666666821,
+      "dP_finals": 0.0016666666666666496
+    },
+    "within_tolerance": {
+      "p_b2": true,
+      "p_rev": true,
+      "p_rev_given_b2": true,
+      "dE_T": true,
+      "dP_finals": true
+    }
+  }
+}

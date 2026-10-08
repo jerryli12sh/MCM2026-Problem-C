@@ -1,0 +1,21 @@
+{
+  "track": "P1E",
+  "n_panel_rows": 4199,
+  "n_train_weeks": 218,
+  "inseason_xgb_overall_accuracy": 0.8211009174311926,
+  "inseason_torch_overall_accuracy": 0.9541284403669725,
+  "paper_b01_xgb_target": 0.806554,
+  "b01_rel_error": 0.01803588777836652,
+  "ranking_gap_n": 421,
+  "ranking_gap_r_squared": 0.2704278363269691,
+  "ranking_gap_claim_r2_gt_0_6": false,
+  "ranking_gap_coeffs": [
+    -0.04738046365293889,
+    1.0274034503082725,
+    6.560687449276255
+  ],
+  "crowded_mean_pcp_weighted": 0.6183306231977915,
+  "crowded_mean_pcp_unweighted": 0.5335818042813455,
+  "s8_heatmap_metric": "p_mean",
+  "s21_heatmap_metric": "ci_rel_width"
+}

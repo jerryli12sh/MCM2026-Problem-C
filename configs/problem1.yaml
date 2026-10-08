@@ -1,0 +1,13 @@
+# P: original two-stage model; R defaults are defined in Problem1Config.for_track.
+era_mode: legacy
+seed: 42
+tau_train: 0.05
+tau_like: 0.15
+kappa: 10.0
+l2_beta: 0.05
+l2_u: 0.05
+lr: 0.020
+n_steps: 600
+batch_size: 32
+B: 1200
+eps: 1.0e-6

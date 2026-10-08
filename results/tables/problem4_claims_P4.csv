@@ -1,0 +1,16 @@
+claim_id,track,statement,metric,value,target,status
+P-084a,P,Pre-filter immunity: popularity-driven cases rarely enter the S3 risk set,nominee_rate_S3 (Jerry Rice),0.6224,<= 0.20 (rarely in risk set),fail
+P-084b,P,The S3 gate does not correct the canonical controversy: survival stays deep,final_alive_S3 (Jerry Rice),0.8633,>= 0.25 (survives deep),pass
+P-084a,P,Pre-filter immunity: popularity-driven cases rarely enter the S3 risk set,nominee_rate_S3 (Billy Ray Cyrus),0.5428,<= 0.20 (rarely in risk set),fail
+P-084b,P,The S3 gate does not correct the canonical controversy: survival stays deep,final_alive_S3 (Billy Ray Cyrus),0.27,>= 0.25 (survives deep),pass
+P-084a,P,Pre-filter immunity: popularity-driven cases rarely enter the S3 risk set,nominee_rate_S3 (Bristol Palin),0.7002,<= 0.20 (rarely in risk set),fail
+P-084b,P,The S3 gate does not correct the canonical controversy: survival stays deep,final_alive_S3 (Bristol Palin),0.6267,>= 0.25 (survives deep),pass
+P-084a,P,Pre-filter immunity: popularity-driven cases rarely enter the S3 risk set,nominee_rate_S3 (Bobby Bones),0.6653,<= 0.20 (rarely in risk set),fail
+P-084b,P,The S3 gate does not correct the canonical controversy: survival stays deep,final_alive_S3 (Bobby Bones),0.3133,>= 0.25 (survives deep),pass
+P-085a,P/R,Bobby Bones drops from champion to ~6th under V2,mean_rank V4 (baseline),4.315,<= 2 (champion),fail
+P-085b,P/R,Bobby Bones drops from champion to ~6th under V2,mean_rank V5 (V2),5.127,"in [4, 8] (~6th)",pass
+P-085c,P/R,Tinashe protected by the judges' save (Week 7 -> Week 8),exit week V4 (baseline),7.0,<= 7,pass
+P-085d,P/R,Tinashe protected by the judges' save (Week 7 -> Week 8),exit week V5 (V2),8.0,>= 8,pass
+P-086a,P/R,V2's judges' save keeps technical shock small vs the V2 baseline,Shock_k3 V5 vs V4,"(0.0607, 0.1206)",Shock_k3(V5) <= Shock_k3(V4),pass
+P-086b,P/R,Cross-mechanism: V2 shock is not higher than the V1 full-season gate,Shock_k3 V5 vs S3,"(0.0607, 0.1074)",Shock_k3(V5) <= Shock_k3(S3),pass
+P-086c,P/R,All four schemes' Shock_k3 reported (line 885 'should remain small'),"Shock_k3 {S1,S3,V4,V5}","{'S1': 0.0221, 'S3': 0.1074, 'V4': 0.1206, 'V5': 0.0607}",reported,reported

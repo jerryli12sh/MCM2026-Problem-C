@@ -1,0 +1,98 @@
+{
+  "track": "R",
+  "era_mode": "official",
+  "model_type": "integrated_marginal_mc",
+  "n_season_metrics_rows": 204,
+  "n_case_rows": 6,
+  "n_weekly_rows": 38,
+  "n_b2_rows": 12,
+  "n_phase_rows": 136,
+  "n_phase_claim_rows": 6,
+  "phase_claim_checks": [
+    {
+      "claim": "Direct->Bottom2 y lift (rank)",
+      "y_column": "y_posterior_mean",
+      "n_seasons": 34,
+      "mean_delta_y": 0.03781921164220845,
+      "mean_delta_x": 0.0006375569629191178,
+      "mean_delta_y_lo": 0.0014012681159419785,
+      "mean_delta_y_hi": 0.06591349569899996,
+      "supporting": null
+    },
+    {
+      "claim": "Direct->Bottom2 y lift (pct)",
+      "y_column": "y_posterior_mean",
+      "n_seasons": 34,
+      "mean_delta_y": 0.008885995510948711,
+      "mean_delta_x": 0.0008690009622597609,
+      "mean_delta_y_lo": -0.015803972703268887,
+      "mean_delta_y_hi": 0.036717755399230445,
+      "supporting": null
+    },
+    {
+      "claim": "Pct tail-risk: Bottom2 vs Direct y (x >= 0.3)",
+      "y_column": "y_posterior_mean",
+      "n_seasons": 0,
+      "mean_delta_y": null,
+      "mean_delta_x": null,
+      "mean_delta_y_lo": null,
+      "mean_delta_y_hi": null,
+      "supporting": "not testable: no season reaches the high fan-influence threshold on the reproduced data"
+    },
+    {
+      "claim": "Top mechanism by overall y_posterior_mean",
+      "y_column": "y_posterior_mean",
+      "n_seasons": 34,
+      "mean_delta_y": -1.5193472449939314,
+      "mean_delta_x": 0.10242031577667127,
+      "mean_delta_y_lo": -1.5193472449939314,
+      "mean_delta_y_hi": -1.5193472449939314,
+      "supporting": "disagrees with review claim (top = rank_bottom2)"
+    },
+    {
+      "claim": "Top mechanism by overall y_review_posterior_mean",
+      "y_column": "y_review_posterior_mean",
+      "n_seasons": 34,
+      "mean_delta_y": -0.08551408905636845,
+      "mean_delta_x": 0.10242031577667127,
+      "mean_delta_y_lo": -0.08551408905636845,
+      "mean_delta_y_hi": -0.08551408905636845,
+      "supporting": "disagrees with review claim (top = rank_bottom2)"
+    },
+    {
+      "claim": "Top mechanism by overall x",
+      "y_column": "x_posterior_mean",
+      "n_seasons": 34,
+      "mean_delta_y": 0.10242031577667127,
+      "mean_delta_x": 0.10242031577667127,
+      "mean_delta_y_lo": 0.10242031577667127,
+      "mean_delta_y_hi": 0.10242031577667127,
+      "supporting": "disagrees with review claim (top = rank_bottom2)"
+    }
+  ],
+  "n_agree_week_rows": 218,
+  "n_reversal_week_rows": 218,
+  "n_threshold_week_rows": 332,
+  "n_divergence_index_rows": 421,
+  "n_case_survival_rows": 160,
+  "n_case_rank_traces_rows": 38,
+  "n_skipped_weeks": 3,
+  "skipped_weeks": [
+    [
+      1,
+      6
+    ],
+    [
+      3,
+      10
+    ],
+    [
+      18,
+      2
+    ]
+  ],
+  "B_div": 1200,
+  "B_flip": 600,
+  "B_metrics": 600,
+  "B_phase": 600
+}

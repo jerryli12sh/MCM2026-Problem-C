@@ -1,0 +1,19 @@
+{
+  "overall_top1_accuracy": 0.8348623853211009,
+  "mean_pcp_weighted": 0.5342095964254143,
+  "mean_ess_ratio": 0.9798645006319759,
+  "mean_ci_rel_width": 3.3778490047999714,
+  "s_bar": 0.6331201799300528,
+  "n_panel_rows": 4199,
+  "n_train_weeks": 218,
+  "track": "R",
+  "diagnostics": {
+    "n_weeks": 218,
+    "mc_log_l": -332.94311809016347,
+    "mc_se": 0.005301603110931068,
+    "mc_se_relative": 0.004460905398562812,
+    "ess_mean": 1158.9431767959964,
+    "B": 1200
+  },
+  "sensitivity": {}
+}

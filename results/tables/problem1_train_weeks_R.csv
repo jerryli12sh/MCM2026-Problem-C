@@ -1,0 +1,219 @@
+season,week,elim_cnt,alive_n,max_week,true_eliminatee
+1,2,1,6,6,Trista Sutter
+1,3,1,5,6,Evander Holyfield
+1,4,1,4,6,Rachel Hunter
+2,1,1,10,8,Kenny Mayne
+2,2,1,9,8,Tatum O'Neal
+2,3,1,8,8,Giselle Fernandez
+2,4,1,7,8,Master P
+2,5,1,6,8,Tia Carrere
+2,6,1,5,8,George Hamilton
+2,7,1,4,8,Lisa Rinna
+3,1,1,11,10,Tucker Carlson
+3,2,1,10,10,Shanna Moakler
+3,3,1,9,10,Harry Hamlin
+3,4,1,8,10,Vivica A. Fox
+3,7,1,5,10,Jerry Springer
+3,8,1,4,10,Monique Coleman
+4,2,1,11,10,Paulina Porizkova
+4,3,1,10,10,Shandi Finnessey
+4,4,1,9,10,Leeza Gibbons
+4,5,1,8,10,Clyde Drexler
+4,6,1,7,10,Heather Mills
+4,7,1,6,10,John Ratzenberger
+4,8,1,5,10,Billy Ray Cyrus
+4,9,1,4,10,Ian Ziering
+5,1,1,12,10,Josie Maran
+5,2,1,11,10,Albert Reed
+5,3,1,10,10,Wayne Newton
+5,4,1,9,10,Floyd Mayweather Jr.
+5,5,1,8,10,Mark Cuban
+5,6,1,7,10,Sabrina Bryan
+5,7,1,6,10,Jane Seymour
+5,8,1,5,10,Cameron Mathison
+5,9,1,4,10,Jennie Garth
+6,3,1,10,10,Steve Guttenberg
+6,4,1,9,10,Adam Carolla
+6,5,1,8,10,Priscilla Presley
+6,6,1,7,10,Marlee Matlin
+6,7,1,6,10,Shannon Elizabeth
+6,8,1,5,10,Mario
+6,9,1,4,10,Marissa Jaret Winokur
+7,4,1,9,10,Rocco DiSpirito
+7,5,1,8,10,Toni Braxton
+7,6,1,7,10,Cloris Leachman
+7,7,1,6,10,Susan Lucci
+7,8,1,5,10,Maurice Greene
+7,9,1,4,10,Cody Linley
+8,2,1,13,11,Belinda Carlisle
+8,3,1,12,11,Denise Richards
+8,5,1,9,11,David Alan Grier
+8,6,1,8,11,Steve-O
+8,7,1,7,11,Lawrence Taylor
+8,8,1,6,11,Chuck Wicks
+8,9,1,5,11,Lil' Kim
+8,10,1,4,11,Ty Murray
+9,2,1,14,10,Kathy Ireland
+9,4,1,11,10,Chuck Liddell
+9,5,1,10,10,Natalie Coughlin
+9,8,1,5,10,Aaron Carter
+9,9,1,4,10,Joanna Krupa
+10,2,1,11,10,Shannen Doherty
+10,3,1,10,10,Buzz Aldrin
+10,4,1,9,10,Aiden Turner
+10,5,1,8,10,Kate Gosselin
+10,6,1,7,10,Jake Pavelka
+10,7,1,6,10,Pamela Anderson
+10,8,1,5,10,Niecy Nash
+10,9,1,4,10,Chad Ochocinco
+11,1,1,12,10,David Hasselhoff
+11,2,1,11,10,Michael Bolton
+11,3,1,10,10,Margaret Cho
+11,4,1,9,10,The Situation
+11,5,1,8,10,Florence Henderson
+11,6,1,7,10,Audrina Patridge
+11,7,1,6,10,Rick Fox
+11,8,1,5,10,Kurt Warner
+11,9,1,4,10,Brandy
+12,2,1,11,10,Mike Catherwood
+12,3,1,10,10,Wendy Williams
+12,4,1,9,10,Sugar Ray Leonard
+12,5,1,8,10,Petra Nemcova
+12,6,1,7,10,Chris Jericho
+12,7,1,6,10,Kendra Wilkinson
+12,8,1,5,10,Romeo
+12,9,1,4,10,Ralph Macchio
+13,1,1,12,10,Metta World Peace (Ron)
+13,2,1,11,10,Elisabetta Canalis
+13,3,1,10,10,Kristin Cavallari
+13,4,1,9,10,Chynna Phillips
+13,5,1,8,10,Carson Kressley
+13,6,1,7,10,Chaz Bono
+13,7,1,6,10,David Arquette
+13,8,1,5,10,Nancy Grace
+13,9,1,4,10,Hope Solo
+14,2,1,12,10,Martina Navratilova
+14,3,1,11,10,Jack Wagner
+14,4,1,10,10,Sherri Sheperd
+14,5,1,9,10,Gavin DeGraw
+14,6,1,8,10,Gladys Knight
+14,7,1,7,10,Jaleel White
+14,9,1,4,10,Maria Menounos
+15,1,1,13,10,Pamela Anderson
+15,2,1,12,10,Joey Fatone
+15,4,1,9,10,Bristol Palin
+15,6,1,8,10,Sabrina Bryan
+16,2,1,12,10,Dorothy Hamill
+16,3,1,11,10,Wynonna Judd
+16,4,1,10,10,Lisa Vanderpump
+16,5,1,9,10,D. L. Hughley
+16,6,1,8,10,Victor Ortiz
+16,7,1,7,10,Andy Dick
+16,8,1,6,10,Sean Lowe
+16,9,1,5,10,Ingo Rademacher
+17,2,1,12,11,Keyshawn Johnson
+17,3,1,11,11,Bill Nye
+17,4,1,10,11,Valerie Harper
+17,5,1,9,11,Christina Milian
+17,7,1,8,11,"Nicole ""Snooki"" Polizzi"
+17,8,1,7,11,Brant Daugherty
+17,9,1,6,11,Elizabeth Berkley Lauren
+17,10,1,5,11,Leah Remini
+18,5,1,9,10,Cody Simpson
+18,6,1,8,10,Drew Carey
+18,7,1,7,10,NeNe Leakes
+18,8,1,6,10,Danica McKellar
+18,9,1,5,10,Charlie White
+19,1,1,13,11,Lolo Jones
+19,2,1,12,11,Tavis Smiley
+19,3,1,11,11,Randy Couture
+19,4,1,10,11,Betsey Johnson
+19,6,1,9,11,Jonathan Bennett
+19,7,1,8,11,Antonio Sabato Jr.
+19,8,1,7,11,Michael Waltrip
+19,9,1,6,11,Lea Thompson
+19,10,1,5,11,Tommy Chong
+20,2,1,12,10,Redfoo
+20,3,1,11,10,Charlotte McKinney
+20,4,1,10,10,Michael Sam
+20,5,1,9,10,Suzanne Somers
+20,6,1,8,10,Patti LaBelle
+20,7,1,7,10,Willow Shields
+20,9,1,4,10,Nastia Liukin
+21,4,1,10,11,Gary Busey
+21,6,1,9,11,Paula Deen
+21,7,1,8,11,Hayes Grier
+21,8,1,7,11,Andy Grammer
+22,2,1,12,10,Geraldo Rivera
+22,3,1,11,10,Mischa Barton
+22,4,1,10,10,Marla Maples
+22,6,1,9,10,Doug Flutie
+22,8,1,6,10,Jodie Sweetin
+23,2,1,13,11,Jake T. Austin
+23,3,1,12,11,Rick Perry
+23,6,1,9,11,Amber Rose
+23,7,1,8,11,Maureen McCormick
+23,8,1,7,11,Ryan Lochte
+23,9,1,6,11,Marilu Henner
+23,10,1,5,11,Terra Jole
+24,2,1,12,10,Chris Kattan
+24,3,1,11,10,Charo
+24,4,1,10,10,Mr. T
+24,5,1,9,10,Erika Jayne
+24,6,1,8,10,Heather Morris
+24,8,1,5,10,Bonner Bolton
+24,9,1,4,10,Simone Biles
+25,4,1,11,10,Derek Fisher
+25,5,1,10,10,Sasha Pieterse
+25,6,1,9,10,Nick Lachey
+25,8,1,6,10,Terrell Owens
+25,9,1,5,10,Victoria Arlen
+27,1,1,13,9,Nikki Glaser
+27,2,1,12,9,Danelle Umstead
+27,3,1,11,9,Nancy McKeon
+27,4,1,10,9,Tinashe
+27,6,1,9,9,Mary Lou Retton
+28,4,1,10,11,Lamar Odom
+28,6,1,9,11,Sailor Brinkley-Cook
+28,7,1,8,11,Karamo Brown
+28,8,1,7,11,Kate Flannery
+28,9,1,6,11,Sean Spicer
+28,10,1,5,11,James Van Der Beek
+29,2,1,15,11,Charles Oakley
+29,3,1,14,11,Carole Baskin
+29,4,1,13,11,Anne Heche
+29,5,1,12,11,Jesse Metcalfe
+29,6,1,11,11,Veron Davis
+29,8,1,8,11,Chrishell Stause
+29,9,1,7,11,AJ McLean
+30,2,1,15,10,Martin Kove
+30,3,1,14,10,Christine Chiu
+30,5,1,11,10,Melanie C
+30,6,1,10,10,Kenya Moore
+30,7,1,9,10,"Mike ""The Miz"" Mizanin"
+31,1,1,16,10,Jason Lewis
+31,2,1,15,10,Teresa Giudice
+31,3,1,14,10,Cheryl Ladd
+31,4,1,13,10,Sam Champion
+31,6,1,10,10,Jessie James Decker
+31,7,1,9,10,Jordin Sparks
+32,1,1,14,11,Matt Walsh
+32,2,1,13,11,Jamie Lynn Spears
+32,3,1,12,11,Tyson Beckford
+32,4,1,11,11,Adrian Peterson
+32,5,1,10,11,Mira Sorvino
+32,6,1,9,11,Mauricio Umansky
+32,7,1,8,11,Lele Pons
+32,8,1,7,11,Barry Williams
+32,9,1,6,11,Harry Jowsey
+33,4,1,9,9,Brooks Nader
+33,5,1,8,9,Phaedra Parks
+33,6,1,7,9,Jenn Tran
+33,7,1,6,9,Dwight Howard
+34,3,1,12,11,Lauren Jauregui
+34,4,1,11,11,Hilaria Baldwin
+34,6,1,10,11,Scott Hoying
+34,7,1,9,11,Jen Affleck
+34,8,1,8,11,Danielle Fishel
+34,9,1,7,11,Andy Richter
+34,10,1,6,11,Whitney Leavitt
